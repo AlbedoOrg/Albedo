@@ -50,10 +50,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyElement.cs" />
+    <Compile Include="CompositeHierarchicalReflectionElement.cs" />
+    <Compile Include="CompositeReflectionElement.cs" />
+    <Compile Include="ConstructorInfoElement.cs" />
+    <Compile Include="FieldInfoElement.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="HierarchicalReflectionVisitor.cs" />
+    <Compile Include="IHierarchicalReflectionElement.cs" />
+    <Compile Include="IHierarchicalReflectionVisitor.cs" />
+    <Compile Include="IReflectionElement.cs" />
+    <Compile Include="IReflectionVisitor.cs" />
+    <Compile Include="MethodInfoElement.cs" />
+    <Compile Include="ParameterInfoElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyInfoElement.cs" />
+    <Compile Include="ReflectionVisitor.cs" />
+    <Compile Include="TypeElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Albedo.ruleset" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CodeAnalysisDictionary.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
