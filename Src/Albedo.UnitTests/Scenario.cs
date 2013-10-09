@@ -26,19 +26,6 @@ namespace Ploeh.Albedo.UnitTests
                 .Aggregate((x, y) => x + Environment.NewLine + y));
         }
 
-        [Fact]
-        public void DumpHierachicalAssemblyAndTypesAndMethods()
-        {
-            var assemblyElements = new CompositeHierarchicalReflectionElement(
-                new AssemblyElement(this.GetType().Assembly),
-                new AssemblyElement(typeof(AssemblyElement).Assembly));
-
-            Console.WriteLine(assemblyElements
-                .Accept(new HierarchicalAssemblyAndTypeAndMethodPrinter())
-                .Value
-                .Aggregate((x, y) => x + Environment.NewLine + y));
-        }
-
         class AssemblyAndTypeAndMethodPrinter : ReflectionVisitor<IList<string>>
         {
             private readonly IList<string> observations = new List<string>();
@@ -63,61 +50,6 @@ namespace Ploeh.Albedo.UnitTests
             public override IReflectionVisitor<IList<string>> Visit(MethodInfoElement methodInfoElement)
             {
                 observations.Add(MethodToString(methodInfoElement.MethodInfo));
-                return this;
-            }
-        }
-
-        class HierarchicalAssemblyAndTypeAndMethodPrinter : HierarchicalReflectionVisitor<IList<string>>
-        {
-            private readonly List<string> printedStrings = new List<string>();
-            private int indent;
-
-            public override IList<string> Value
-            {
-                get { return this.printedStrings; }
-            }
-
-            private void AddIndented(string s)
-            {
-                printedStrings.Add("".PadLeft(indent) + s);
-            }
-
-            public override IHierarchicalReflectionVisitor<IList<string>> EnterAssembly(AssemblyElement assemblyElement)
-            {
-                AddIndented(AssemblyToString(assemblyElement.Assembly));
-                indent++;
-                return this;
-            }
-
-            public override IHierarchicalReflectionVisitor<IList<string>> ExitAssembly(AssemblyElement assemblyElement)
-            {
-                indent--;
-                return this;
-            }
-
-            public override IHierarchicalReflectionVisitor<IList<string>> EnterType(TypeElement typeElement)
-            {
-                AddIndented(ClassToString(typeElement.Type));
-                indent++;
-                return this;
-            }
-
-            public override IHierarchicalReflectionVisitor<IList<string>> ExitType(TypeElement typeElement)
-            {
-                indent--;
-                return this;
-            }
-
-            public override IHierarchicalReflectionVisitor<IList<string>> EnterMethod(MethodInfoElement methodInfoElement)
-            {
-                AddIndented(MethodToString(methodInfoElement.MethodInfo));
-                indent++;
-                return this;
-            }
-
-            public override IHierarchicalReflectionVisitor<IList<string>> ExitMethod(MethodInfoElement methodInfoElement)
-            {
-                indent--;
                 return this;
             }
         }

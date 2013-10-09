@@ -21,17 +21,6 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void SutIsHierarchicalReflectionElement()
-        {
-            // Fixture setup
-            // Exercise system
-            var sut = new AssemblyElement(this.GetType().Assembly);
-            // Verify outcome
-            Assert.IsAssignableFrom<IHierarchicalReflectionElement>(sut);
-            // Teardown
-        }
-
-        [Fact]
         public void AssemblyIsCorrect()
         {
             // Fixture setup
@@ -64,8 +53,6 @@ namespace Ploeh.Albedo.UnitTests
             // Verify outcome
             Assert.Throws<ArgumentNullException>(() =>
                 sut.Accept((IReflectionVisitor<object>)null));
-            Assert.Throws<ArgumentNullException>(() =>
-                sut.Accept((IHierarchicalReflectionVisitor<object>)null));
             // Teardown
         }
 
@@ -83,30 +70,5 @@ namespace Ploeh.Albedo.UnitTests
             // Teardown
         }
 
-        [Fact]
-        public void AcceptHierachicalEntersItselfThenVisitsAllTypesThenExitsItself()
-        {
-            // Fixture setup
-            var assembly = this.GetType().Assembly;
-            var sut = new AssemblyElement(assembly);
-            var expectedElements = new List<IReflectionElement>();
-            expectedElements.Add(sut); // enter
-            expectedElements.AddRange(assembly.GetTypes()
-                .Select(t => new TypeElement(t)).Cast<IReflectionElement>().AsEnumerable());
-            expectedElements.Add(sut); // exit
-
-            var observedElements = new List<IReflectionElement>();
-            var dummyVisitor = new DelegatingHierarchicalReflectionVisitor<bool>
-            {
-                OnEnterAssemblyElement = observedElements.Add,
-                OnEnterTypeElement = observedElements.Add,
-                OnExitAssemblyElement = observedElements.Add,
-            };
-            // Exercise system
-            sut.Accept(dummyVisitor);
-            // Verify outcome
-            Assert.True(expectedElements.SequenceEqual(observedElements));
-            // Teardown
-        }
     }
 }

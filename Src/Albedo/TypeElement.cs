@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Ploeh.Albedo
 {
-    public class TypeElement : IReflectionElement, IHierarchicalReflectionElement
+    public class TypeElement : IReflectionElement
     {
         private readonly Type type;
 
@@ -23,31 +23,6 @@ namespace Ploeh.Albedo
         {
             if (visitor == null) throw new ArgumentNullException("visitor");
             return visitor.Visit(this);
-        }
-
-        public IHierarchicalReflectionVisitor<T> Accept<T>(IHierarchicalReflectionVisitor<T> visitor)
-        {
-            if (visitor == null) throw new ArgumentNullException("visitor");
-
-            var visitThis = visitor.EnterType(this);
-
-            visitThis = this.Type.GetConstructors()
-                .Aggregate(visitThis, (current, constructorInfo) =>
-                    new ConstructorInfoElement(constructorInfo).Accept(current));
-
-            visitThis = this.Type.GetMethods().Except(type.GetProperties().SelectMany(p => p.GetAccessors()))
-                .Aggregate(visitThis, (current, methodInfo) =>
-                    new MethodInfoElement(methodInfo).Accept(current));
-
-            visitThis = this.Type.GetProperties()
-                .Aggregate(visitThis, (current, propertyInfo) =>
-                    new PropertyInfoElement(propertyInfo).Accept(current));
-
-            visitThis = this.Type.GetFields()
-                .Aggregate(visitThis, (current, fieldInfo) =>
-                    new FieldInfoElement(fieldInfo).Accept(current));
-
-            return visitThis.ExitType(this);
         }
 
         public override bool Equals(object obj)

@@ -21,17 +21,6 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void SutIsHierarchicalReflectionElement()
-        {
-            // Fixture setup
-            // Exercise system
-            var sut = new MethodInfoElement(typeof(TypeWithMethod).GetMethods().First());
-            // Verify outcome
-            Assert.IsAssignableFrom<IHierarchicalReflectionElement>(sut);
-            // Teardown
-        }
-
-        [Fact]
         public void MethodInfoIsCorrect()
         {
             // Fixture setup
@@ -64,8 +53,6 @@ namespace Ploeh.Albedo.UnitTests
             // Verify outcome
             Assert.Throws<ArgumentNullException>(() =>
                 sut.Accept((IReflectionVisitor<object>)null));
-            Assert.Throws<ArgumentNullException>(() =>
-                sut.Accept((IHierarchicalReflectionVisitor<object>)null));
             // Teardown
         }
 
@@ -80,33 +67,6 @@ namespace Ploeh.Albedo.UnitTests
             sut.Accept(dummyVisitor);
             // Verify outcome
             Assert.True(new[] { sut }.SequenceEqual(observed));
-            // Teardown
-        }
-
-        [Fact]
-        public void AcceptEntersItselfThenVisitsAllParametersThenExitsItself()
-        {
-            // Fixture setup
-            var method = typeof(TypeWithMethodAndParameters<int, string, decimal>).GetMethods().First();
-            var sut = new MethodInfoElement(method);
-
-            var expectedVisitedParams = new List<IReflectionElement>();
-            expectedVisitedParams.Add(sut);
-            expectedVisitedParams.AddRange(method.GetParameters()
-                .Select(p => new ParameterInfoElement(p)).Cast<IReflectionElement>().AsEnumerable());
-            expectedVisitedParams.Add(sut);
-
-            var observedElements = new List<IReflectionElement>();
-            var dummyVisitor = new DelegatingHierarchicalReflectionVisitor<bool>
-            {
-                OnEnterMethodInfoElement = observedElements.Add,
-                OnVisitParameterInfoElement = observedElements.Add,
-                OnExitMethodInfoElement = observedElements.Add,
-            };
-            // Exercise system
-            sut.Accept(dummyVisitor);
-            // Verify outcome
-            Assert.True(expectedVisitedParams.SequenceEqual(observedElements));
             // Teardown
         }
 

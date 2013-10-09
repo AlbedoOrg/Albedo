@@ -55,10 +55,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyElementTest.cs" />
-    <Compile Include="CompositeHierarchicalReflectionElementTest.cs" />
     <Compile Include="CompositeReflectionElementTest.cs" />
     <Compile Include="ConstructorInfoElementTest.cs" />
-    <Compile Include="DelegatingHierarchicalReflectionVisitor.cs" />
     <Compile Include="DelegatingReflectionVisitor.cs" />
     <Compile Include="FieldInfoElementTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />

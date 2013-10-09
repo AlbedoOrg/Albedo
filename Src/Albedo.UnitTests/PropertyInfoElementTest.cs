@@ -22,18 +22,6 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void SutIsHierarchicalReflectionElement()
-        {
-            // Fixture setup
-            var property = typeof(TypeWithProperty).GetProperties().First();
-            // Exercise system
-            var sut = new PropertyInfoElement(property);
-            // Verify outcome
-            Assert.IsAssignableFrom<IHierarchicalReflectionElement>(sut);
-            // Teardown
-        }
-
-        [Fact]
         public void PropertyInfoIsCorrect()
         {
             // Fixture setup
@@ -67,8 +55,6 @@ namespace Ploeh.Albedo.UnitTests
             // Verify outcome
             Assert.Throws<ArgumentNullException>(() =>
                 sut.Accept((IReflectionVisitor<object>)null));
-            Assert.Throws<ArgumentNullException>(() =>
-                sut.Accept((IHierarchicalReflectionVisitor<object>)null));
             // Teardown
         }
 

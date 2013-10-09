@@ -22,18 +22,6 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void SutIsHierarchicalReflectionElement()
-        {
-            // Fixture setup
-            var type = this.GetType();
-            // Exercise system
-            var sut = new TypeElement(type);
-            // Verify outcome
-            Assert.IsAssignableFrom<IHierarchicalReflectionElement>(sut);
-            // Teardown
-        }
-
-        [Fact]
         public void TypeIsCorrect()
         {
             // Fixture setup
@@ -66,8 +54,6 @@ namespace Ploeh.Albedo.UnitTests
             // Verify outcome
             Assert.Throws<ArgumentNullException>(() =>
                 sut.Accept((IReflectionVisitor<object>)null));
-            Assert.Throws<ArgumentNullException>(() =>
-                sut.Accept((IHierarchicalReflectionVisitor<object>)null));
             // Teardown
         }
 
@@ -82,50 +68,6 @@ namespace Ploeh.Albedo.UnitTests
             sut.Accept(dummyVisitor);
             // Verify outcome
             Assert.True(new[] { sut }.SequenceEqual(observed));
-            // Teardown
-        }
-
-        [Fact]
-        public void AcceptHierachicalEntersItselfThenVisitsChildElementsThenExitsItself()
-        {
-            // Fixture setup
-            var type = typeof (TypeWithCtorMethodPropertyField);
-            var sut = new TypeElement(type);
-
-            var ctor = type.GetConstructors().First();
-            var ctorParameters = ctor.GetParameters();
-            var method = type.GetMethods().First();
-            var methodParameters = method.GetParameters();
-
-            var expectedElements = new List<IHierarchicalReflectionElement>();
-            expectedElements.Add(sut);
-            expectedElements.Add(new ConstructorInfoElement(ctor));
-            expectedElements.AddRange(ctorParameters
-                .Select(p => new ParameterInfoElement(p)).Cast<IHierarchicalReflectionElement>().AsEnumerable());
-            expectedElements.Add(new MethodInfoElement(method));
-            expectedElements.AddRange(methodParameters
-                .Select(p => new ParameterInfoElement(p)).Cast<IHierarchicalReflectionElement>().AsEnumerable());
-            expectedElements.AddRange(type.GetProperties()
-                .Select(p => new PropertyInfoElement(p)).Cast<IHierarchicalReflectionElement>().AsEnumerable());
-            expectedElements.AddRange(type.GetFields()
-                .Select(f => new FieldInfoElement(f)).Cast<IHierarchicalReflectionElement>().AsEnumerable());
-
-            var observedElements = new List<IHierarchicalReflectionElement>();
-            var dummyVisitor = new DelegatingHierarchicalReflectionVisitor<bool>
-            {
-                OnEnterMethodInfoElement = observedElements.Add,
-                OnEnterConstructorInfoElement = observedElements.Add,
-                OnVisitFieldInfoElement = observedElements.Add,
-                OnVisitParameterInfoElement = observedElements.Add,
-                OnVisitPropertyInfoElement = observedElements.Add,
-                OnEnterTypeElement = observedElements.Add,
-                OnExitTypeElement = observedElements.Add,
-            };
-
-            // Exercise system
-            sut.Accept(dummyVisitor);
-            // Verify outcome
-            Assert.True(expectedElements.All(observedElements.Contains));
             // Teardown
         }
 

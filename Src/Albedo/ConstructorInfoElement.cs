@@ -8,7 +8,7 @@ namespace Ploeh.Albedo
     /// An <see cref="IReflectionElement"/> representing a <see cref="ConstructorInfo"/> which
     /// can be visited by an <see cref="IReflectionVisitor{T}"/> implementation.
     /// </summary>
-    public class ConstructorInfoElement : IReflectionElement, IHierarchicalReflectionElement
+    public class ConstructorInfoElement : IReflectionElement
     {
         public ConstructorInfo ConstructorInfo { get; private set; }
 
@@ -22,16 +22,6 @@ namespace Ploeh.Albedo
         {
             if (visitor == null) throw new ArgumentNullException("visitor");
             return visitor.Visit(this);
-        }
-
-        public IHierarchicalReflectionVisitor<T> Accept<T>(IHierarchicalReflectionVisitor<T> visitor)
-        {
-            if (visitor == null) throw new ArgumentNullException("visitor");
-            var visitThis = visitor.EnterConstructor(this);
-            visitThis = this.ConstructorInfo.GetParameters()
-                .Aggregate(visitThis, (current, parameterInfo) =>
-                    new ParameterInfoElement(parameterInfo).Accept(current));
-            return visitThis.ExitConstructor(this);
         }
 
         public override bool Equals(object obj)
