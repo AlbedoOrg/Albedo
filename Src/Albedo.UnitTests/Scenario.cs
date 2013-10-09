@@ -10,20 +10,27 @@ namespace Ploeh.Albedo.UnitTests
     public class Scenario
     {
         [Fact]
-        public void DumpAssemblyAndTypesAndMethods()
+        public void PrintAssemblyAndTypesAndMethods()
         {
             var assemblyElements = new CompositeReflectionElement(
                 new AssemblyElement(this.GetType().Assembly),
-                new AssemblyElement(typeof(AssemblyElement).Assembly),
                 new TypeElement(this.GetType()),
-                new TypeElement(typeof(TypeElement)),
+                new AssemblyElement(typeof(AssemblyElement).Assembly),
                 new MethodInfoElement((MethodInfo)MethodBase.GetCurrentMethod()),
+                new TypeElement(typeof(TypeElement)),
                 new MethodInfoElement(typeof(MethodInfoElement).GetMethods().First()));
 
-            Console.WriteLine(assemblyElements
+            var result = assemblyElements
                 .Accept(new AssemblyAndTypeAndMethodPrinter())
                 .Value
-                .Aggregate((x, y) => x + Environment.NewLine + y));
+                .Aggregate((x, y) => x + Environment.NewLine + y);
+
+            Assert.Equal(string.Format(@"Assembly: Ploeh.Albedo.UnitTests, Version={0}, Culture=neutral, PublicKeyToken=null
+public class Ploeh.Albedo.UnitTests.Scenario
+Assembly: Ploeh.Albedo, Version={0}, Culture=neutral, PublicKeyToken=null
+public void PrintAssemblyAndTypesAndMethods()
+public class Ploeh.Albedo.TypeElement
+public MethodInfo get_MethodInfo()", Assembly.GetExecutingAssembly().GetName().Version), result);
         }
 
         class AssemblyAndTypeAndMethodPrinter : ReflectionVisitor<IList<string>>
