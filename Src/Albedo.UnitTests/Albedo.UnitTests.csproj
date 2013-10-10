@@ -54,10 +54,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyElementTest.cs" />
+    <Compile Include="CompositeReflectionElementTest.cs" />
+    <Compile Include="ConstructorInfoElementTest.cs" />
+    <Compile Include="DelegatingReflectionVisitor.cs" />
+    <Compile Include="FieldInfoElementTest.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="MethodInfoElementTest.cs" />
+    <Compile Include="ParameterInfoElementTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyInfoElementTest.cs" />
+    <Compile Include="Scenario.cs" />
+    <Compile Include="TypeElementTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Albedo\Albedo.csproj">
+      <Project>{6244afb8-0634-4e50-a25f-964a81e34410}</Project>
+      <Name>Albedo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
