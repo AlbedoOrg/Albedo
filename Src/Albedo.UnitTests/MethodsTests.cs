@@ -39,6 +39,14 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Throws<ArgumentNullException>(() => sut.Select(null));
         }
 
+        [Fact]
+        public void SelectNonMethodCallExpressionThrows()
+        {
+            var sut = new Methods<ClassWithMethods>();
+            Assert.Throws<ArgumentException>(
+                () => sut.Select(_ => new object()));
+        }
+
         private class ClassWithMethods
         {
             public void OmitParameters()

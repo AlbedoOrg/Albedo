@@ -15,7 +15,11 @@ namespace Ploeh.Albedo
             if (methodSelector == null)
                 throw new ArgumentNullException("methodSelector");
 
-            return ((MethodCallExpression)methodSelector.Body).Method;
+            var methodCallExp = methodSelector.Body as MethodCallExpression;
+            if (methodCallExp == null)
+                throw new ArgumentException("The expression's body must be a MethodCallExpression. The code block supplied should invoke a method.\nExample: x => x.Foo().", "methodSelector");
+
+            return methodCallExp.Method;
         }
     }
 }
