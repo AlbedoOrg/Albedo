@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="MethodsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scenario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
