@@ -12,6 +12,9 @@ namespace Ploeh.Albedo
         public MethodInfo Select(
             Expression<Action<T>> methodSelector)
         {
+            if (methodSelector == null)
+                throw new ArgumentNullException("methodSelector");
+
             return ((MethodCallExpression)methodSelector.Body).Method;
         }
     }
