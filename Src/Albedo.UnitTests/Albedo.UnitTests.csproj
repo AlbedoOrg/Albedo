@@ -54,10 +54,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MethodsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Albedo\Albedo.csproj">
+      <Project>{6244AFB8-0634-4E50-A25F-964A81E34410}</Project>
+      <Name>Albedo</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
