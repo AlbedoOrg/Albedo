@@ -11,6 +11,9 @@ namespace Ploeh.Albedo
     {
         public PropertyInfo Select<TProperty>(Expression<Func<T, TProperty>> propertySelector)
         {
+            if (propertySelector == null)
+                throw new ArgumentNullException("propertySelector");
+
             return (PropertyInfo)((MemberExpression)propertySelector.Body).Member;
         }
     }
