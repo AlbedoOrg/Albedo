@@ -23,5 +23,20 @@ namespace Ploeh.Albedo.UnitTests
                             select v.ToString();
             Assert.Equal("ToString", mi.Name);
         }
+
+        [Fact]
+        public void SelectPropertyUsingInstanceSyntax()
+        {
+            PropertyInfo pi = new Properties<Version>().Select(v => v.Major);
+            Assert.Equal("Major", pi.Name);
+        }
+
+        [Fact]
+        public void SelectPropertyUsingLinqSyntax()
+        {
+            PropertyInfo pi = from v in new Properties<Version>()
+                              select v.Major;
+            Assert.Equal("Major", pi.Name);
+        }
     }
 }
