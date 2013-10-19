@@ -48,9 +48,22 @@ namespace Ploeh.Albedo.UnitTests
                 () => sut.Select(x => x.ToString()));
         }
 
+        [Fact]
+        public void SelectFieldThrows()
+        {
+            var sut = new Properties<ClassWithFields>();
+            Assert.Throws<ArgumentException>(
+                () => sut.Select(x => x.ReadOnlyText));
+        }
+
         private class ClassWithProperties
         {
             public string ReadOnlyText { get; private set; }
+        }
+
+        private class ClassWithFields
+        {
+            public readonly string ReadOnlyText = "";
         }
     }
 }

@@ -18,7 +18,11 @@ namespace Ploeh.Albedo
             if (memberExp == null)
                 throw new ArgumentException("The expression's body must be a MemberExpression. The code block supplied should identify a property.\nExample: x => x.Bar.", "propertySelector");
 
-            return (PropertyInfo)memberExp.Member;
+            var pi = memberExp.Member as PropertyInfo;
+            if (pi == null)
+                throw new ArgumentException("The expression's body must identify a property, not a field or other member.", "propertySelector");
+
+            return pi;
         }
     }
 }
