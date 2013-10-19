@@ -32,6 +32,14 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void SelectNullThrows()
+        {
+            var sut = new Fields<ClassWithFields>();
+            Assert.Throws<ArgumentNullException>(
+                () => sut.Select<object>(null));
+        }
+
         private class ClassWithFields
         {
             public readonly string ReadOnlyText = string.Empty;
