@@ -40,6 +40,14 @@ namespace Ploeh.Albedo.UnitTests
                 () => sut.Select<object>(null));
         }
 
+        [Fact]
+        public void SelectNonMemberExpressionThrows()
+        {
+            var sut = new Properties<ClassWithProperties>();
+            Assert.Throws<ArgumentException>(
+                () => sut.Select(x => x.ToString()));
+        }
+
         private class ClassWithProperties
         {
             public string ReadOnlyText { get; private set; }
