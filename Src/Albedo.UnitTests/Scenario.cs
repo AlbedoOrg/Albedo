@@ -38,5 +38,25 @@ namespace Ploeh.Albedo.UnitTests
                               select v.Major;
             Assert.Equal("Major", pi.Name);
         }
+
+        [Fact]
+        public void SelectFieldUsingInstanceSyntax()
+        {
+            FieldInfo fi = new Fields<ClassWithFields>().Select(v => v.Text);
+            Assert.Equal("Text", fi.Name);
+        }
+
+        [Fact]
+        public void SelectFieldUsingLinqSyntax()
+        {
+            FieldInfo fi = from v in new Fields<ClassWithFields>()
+                           select v.Text;
+            Assert.Equal("Text", fi.Name);
+        }
+
+        private class ClassWithFields
+        {
+            public readonly string Text = string.Empty;
+        }
     }
 }

@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FieldsTests.cs" />
     <Compile Include="MethodsTests.cs" />
     <Compile Include="PropertiesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
