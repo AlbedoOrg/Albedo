@@ -38,7 +38,7 @@ namespace Ploeh.Albedo
         /// </param>
         /// <returns>
         /// A <see cref="FieldInfo" /> instance representing the field
-        /// identified by <paramref name="fieldSelector" />
+        /// identified by <paramref name="fieldSelector" />.
         /// </returns>
         /// <remarks>
         /// <para>
