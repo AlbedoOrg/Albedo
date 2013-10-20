@@ -4,7 +4,7 @@
         <id>Albedo</id>
         <version>0.1</version>
         <title>Albedo</title>
-        <authors>Mark Seemann</authors>
+        <authors>Mark Seemann, Nikos Baxevanis</authors>
         <owners>Mark Seemann</owners>
         <description>A .NET library targeted at making Reflection programming more consistent, using a common set of abstractions and utilities.</description>
         <projectUrl>https://github.com/ploeh/Albedo</projectUrl>
