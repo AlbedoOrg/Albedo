@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+    <metadata>
+        <id>Albedo</id>
+        <version>0.1</version>
+        <title>Albedo</title>
+        <authors>Mark Seemann, Nikos Baxevanis</authors>
+        <owners>Mark Seemann</owners>
+        <description>A .NET library targeted at making Reflection programming more consistent, using a common set of abstractions and utilities.</description>
+        <projectUrl>https://github.com/ploeh/Albedo</projectUrl>
+        <licenseUrl>https://github.com/ploeh/Albedo/blob/master/LICENSE</licenseUrl>
+        <language>en-US</language>
+    </metadata>
+    <files>
+        <file src="Ploeh.Albedo.dll" target="lib\net35" />
+        <file src="Ploeh.Albedo.XML" target="lib\net35" />
+    </files>
+</package>
