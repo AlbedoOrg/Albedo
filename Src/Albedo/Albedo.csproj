@@ -53,6 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyElement.cs" />
+    <Compile Include="ReflectionVisitor.cs" />
+    <Compile Include="IReflectionVisitor.cs" />
+    <Compile Include="IReflectionElement.cs" />
     <Compile Include="Fields.cs" />
     <Compile Include="Methods.cs" />
     <Compile Include="Properties.cs" />

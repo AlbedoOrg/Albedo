@@ -54,6 +54,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyElementTests.cs" />
+    <Compile Include="DelegatingReflectionVisitor.cs" />
     <Compile Include="FieldsTests.cs" />
     <Compile Include="MethodsTests.cs" />
     <Compile Include="PropertiesTests.cs" />
