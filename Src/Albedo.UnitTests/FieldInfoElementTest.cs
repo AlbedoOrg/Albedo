@@ -57,11 +57,30 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
+        public void AcceptReturnsTheCorrectVisitorInstance()
+        {
+            // Fixture setup
+            var sut = new FieldInfoElement(
+                typeof(TypeWithField<int>).GetFields()[0]);
+
+            var expected = new DelegatingReflectionVisitor<int>();
+            var visitor = new DelegatingReflectionVisitor<int>
+            {
+                OnVisitFieldInfoElement = (e, v) => expected
+            };
+            // Exercise system
+            var actual = sut.Accept(visitor);
+            // Verify outcome
+            Assert.Same(expected, actual);
+            // Teardown
+        }
+
+        [Fact]
         public void AcceptCallsVisitOnceWithCorrectType()
         {
             // Fixture setup
             var observed = new List<FieldInfoElement>();
-            var dummyVisitor = new DelegatingReflectionVisitor<int> { OnVisitFieldInfoElement = observed.Add };
+            var dummyVisitor = new DelegatingReflectionVisitor<int> { OnFieldInfoElementVisited = observed.Add };
             var sut = new FieldInfoElement(typeof(TypeWithField<int>).GetFields().First());
             // Exercise system
             sut.Accept(dummyVisitor);

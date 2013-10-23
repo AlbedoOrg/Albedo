@@ -53,13 +53,13 @@ namespace Ploeh.Albedo.UnitTests
 
             var dummyVisitor = new DelegatingReflectionVisitor<int>
             {
-                OnVisitAssemblyElement = observedElements.Add,
-                OnVisitTypeElement = observedElements.Add,
-                OnVisitConstructorInfoElement = observedElements.Add,
-                OnVisitFieldInfoElement = observedElements.Add,
-                OnVisitMethodInfoElement = observedElements.Add,
-                OnVisitParameterInfoElement = observedElements.Add,
-                OnVisitPropertyInfoElement = observedElements.Add,
+                OnAssemblyElementVisited = observedElements.Add,
+                OnTypeElementVisited = observedElements.Add,
+                OnConstructorInfoElementVisited = observedElements.Add,
+                OnFieldInfoElementVisited = observedElements.Add,
+                OnMethodInfoElementVisited = observedElements.Add,
+                OnParameterInfoElementVisited = observedElements.Add,
+                OnPropertyInfoElementVisited = observedElements.Add,
             };
 
             var sut = new CompositeReflectionElement(elements);

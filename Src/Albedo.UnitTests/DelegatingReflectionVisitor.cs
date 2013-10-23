@@ -8,63 +8,121 @@ namespace Ploeh.Albedo.UnitTests
 
         public DelegatingReflectionVisitor()
         {
-            this.OnVisitAssemblyElement = e => { };
-            this.OnVisitTypeElement = e => { };
-            this.OnVisitParameterInfoElement = e => { };
-            this.OnVisitPropertyInfoElement = e => { };
-            this.OnVisitFieldInfoElement = e => { };
-            this.OnVisitConstructorInfoElement = e => { };
-            this.OnVisitMethodInfoElement = e => { };
+            this.OnAssemblyElementVisited = e => { };
+            this.OnTypeElementVisited = e => { };
+            this.OnParameterInfoElementVisited = e => { };
+            this.OnPropertyInfoElementVisited = e => { };
+            this.OnFieldInfoElementVisited = e => { };
+            this.OnConstructorInfoElementVisited = e => { };
+            this.OnMethodInfoElementVisited = e => { };
+
+            this.OnVisitAssemblyElement = (element, visitor) => visitor;
+            this.OnVisitTypeElement = (element, visitor) => visitor;
+            this.OnVisitParameterInfoElement = (element, visitor) => visitor;
+            this.OnVisitPropertyInfoElement = (element, visitor) => visitor;
+            this.OnVisitFieldInfoElement = (element, visitor) => visitor;
+            this.OnVisitConstructorInfoElement = (element, visitor) => visitor;
+            this.OnVisitMethodInfoElement = (element, visitor) => visitor;
         }
 
-        public Action<AssemblyElement> OnVisitAssemblyElement { get; set; }
-        public Action<TypeElement> OnVisitTypeElement { get; set; }
-        public Action<ParameterInfoElement> OnVisitParameterInfoElement { get; set; }
-        public Action<PropertyInfoElement> OnVisitPropertyInfoElement { get; set; }
-        public Action<FieldInfoElement> OnVisitFieldInfoElement { get; set; }
-        public Action<ConstructorInfoElement> OnVisitConstructorInfoElement { get; set; }
-        public Action<MethodInfoElement> OnVisitMethodInfoElement { get; set; }
+        public Action<AssemblyElement> OnAssemblyElementVisited { get; set; }
+        public Action<TypeElement> OnTypeElementVisited { get; set; }
+        public Action<ParameterInfoElement> OnParameterInfoElementVisited { get; set; }
+        public Action<PropertyInfoElement> OnPropertyInfoElementVisited { get; set; }
+        public Action<FieldInfoElement> OnFieldInfoElementVisited { get; set; }
+        public Action<ConstructorInfoElement> OnConstructorInfoElementVisited { get; set; }
+        public Action<MethodInfoElement> OnMethodInfoElementVisited { get; set; }
 
-        public IReflectionVisitor<T> Visit(AssemblyElement assemblyElement)
+        public Func<AssemblyElement, IReflectionVisitor<T>, IReflectionVisitor<T>> OnVisitAssemblyElement { get; set; }
+        public Func<TypeElement, IReflectionVisitor<T>, IReflectionVisitor<T>> OnVisitTypeElement { get; set; }
+        public Func<ParameterInfoElement, IReflectionVisitor<T>, IReflectionVisitor<T>> OnVisitParameterInfoElement { get; set; }
+        public Func<PropertyInfoElement, IReflectionVisitor<T>, IReflectionVisitor<T>> OnVisitPropertyInfoElement { get; set; }
+        public Func<FieldInfoElement, IReflectionVisitor<T>, IReflectionVisitor<T>> OnVisitFieldInfoElement { get; set; }
+        public Func<ConstructorInfoElement, IReflectionVisitor<T>, IReflectionVisitor<T>> OnVisitConstructorInfoElement { get; set; }
+        public Func<MethodInfoElement, IReflectionVisitor<T>, IReflectionVisitor<T>> OnVisitMethodInfoElement { get; set; }
+
+        public virtual IReflectionVisitor<T> Visit(AssemblyElement assemblyElement)
         {
-            OnVisitAssemblyElement(assemblyElement);
-            return this;
+            try
+            {
+                return OnVisitAssemblyElement(assemblyElement, this);
+            }
+            finally
+            {
+                OnAssemblyElementVisited(assemblyElement);                
+            }
         }
 
-        public IReflectionVisitor<T> Visit(TypeElement typeElement)
+        public virtual IReflectionVisitor<T> Visit(TypeElement typeElement)
         {
-            OnVisitTypeElement(typeElement);
-            return this;
+            try
+            {
+                return OnVisitTypeElement(typeElement, this);
+            }
+            finally
+            {
+                OnTypeElementVisited(typeElement);
+            }
         }
 
-        public IReflectionVisitor<T> Visit(ParameterInfoElement parameterInfoElement)
+        public virtual IReflectionVisitor<T> Visit(ParameterInfoElement parameterInfoElement)
         {
-            OnVisitParameterInfoElement(parameterInfoElement);
-            return this;
+            try
+            {
+                return OnVisitParameterInfoElement(parameterInfoElement, this);
+            }
+            finally
+            {
+                OnParameterInfoElementVisited(parameterInfoElement);
+            }
         }
 
-        public IReflectionVisitor<T> Visit(PropertyInfoElement propertyInfoElement)
+        public virtual IReflectionVisitor<T> Visit(PropertyInfoElement propertyInfoElement)
         {
-            OnVisitPropertyInfoElement(propertyInfoElement);
-            return this;
+            try
+            {
+                return OnVisitPropertyInfoElement(propertyInfoElement, this);
+            }
+            finally
+            {
+                OnPropertyInfoElementVisited(propertyInfoElement);
+            }
         }
 
-        public IReflectionVisitor<T> Visit(FieldInfoElement fieldInfoElement)
+        public virtual IReflectionVisitor<T> Visit(FieldInfoElement fieldInfoElement)
         {
-            OnVisitFieldInfoElement(fieldInfoElement);
-            return this;
+            try
+            {
+                return OnVisitFieldInfoElement(fieldInfoElement, this);
+            }
+            finally
+            {
+                OnFieldInfoElementVisited(fieldInfoElement);
+            }
         }
 
-        public IReflectionVisitor<T> Visit(ConstructorInfoElement constructorInfoElement)
+        public virtual IReflectionVisitor<T> Visit(ConstructorInfoElement constructorInfoElement)
         {
-            OnVisitConstructorInfoElement(constructorInfoElement);
-            return this;
+            try
+            {
+                return OnVisitConstructorInfoElement(constructorInfoElement, this);
+            }
+            finally
+            {
+                OnConstructorInfoElementVisited(constructorInfoElement);
+            }
         }
 
-        public IReflectionVisitor<T> Visit(MethodInfoElement methodInfoElement)
+        public virtual IReflectionVisitor<T> Visit(MethodInfoElement methodInfoElement)
         {
-            OnVisitMethodInfoElement(methodInfoElement);
-            return this;
+            try
+            {
+                return OnVisitMethodInfoElement(methodInfoElement, this);
+            }
+            finally
+            {
+                OnMethodInfoElementVisited(methodInfoElement);
+            }
         }
     }
 }

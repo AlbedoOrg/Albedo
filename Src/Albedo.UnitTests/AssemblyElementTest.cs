@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using Xunit;
 
@@ -57,11 +58,28 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
+        public void AcceptReturnsTheCorrectVisitorInstance()
+        {
+            // Fixture setup
+            var expected = new DelegatingReflectionVisitor<int>();
+            var visitor = new DelegatingReflectionVisitor<int>
+            {
+                OnVisitAssemblyElement = (e, v) => expected
+            };
+            var sut = new AssemblyElement(GetType().Assembly);
+            // Exercise system
+            var actual = sut.Accept(visitor);
+            // Verify outcome
+            Assert.Same(expected, actual);
+            // Teardown
+        }
+
+        [Fact]
         public void AcceptCallsVisitOnceWithCorrectType()
         {
             // Fixture setup
             var observed = new List<AssemblyElement>();
-            var dummyVisitor = new DelegatingReflectionVisitor<int> { OnVisitAssemblyElement = observed.Add };
+            var dummyVisitor = new DelegatingReflectionVisitor<int> { OnAssemblyElementVisited = observed.Add };
             var sut = new AssemblyElement(GetType().Assembly);
             // Exercise system
             sut.Accept(dummyVisitor);

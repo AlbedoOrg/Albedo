@@ -58,36 +58,35 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
+        public void AcceptReturnsTheCorrectVisitorInstance()
+        {
+            // Fixture setup
+            var sut = new TypeElement(this.GetType());
+
+            var expected = new DelegatingReflectionVisitor<int>();
+            var visitor = new DelegatingReflectionVisitor<int>
+            {
+                OnVisitTypeElement = (e, v) => expected
+            };
+            // Exercise system
+            var actual = sut.Accept(visitor);
+            // Verify outcome
+            Assert.Same(expected, actual);
+            // Teardown
+        }
+
+        [Fact]
         public void AcceptCallsVisitOnceWithCorrectType()
         {
             // Fixture setup
             var observed = new List<TypeElement>();
-            var dummyVisitor = new DelegatingReflectionVisitor<int> { OnVisitTypeElement = observed.Add };
+            var dummyVisitor = new DelegatingReflectionVisitor<int> { OnTypeElementVisited = observed.Add };
             var sut = new TypeElement(this.GetType());
             // Exercise system
             sut.Accept(dummyVisitor);
             // Verify outcome
             Assert.True(new[] { sut }.SequenceEqual(observed));
             // Teardown
-        }
-
-        class TypeWithCtorMethodPropertyField
-        {
-            public void Method1(int methodParam1)
-            {
-            }
-
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "ctorParam1", Justification = "It's used via reflection.")]
-            public TypeWithCtorMethodPropertyField(int ctorParam1)
-            {
-            }
-
-            public int Property1 { get; set; }
-
-#pragma warning disable 649
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields", Justification = "It's used via reflection.")]
-            public int Field1;
-#pragma warning restore 649
         }
     }
 }
