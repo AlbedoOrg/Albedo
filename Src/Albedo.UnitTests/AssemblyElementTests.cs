@@ -56,38 +56,22 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void AcceptReturnsTheCorrectVisitorInstance()
+        public void AcceptCallsTheCorrectVisitorMethodAndReturnsTheCorrectInstance()
         {
             // Fixture setup
             var expected = new DelegatingReflectionVisitor<int>();
+            var sut = new AssemblyElement(this.GetType().Assembly);
             var visitor = new DelegatingReflectionVisitor<int>
             {
-                OnVisitAssemblyElement = (e, v) => expected
+                OnVisitAssemblyElement = (e, v) =>
+                    object.ReferenceEquals(e, sut) ? expected : new DelegatingReflectionVisitor<int>()
             };
-            var sut = new AssemblyElement(this.GetType().Assembly);
+
             // Exercise system
             var actual = sut.Accept(visitor);
             // Verify outcome
             Assert.Same(expected, actual);
             // Teardown
         }
-
-        [Fact]
-        public void AcceptCallsVisitOnceWithCorrectType()
-        {
-            // Fixture setup
-            var observed = new List<AssemblyElement>();
-            var dummyVisitor = new DelegatingReflectionVisitor<int>
-            {
-                OnVisitAssemblyElement = (e, v) => { observed.Add(e); return v; }
-            };
-            var sut = new AssemblyElement(this.GetType().Assembly);
-            // Exercise system
-            sut.Accept(dummyVisitor);
-            // Verify outcome
-            Assert.True(new[] { sut }.SequenceEqual(observed));
-            // Teardown
-        }
-
     }
 }
