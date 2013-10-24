@@ -3,7 +3,6 @@
     /// <summary>
     /// Represents a visitor which can visit <see cref="IReflectionElement"/> nodes.
     /// </summary>
-    /// <seealso cref="ReflectionVisitor{T}"/>
     /// <typeparam name="T">The type of observations or calculations the 
     /// visitor makes</typeparam>
     public interface IReflectionVisitor<T>
