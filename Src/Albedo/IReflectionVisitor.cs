@@ -20,5 +20,14 @@
         /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
         /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(AssemblyElement assemblyElement);
+
+        /// <summary>
+        /// Allows an <see cref="ConstructorInfoElement"/> to be 'visited'. This method is called when the
+        /// element 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="constructorInfoElement">The <see cref="ConstructorInfoElement"/> being visited.</param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
+        IReflectionVisitor<T> Visit(ConstructorInfoElement constructorInfoElement);
     }
 }
