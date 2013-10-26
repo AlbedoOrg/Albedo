@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyElement.cs" />
+    <Compile Include="ConstructorInfoElement.cs" />
     <Compile Include="IReflectionVisitor.cs" />
     <Compile Include="IReflectionElement.cs" />
     <Compile Include="Fields.cs" />
