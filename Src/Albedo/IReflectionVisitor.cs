@@ -29,5 +29,23 @@
         /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
         /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(ConstructorInfoElement constructorInfoElement);
+
+        /// <summary>
+        /// Allows an <see cref="FieldInfoElement"/> to be 'visited'. This method is called when the
+        /// element 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="fieldInfoElement">The <see cref="FieldInfoElement"/> being visited.</param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
+        IReflectionVisitor<T> Visit(FieldInfoElement fieldInfoElement);
+
+        /// <summary>
+        /// Allows an <see cref="MethodInfoElement"/> to be 'visited'. This method is called when the
+        /// element 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="methodInfoElement">The <see cref="MethodInfoElement"/> being visited.</param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
+        IReflectionVisitor<T> Visit(MethodInfoElement methodInfoElement);
     }
 }

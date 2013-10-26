@@ -55,6 +55,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyElementTests.cs" />
+    <Compile Include="FieldInfoElementTests.cs" />
+    <Compile Include="MethodInfoElementTests.cs" />
     <Compile Include="ConstructorInfoElementTests.cs" />
     <Compile Include="DelegatingReflectionVisitor.cs" />
     <Compile Include="FieldsTests.cs" />
@@ -71,6 +73,9 @@
       <Project>{6244AFB8-0634-4E50-A25F-964A81E34410}</Project>
       <Name>Albedo</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
