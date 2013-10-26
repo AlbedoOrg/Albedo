@@ -20,7 +20,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void AssemblyIsCorrect()
+        public void ConstructorInfoIsCorrect()
         {
             // Fixture setup
             var expected = TypeWithCtor.Ctor;
@@ -33,7 +33,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void ConstructWithNullAssemblyThrows()
+        public void ConstructWithNullConstructorInfoThrows()
         {
             // Fixture setup
             // Exercise system
@@ -73,8 +73,7 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
             // Teardown
         }
-
-
+        
 
         class TypeWithCtor
         {
