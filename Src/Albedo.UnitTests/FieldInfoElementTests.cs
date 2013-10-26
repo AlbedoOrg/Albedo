@@ -85,7 +85,7 @@ namespace Ploeh.Albedo.UnitTests
                 }
             }
 
-            public int TheField;
+            public int TheField = 0;
         }
     }
 }
