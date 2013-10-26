@@ -63,8 +63,8 @@ namespace Ploeh.Albedo.UnitTests
             var sut = new AssemblyElement(this.GetType().Assembly);
             var visitor = new DelegatingReflectionVisitor<int>
             {
-                OnVisitAssemblyElement = (e, v) =>
-                    object.ReferenceEquals(e, sut) ? expected : new DelegatingReflectionVisitor<int>()
+                OnVisitAssemblyElement = e =>
+                    e == sut ? expected : new DelegatingReflectionVisitor<int>()
             };
 
             // Exercise system

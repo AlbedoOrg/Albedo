@@ -8,14 +8,14 @@ namespace Ploeh.Albedo.UnitTests
 
         public DelegatingReflectionVisitor()
         {
-            this.OnVisitAssemblyElement = (element, visitor) => visitor;
+            this.OnVisitAssemblyElement = e => this;
         }
 
-        public Func<AssemblyElement, IReflectionVisitor<T>, IReflectionVisitor<T>> OnVisitAssemblyElement { get; set; }
+        public Func<AssemblyElement, IReflectionVisitor<T>> OnVisitAssemblyElement { get; set; }
 
         public virtual IReflectionVisitor<T> Visit(AssemblyElement assemblyElement)
         {
-            return OnVisitAssemblyElement(assemblyElement, this);
+            return OnVisitAssemblyElement(assemblyElement);
         }
     }
 }
