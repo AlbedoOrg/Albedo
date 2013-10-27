@@ -74,5 +74,23 @@
         /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
         /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(TypeElement typeElement);
+
+        /// <summary>
+        /// Allows an <see cref="LocalVariableInfoElement"/> to be 'visited'. This method is called when the
+        /// element 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="localVariableInfoElement">The <see cref="LocalVariableInfoElement"/> being visited.</param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
+        IReflectionVisitor<T> Visit(LocalVariableInfoElement localVariableInfoElement);
+
+        /// <summary>
+        /// Allows an <see cref="EventInfoElement"/> to be 'visited'. This method is called when the
+        /// element 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="eventInfoElement">The <see cref="EventInfoElement"/> being visited.</param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
+        IReflectionVisitor<T> Visit(EventInfoElement eventInfoElement);
     }
 }

@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyElement.cs" />
+    <Compile Include="EventInfoElement.cs" />
     <Compile Include="ConstructorInfoElement.cs" />
     <Compile Include="FieldInfoElement.cs" />
     <Compile Include="MethodInfoElement.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="IReflectionElement.cs" />
     <Compile Include="Fields.cs" />
     <Compile Include="Methods.cs" />
+    <Compile Include="LocalVariableInfoElement.cs" />
     <Compile Include="ParameterInfoElement.cs" />
     <Compile Include="Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -55,6 +55,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyElementTests.cs" />
+    <Compile Include="EventInfoElementTests.cs" />
+    <Compile Include="LocalVariableInfoElementTests.cs" />
     <Compile Include="ParameterInfoElementTests.cs" />
     <Compile Include="PropertyInfoElementTests.cs" />
     <Compile Include="TypeElementTests.cs" />
