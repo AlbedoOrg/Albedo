@@ -15,6 +15,8 @@ namespace Ploeh.Albedo.UnitTests
             this.OnVisitParameterInfoElement = e => this;
             this.OnVisitPropertyInfoElement = e => this;
             this.OnVisitTypeElement = e => this;
+            this.OnVisitLocalVariableInfoElement = e => this;
+            this.OnVisitEventInfoElement = e => this;
         }
 
         public Func<AssemblyElement, IReflectionVisitor<T>> OnVisitAssemblyElement { get; set; }
@@ -24,6 +26,8 @@ namespace Ploeh.Albedo.UnitTests
         public Func<ParameterInfoElement, IReflectionVisitor<T>> OnVisitParameterInfoElement { get; set; }
         public Func<PropertyInfoElement, IReflectionVisitor<T>> OnVisitPropertyInfoElement { get; set; }
         public Func<TypeElement, IReflectionVisitor<T>> OnVisitTypeElement { get; set; }
+        public Func<LocalVariableInfoElement, IReflectionVisitor<T>> OnVisitLocalVariableInfoElement { get; set; }
+        public Func<EventInfoElement, IReflectionVisitor<T>> OnVisitEventInfoElement { get; set; }
 
         public virtual IReflectionVisitor<T> Visit(AssemblyElement assemblyElement)
         {
@@ -58,6 +62,16 @@ namespace Ploeh.Albedo.UnitTests
         public virtual IReflectionVisitor<T> Visit(TypeElement typeElement)
         {
             return OnVisitTypeElement(typeElement);
+        }
+
+        public virtual IReflectionVisitor<T> Visit(LocalVariableInfoElement localVariableInfoElement)
+        {
+            return OnVisitLocalVariableInfoElement(localVariableInfoElement);
+        }
+
+        public virtual IReflectionVisitor<T> Visit(EventInfoElement eventInfoElement)
+        {
+            return OnVisitEventInfoElement(eventInfoElement);
         }
     }
 }
