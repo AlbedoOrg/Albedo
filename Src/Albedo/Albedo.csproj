@@ -61,8 +61,11 @@
     <Compile Include="IReflectionElement.cs" />
     <Compile Include="Fields.cs" />
     <Compile Include="Methods.cs" />
+    <Compile Include="ParameterInfoElement.cs" />
     <Compile Include="Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyInfoElement.cs" />
+    <Compile Include="TypeElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Albedo.ruleset" />
