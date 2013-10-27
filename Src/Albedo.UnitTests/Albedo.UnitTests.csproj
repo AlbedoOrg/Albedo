@@ -55,6 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyElementTests.cs" />
+    <Compile Include="ParameterInfoElementTests.cs" />
+    <Compile Include="PropertyInfoElementTests.cs" />
+    <Compile Include="TypeElementTests.cs" />
     <Compile Include="FieldInfoElementTests.cs" />
     <Compile Include="MethodInfoElementTests.cs" />
     <Compile Include="ConstructorInfoElementTests.cs" />
