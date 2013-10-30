@@ -10,6 +10,7 @@ namespace Ploeh.Albedo
     /// that composes other <see cref="IReflectionElement"/> instances which
     /// can be visited by an <see cref="IReflectionVisitor{T}"/> instance.
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "The main responsibility of this class isn't to be a 'collection' (which, by the way, it isn't - it's just an Iterator).")]
     public class CompositeReflectionElement : IReflectionElement, IEnumerable<IReflectionElement>
     {
         private readonly IEnumerable<IReflectionElement> elements;
