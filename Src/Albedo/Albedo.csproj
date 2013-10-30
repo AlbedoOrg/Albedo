@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="AssemblyElement.cs" />
     <Compile Include="EventInfoElement.cs" />
+    <Compile Include="CompositeReflectionElement.cs" />
     <Compile Include="ConstructorInfoElement.cs" />
     <Compile Include="FieldInfoElement.cs" />
     <Compile Include="MethodInfoElement.cs" />
