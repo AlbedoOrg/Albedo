@@ -16,7 +16,7 @@ namespace Ploeh.Albedo
 
         public IReflectionVisitor<T> Accept<T>(IReflectionVisitor<T> visitor)
         {
-            throw new NotImplementedException();
+            return this.elements.Aggregate(visitor, (v, e) => e.Accept(v));
         }
 
         public IEnumerator<IReflectionElement> GetEnumerator()
