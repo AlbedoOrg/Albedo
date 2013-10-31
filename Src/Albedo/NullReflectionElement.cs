@@ -31,5 +31,15 @@ namespace Ploeh.Albedo
         {
             return visitor;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is NullReflectionElement;
+        }
+
+        public override int GetHashCode()
+        {
+            return 64506597;
+        }
     }
 }
