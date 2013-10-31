@@ -64,6 +64,7 @@
     <Compile Include="Fields.cs" />
     <Compile Include="Methods.cs" />
     <Compile Include="LocalVariableInfoElement.cs" />
+    <Compile Include="NullReflectionElement.cs" />
     <Compile Include="ParameterInfoElement.cs" />
     <Compile Include="Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

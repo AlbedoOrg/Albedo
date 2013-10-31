@@ -61,6 +61,7 @@
     <Compile Include="CompositeReflectionElementTests.cs" />
     <Compile Include="EventInfoElementTests.cs" />
     <Compile Include="LocalVariableInfoElementTests.cs" />
+    <Compile Include="NullReflectionElementTests.cs" />
     <Compile Include="ParameterInfoElementTests.cs" />
     <Compile Include="PropertyInfoElementTests.cs" />
     <Compile Include="TypeElementTests.cs" />
