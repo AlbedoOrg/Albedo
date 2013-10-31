@@ -9,7 +9,7 @@ namespace Ploeh.Albedo
     {
         public IReflectionVisitor<T> Accept<T>(IReflectionVisitor<T> visitor)
         {
-            throw new NotImplementedException();
+            return visitor;
         }
     }
 }
