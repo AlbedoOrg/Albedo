@@ -72,5 +72,27 @@ namespace Ploeh.Albedo.UnitTests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void MaterializePreservesOrderingBetweenElementsAndAssemblies()
+        {
+            var source = new object[]
+            {
+                typeof(AssemblyElementTest).Assembly,
+                new AssemblyElement(this.GetType().Assembly),
+                typeof(Version).Assembly
+            };
+            var sut = new AssemblyElementMaterializer<object>();
+
+            var actual = sut.Materialize(source);
+
+            var expected = new[]
+            {
+                new AssemblyElement(typeof(AssemblyElementTest).Assembly),
+                new AssemblyElement(this.GetType().Assembly),
+                new AssemblyElement(typeof(Version).Assembly),
+            };
+            Assert.Equal(expected, actual);
+        }
     }
 }
