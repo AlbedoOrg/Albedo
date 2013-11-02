@@ -119,11 +119,12 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(typeof(ConstructorInfoElement))]
         public void GetHashCodeReturnsCorrectResult(Type t)
         {
-            var sut = new ConstructorInfoElement(TypeWithCtor.Ctor);
+            var c = TypeWithCtor.Ctor;
+            var sut = new ConstructorInfoElement(c);
 
             var actual = sut.GetHashCode();
 
-            var expected = TypeWithCtor.Ctor.GetHashCode();
+            var expected = c.GetHashCode();
             Assert.Equal(expected, actual);
         }
 
