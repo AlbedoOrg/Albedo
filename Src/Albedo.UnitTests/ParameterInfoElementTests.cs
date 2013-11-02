@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -74,6 +75,59 @@ namespace Ploeh.Albedo.UnitTests
             // Teardown
         }
 
+        [Fact]
+        public void SutEqualsOtherIdenticalInstance()
+        {
+            var c = TypeWithParameter.Parameter;
+            var sut = new ParameterInfoElement(c);
+            var other = new ParameterInfoElement(c);
+
+            var actual = sut.Equals(other);
+
+            Assert.True(actual);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("bar")]
+        [InlineData(1)]
+        [InlineData(typeof(Version))]
+        [InlineData(UriPartial.Query)]
+        public void SutDoesNotEqualAnonymousObject(object other)
+        {
+            var sut = new ParameterInfoElement(TypeWithParameter.Parameter);
+            var actual = sut.Equals(other);
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void SutDoesNotEqualDifferentInstanceOfSameType()
+        {
+            var sut = new ParameterInfoElement(TypeWithParameter.Parameter);
+            var otherParameter = TypeWithParameter.OtherParameter;
+            var other = new ParameterInfoElement(otherParameter);
+
+            var actual = sut.Equals(other);
+
+            Assert.False(actual);
+        }
+
+        [Theory]
+        [InlineData(typeof(Version))]
+        [InlineData(typeof(TheoryAttribute))]
+        [InlineData(typeof(ParameterInfoElement))]
+        public void GetHashCodeReturnsCorrectResult(Type t)
+        {
+            var c = TypeWithParameter.Parameter;
+            var sut = new ParameterInfoElement(c);
+
+            var actual = sut.GetHashCode();
+
+            var expected = c.GetHashCode();
+            Assert.Equal(expected, actual);
+        }
+
 
         class TypeWithParameter
         {
@@ -82,14 +136,28 @@ namespace Ploeh.Albedo.UnitTests
                 get
                 {
                     return typeof(TypeWithParameter)
-                        .GetMethods()
-                        .Single(m => m.Name == "TheMethod")
+                        .GetMethod("TheMethod")
+                        .GetParameters()
+                        .First();
+                }
+            }
+
+            public static ParameterInfo OtherParameter
+            {
+                get
+                {
+                    return typeof(TypeWithParameter)
+                        .GetMethod("TheOtherMethod")
                         .GetParameters()
                         .First();
                 }
             }
 
             public void TheMethod(int param1)
+            {
+            }
+
+            public void TheOtherMethod(int param1)
             {
             }
         }
