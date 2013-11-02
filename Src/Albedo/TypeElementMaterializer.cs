@@ -10,7 +10,7 @@ namespace Ploeh.Albedo
         public IEnumerable<IReflectionElement> Materialize(IEnumerable<T> source)
         {
             return source
-                .Cast<Type>()
+                .OfType<Type>()
                 .Select(t => new TypeElement(t))
                 .Cast<IReflectionElement>();
         }

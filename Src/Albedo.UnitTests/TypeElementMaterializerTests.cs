@@ -22,13 +22,15 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(new object[] { new[] { typeof(AssemblyElement) } })]
         [InlineData(new object[] { new[] { typeof(AssemblyElementTest) } })]
         [InlineData(new object[] { new[] { typeof(AssemblyElement), typeof(Version) } })]
-        public void MaterializeTypesReturnsCorrectResult(Type[] types)
+        [InlineData(new object[] { new object[] { typeof(AssemblyElement), "", typeof(Version) } })]
+        public void MaterializeTypesReturnsCorrectResult(object[] types)
         {
             var sut = new TypeElementMaterializer<object>();
 
             var actual = sut.Materialize(types);
 
             var expected = types
+                .OfType<Type>()
                 .Select(t => new TypeElement(t))
                 .Cast<IReflectionElement>();
             Assert.Equal(expected, actual);
