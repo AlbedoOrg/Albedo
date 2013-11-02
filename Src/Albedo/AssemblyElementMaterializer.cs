@@ -38,9 +38,6 @@ namespace Ploeh.Albedo
         /// <seealso cref="IReflectionElementMaterializer{T}" />
         public IEnumerable<IReflectionElement> Materialize(IEnumerable<T> source)
         {
-            if (source == null)
-                throw new ArgumentNullException("source");
-
             return source
                 .OfType<Assembly>()
                 .Select(a => new AssemblyElement(a))
