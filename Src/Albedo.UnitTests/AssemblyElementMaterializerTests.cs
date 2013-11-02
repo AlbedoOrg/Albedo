@@ -5,6 +5,7 @@ using System.Text;
 using Xunit;
 using Ploeh.Albedo;
 using Xunit.Extensions;
+using Moq;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -54,6 +55,17 @@ namespace Ploeh.Albedo.UnitTests
             var expected = containedTypes
                 .Select(t => new AssemblyElement(t.Assembly))
                 .ToArray();
+            var sut = new AssemblyElementMaterializer<object>();
+
+            var actual = sut.Materialize(expected);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void MaterializePassesAnyReflectionElementThrough()
+        {
+            var expected = new[] { new Mock<IReflectionElement>().Object };
             var sut = new AssemblyElementMaterializer<object>();
 
             var actual = sut.Materialize(expected);

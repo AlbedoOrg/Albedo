@@ -13,8 +13,8 @@ namespace Ploeh.Albedo
             return source
                 .OfType<Assembly>()
                 .Select(a => new AssemblyElement(a))
-                .Concat(source.OfType<AssemblyElement>())
-                .Cast<IReflectionElement>();
+                .Cast<IReflectionElement>()
+                .Concat(source.OfType<IReflectionElement>());
         }
     }
 }
