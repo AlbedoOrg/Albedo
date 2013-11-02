@@ -35,5 +35,12 @@ namespace Ploeh.Albedo.UnitTests
                 .Cast<IReflectionElement>();
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void MaterializeNullSourceThrows()
+        {
+            var sut = new TypeElementMaterializer<object>();
+            Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
+        }
     }
 }
