@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -73,7 +74,59 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
             // Teardown
         }
-        
+
+        [Fact]
+        public void SutEqualsOtherIdenticalInstance()
+        {
+            var c = TypeWithCtor.Ctor;
+            var sut = new ConstructorInfoElement(c);
+            var other = new ConstructorInfoElement(c);
+
+            var actual = sut.Equals(other);
+
+            Assert.True(actual);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("bar")]
+        [InlineData(1)]
+        [InlineData(typeof(Version))]
+        [InlineData(UriPartial.Query)]
+        public void SutDoesNotEqualAnonymousObject(object other)
+        {
+            var sut = new ConstructorInfoElement(TypeWithCtor.Ctor);
+            var actual = sut.Equals(other);
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void SutDoesNotEqualDifferentInstanceOfSameType()
+        {
+            var sut = new ConstructorInfoElement(TypeWithCtor.Ctor);
+            var otherCtor = this.GetType().GetConstructor(Type.EmptyTypes);
+            var other = new ConstructorInfoElement(otherCtor);
+
+            var actual = sut.Equals(other);
+
+            Assert.False(actual);
+        }
+
+        [Theory]
+        [InlineData(typeof(Version))]
+        [InlineData(typeof(TheoryAttribute))]
+        [InlineData(typeof(ConstructorInfoElement))]
+        public void GetHashCodeReturnsCorrectResult(Type t)
+        {
+            var c = TypeWithCtor.Ctor;
+            var sut = new ConstructorInfoElement(c);
+
+            var actual = sut.GetHashCode();
+
+            var expected = c.GetHashCode();
+            Assert.Equal(expected, actual);
+        }
 
         class TypeWithCtor
         {
