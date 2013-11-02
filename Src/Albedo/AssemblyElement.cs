@@ -41,6 +41,22 @@ namespace Ploeh.Albedo
             return visitor.Visit(this);
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="Object" />, is equal to
+        /// this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="Object" /> to compare with this
+        /// instance.</param>
+        /// <returns>
+        /// <see langword="true" /> if the specified <see cref="Object" /> is
+        /// equal to this instance; otherwise, <see langword="false" />.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// Two instances of <see cref="AssemblyElement" /> are considered to
+        /// be equal if their <see cref="Assembly" /> values are equal.
+        /// </para>
+        /// </remarks>
         public override bool Equals(object obj)
         {
             var other = obj as AssemblyElement;
