@@ -43,6 +43,23 @@ namespace Ploeh.Albedo
             return visitor.Visit(this);
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="Object" />, is equal to
+        /// this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="Object" /> to compare with this
+        /// instance.</param>
+        /// <returns>
+        /// <see langword="true" /> if the specified <see cref="Object" /> is
+        /// equal to this instance; otherwise, <see langword="false" />.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// Two instances of <see cref="ConstructorInfoElement" /> are 
+        /// considered to be equal if their <see cref="ConstructorInfoElement" />
+        /// values are equal.
+        /// </para>
+        /// </remarks>
         public override bool Equals(object obj)
         {
             var other = obj as ConstructorInfoElement;
@@ -52,6 +69,13 @@ namespace Ploeh.Albedo
             return object.Equals(this.ConstructorInfo, other.ConstructorInfo);
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing
+        /// algorithms and data structures like a hash table. 
+        /// </returns>
         public override int GetHashCode()
         {
             return this.ConstructorInfo.GetHashCode();
