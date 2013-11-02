@@ -9,7 +9,10 @@ namespace Ploeh.Albedo
     {
         public IEnumerable<IReflectionElement> Materialize(IEnumerable<T> source)
         {
-            throw new NotImplementedException();
+            return source
+                .Cast<Type>()
+                .Select(t => new TypeElement(t))
+                .Cast<IReflectionElement>();
         }
     }
 }

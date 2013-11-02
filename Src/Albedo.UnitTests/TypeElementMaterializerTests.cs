@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 using Ploeh.Albedo;
+using Xunit.Extensions;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -14,6 +15,23 @@ namespace Ploeh.Albedo.UnitTests
         {
             var sut = new TypeElementMaterializer<object>();
             Assert.IsAssignableFrom<IReflectionElementMaterializer<object>>(sut);
+        }
+
+        [Theory]
+        [InlineData(new object[] { new[] { typeof(Version) } })]
+        [InlineData(new object[] { new[] { typeof(AssemblyElement) } })]
+        [InlineData(new object[] { new[] { typeof(AssemblyElementTest) } })]
+        [InlineData(new object[] { new[] { typeof(AssemblyElement), typeof(Version) } })]
+        public void MaterializeTypesReturnsCorrectResult(Type[] types)
+        {
+            var sut = new TypeElementMaterializer<object>();
+
+            var actual = sut.Materialize(types);
+
+            var expected = types
+                .Select(t => new TypeElement(t))
+                .Cast<IReflectionElement>();
+            Assert.Equal(expected, actual);
         }
     }
 }
