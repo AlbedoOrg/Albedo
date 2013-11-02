@@ -11,8 +11,9 @@ namespace Ploeh.Albedo
         public IEnumerable<IReflectionElement> Materialize(IEnumerable<T> source)
         {
             return source
-                .Cast<Assembly>()
+                .OfType<Assembly>()
                 .Select(a => new AssemblyElement(a))
+                .Concat(source.OfType<AssemblyElement>())
                 .Cast<IReflectionElement>();
         }
     }
