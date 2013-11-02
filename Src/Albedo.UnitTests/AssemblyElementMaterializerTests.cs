@@ -43,56 +43,5 @@ namespace Ploeh.Albedo.UnitTests
             var sut = new AssemblyElementMaterializer<object>();
             Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
         }
-
-        [Theory]
-        [InlineData(new object[] { new[] { typeof(Version) } })]
-        [InlineData(new object[] { new[] { typeof(AssemblyElement) } })]
-        [InlineData(new object[] { new[] { typeof(AssemblyElementTest) } })]
-        [InlineData(new object[] { new[] { typeof(AssemblyElement), typeof(Version) } })]
-        public void MaterializePassesAssemblyElementsThrough(
-            Type[] containedTypes)
-        {
-            var expected = containedTypes
-                .Select(t => new AssemblyElement(t.Assembly))
-                .ToArray();
-            var sut = new AssemblyElementMaterializer<object>();
-
-            var actual = sut.Materialize(expected);
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void MaterializePassesAnyReflectionElementThrough()
-        {
-            var expected = new[] { new Mock<IReflectionElement>().Object };
-            var sut = new AssemblyElementMaterializer<object>();
-
-            var actual = sut.Materialize(expected);
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void MaterializePreservesOrderingBetweenElementsAndAssemblies()
-        {
-            var source = new object[]
-            {
-                typeof(AssemblyElementTest).Assembly,
-                new AssemblyElement(this.GetType().Assembly),
-                typeof(Version).Assembly
-            };
-            var sut = new AssemblyElementMaterializer<object>();
-
-            var actual = sut.Materialize(source);
-
-            var expected = new[]
-            {
-                new AssemblyElement(typeof(AssemblyElementTest).Assembly),
-                new AssemblyElement(this.GetType().Assembly),
-                new AssemblyElement(typeof(Version).Assembly),
-            };
-            Assert.Equal(expected, actual);
-        }
     }
 }
