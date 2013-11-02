@@ -40,5 +40,19 @@ namespace Ploeh.Albedo
             if (visitor == null) throw new ArgumentNullException("visitor");
             return visitor.Visit(this);
         }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as AssemblyElement;
+            if (other == null)
+                return false;
+
+            return object.Equals(this.Assembly, other.Assembly);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Assembly.GetHashCode();
+        }
     }
 }
