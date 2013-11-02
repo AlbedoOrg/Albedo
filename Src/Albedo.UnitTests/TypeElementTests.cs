@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -72,6 +73,57 @@ namespace Ploeh.Albedo.UnitTests
             // Verify outcome
             Assert.Same(expected, actual);
             // Teardown
+        }
+
+        [Fact]
+        public void SutEqualsOtherIdenticalInstance()
+        {
+            var t = this.GetType();
+            var sut = new TypeElement(t);
+            var other = new TypeElement(t);
+
+            var actual = sut.Equals(other);
+
+            Assert.True(actual);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("bar")]
+        [InlineData(1)]
+        [InlineData(typeof(Version))]
+        [InlineData(UriPartial.Query)]
+        public void SutDoesNotEqualAnonymousObject(object other)
+        {
+            var sut = new TypeElement(this.GetType());
+            var actual = sut.Equals(other);
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void SutDoesNotEqualDifferentInstanceOfSameType()
+        {
+            var sut = new TypeElement(this.GetType());
+            var other = new TypeElement(typeof(Version));
+
+            var actual = sut.Equals(other);
+
+            Assert.False(actual);
+        }
+
+        [Theory]
+        [InlineData(typeof(Version))]
+        [InlineData(typeof(TypeElement))]
+        [InlineData(typeof(TheoryAttribute))]
+        public void GetHashCodeReturnsCorrectResult(Type t)
+        {
+            var sut = new TypeElement(t);
+
+            var actual = sut.GetHashCode();
+
+            var expected = t.GetHashCode();
+            Assert.Equal(expected, actual);
         }
     }
 }
