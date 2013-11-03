@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -72,6 +73,59 @@ namespace Ploeh.Albedo.UnitTests
             // Verify outcome
             Assert.Same(expected, actual);
             // Teardown
+        }
+
+        [Fact]
+        public void SutEqualsOtherIdenticalInstance()
+        {
+            var ei = TypeWithEvent.LocalEvent;
+            var sut = new EventInfoElement(ei);
+            var other = new EventInfoElement(ei);
+
+            var actual = sut.Equals(other);
+
+            Assert.True(actual);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("bar")]
+        [InlineData(1)]
+        [InlineData(typeof(Version))]
+        [InlineData(UriPartial.Query)]
+        public void SutDoesNotEqualAnonymousObject(object other)
+        {
+            var sut = new EventInfoElement(TypeWithEvent.LocalEvent);
+            var actual = sut.Equals(other);
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void SutDoesNotEqualDifferentInstanceOfSameType()
+        {
+            var sut = new EventInfoElement(TypeWithEvent.LocalEvent);
+            var otherEvent = typeof(Assembly).GetEvent("ModuleResolve");
+            var other = new EventInfoElement(otherEvent);
+
+            var actual = sut.Equals(other);
+
+            Assert.False(actual);
+        }
+
+        [Theory]
+        [InlineData(typeof(Version))]
+        [InlineData(typeof(TheoryAttribute))]
+        [InlineData(typeof(EventInfoElement))]
+        public void GetHashCodeReturnsCorrectResult(Type t)
+        {
+            var ei = TypeWithEvent.LocalEvent;
+            var sut = new EventInfoElement(ei);
+
+            var actual = sut.GetHashCode();
+
+            var expected = ei.GetHashCode();
+            Assert.Equal(expected, actual);
         }
 
 
