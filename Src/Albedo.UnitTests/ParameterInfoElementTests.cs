@@ -78,9 +78,9 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var c = TypeWithParameter.Parameter;
-            var sut = new ParameterInfoElement(c);
-            var other = new ParameterInfoElement(c);
+            var par = TypeWithParameter.Parameter;
+            var sut = new ParameterInfoElement(par);
+            var other = new ParameterInfoElement(par);
 
             var actual = sut.Equals(other);
 
@@ -119,12 +119,12 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(typeof(ParameterInfoElement))]
         public void GetHashCodeReturnsCorrectResult(Type t)
         {
-            var c = TypeWithParameter.Parameter;
-            var sut = new ParameterInfoElement(c);
+            var par = TypeWithParameter.Parameter;
+            var sut = new ParameterInfoElement(par);
 
             var actual = sut.GetHashCode();
 
-            var expected = c.GetHashCode();
+            var expected = par.GetHashCode();
             Assert.Equal(expected, actual);
         }
 

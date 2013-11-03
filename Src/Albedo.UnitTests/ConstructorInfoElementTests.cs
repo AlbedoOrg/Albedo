@@ -78,9 +78,9 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var c = TypeWithCtor.Ctor;
-            var sut = new ConstructorInfoElement(c);
-            var other = new ConstructorInfoElement(c);
+            var ci = TypeWithCtor.Ctor;
+            var sut = new ConstructorInfoElement(ci);
+            var other = new ConstructorInfoElement(ci);
 
             var actual = sut.Equals(other);
 
@@ -119,12 +119,12 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(typeof(ConstructorInfoElement))]
         public void GetHashCodeReturnsCorrectResult(Type t)
         {
-            var c = TypeWithCtor.Ctor;
-            var sut = new ConstructorInfoElement(c);
+            var ci = TypeWithCtor.Ctor;
+            var sut = new ConstructorInfoElement(ci);
 
             var actual = sut.GetHashCode();
 
-            var expected = c.GetHashCode();
+            var expected = ci.GetHashCode();
             Assert.Equal(expected, actual);
         }
 
