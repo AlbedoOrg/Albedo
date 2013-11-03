@@ -57,5 +57,20 @@ namespace Ploeh.Albedo
         {
             return this.GetEnumerator();
         }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as CompositeReflectionElement;
+            if (other == null)
+                return false;
+
+            return this.SequenceEqual(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return (from element in this select element.GetHashCode())
+                .Aggregate((x, y) => x ^ y);
+        }
     }
 }
