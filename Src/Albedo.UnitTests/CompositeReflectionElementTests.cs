@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -66,6 +67,77 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal(expected, actual);
             
             // Teardown
+        }
+
+        [Fact]
+        public void SutEqualsOtherIdenticalInstance()
+        {
+            var e1 = new Mock<IReflectionElement>().Object;
+            var e2 = new Mock<IReflectionElement>().Object;
+            var e3 = new Mock<IReflectionElement>().Object;
+            var sut = new CompositeReflectionElement(e1, e2, e3);
+            var other = new CompositeReflectionElement(e1, e2, e3);
+
+            var actual = sut.Equals(other);
+
+            Assert.True(actual);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("bar")]
+        [InlineData(1)]
+        [InlineData(typeof(Version))]
+        [InlineData(UriPartial.Query)]
+        public void SutDoesNotEqualAnonymousObject(object other)
+        {
+            var e1 = new Mock<IReflectionElement>().Object;
+            var e2 = new Mock<IReflectionElement>().Object;
+            var e3 = new Mock<IReflectionElement>().Object;
+            var sut = new CompositeReflectionElement(e1, e2, e3);
+
+            var actual = sut.Equals(other);
+            
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void SutDoesNotEqualDifferentInstanceOfSameType()
+        {
+            // Fixture setup
+            var e1 = new Mock<IReflectionElement>().Object;
+            var e2 = new Mock<IReflectionElement>().Object;
+            var e3 = new Mock<IReflectionElement>().Object;
+            var sut = new CompositeReflectionElement(e1, e2, e3);
+
+            var e4 = new Mock<IReflectionElement>().Object;
+            var e5 = new Mock<IReflectionElement>().Object;
+            var e6 = new Mock<IReflectionElement>().Object;
+            var other = new CompositeReflectionElement(e4, e5, e6);
+
+            // Exercise system
+            var actual = sut.Equals(other);
+
+            // Verify outcome
+            Assert.False(actual);
+
+            // Teardown
+        }
+
+        [Fact]
+        public void GetHashCodeReturnsCorrectResult()
+        {
+            var e1 = new Mock<IReflectionElement>().Object;
+            var e2 = new Mock<IReflectionElement>().Object;
+            var e3 = new Mock<IReflectionElement>().Object;
+            var sut = new CompositeReflectionElement(e1, e2, e3);
+
+            var actual = sut.GetHashCode();
+
+            var expected = (from element in sut select element.GetHashCode())
+                .Aggregate((x, y) => x ^ y);
+            Assert.Equal(expected, actual);
         }
     }
 }
