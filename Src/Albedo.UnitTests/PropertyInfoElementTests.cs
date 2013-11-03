@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -74,6 +75,59 @@ namespace Ploeh.Albedo.UnitTests
             // Teardown
         }
 
+        [Fact]
+        public void SutEqualsOtherIdenticalInstance()
+        {
+            var c = TypeWithProperty.Property;
+            var sut = new PropertyInfoElement(c);
+            var other = new PropertyInfoElement(c);
+
+            var actual = sut.Equals(other);
+
+            Assert.True(actual);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("bar")]
+        [InlineData(1)]
+        [InlineData(typeof(Version))]
+        [InlineData(UriPartial.Query)]
+        public void SutDoesNotEqualAnonymousObject(object other)
+        {
+            var sut = new PropertyInfoElement(TypeWithProperty.Property);
+            var actual = sut.Equals(other);
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void SutDoesNotEqualDifferentInstanceOfSameType()
+        {
+            var sut = new PropertyInfoElement(TypeWithProperty.Property);
+            var otherProperty = TypeWithProperty.OtherProperty;
+            var other = new PropertyInfoElement(otherProperty);
+
+            var actual = sut.Equals(other);
+
+            Assert.False(actual);
+        }
+
+        [Theory]
+        [InlineData(typeof(Version))]
+        [InlineData(typeof(TheoryAttribute))]
+        [InlineData(typeof(PropertyInfoElement))]
+        public void GetHashCodeReturnsCorrectResult(Type t)
+        {
+            var c = TypeWithProperty.Property;
+            var sut = new PropertyInfoElement(c);
+
+            var actual = sut.GetHashCode();
+
+            var expected = c.GetHashCode();
+            Assert.Equal(expected, actual);
+        }
+
 
         class TypeWithProperty
         {
@@ -84,8 +138,16 @@ namespace Ploeh.Albedo.UnitTests
                     return typeof (TypeWithProperty).GetProperty("TheProperty");
                 }
             }
+            public static PropertyInfo OtherProperty
+            {
+                get
+                {
+                    return typeof(TypeWithProperty).GetProperty("TheOtherProperty");
+                }
+            }
 
             public int TheProperty { get; set; }
+            public int TheOtherProperty { get; set; }
         }
     }
 }
