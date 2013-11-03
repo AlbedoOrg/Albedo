@@ -58,6 +58,23 @@ namespace Ploeh.Albedo
             return this.GetEnumerator();
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="Object" />, is equal to
+        /// this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="Object" /> to compare with this
+        /// instance.</param>
+        /// <returns>
+        /// <see langword="true" /> if the specified <see cref="Object" /> is
+        /// equal to this instance; otherwise, <see langword="false" />.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// Two instances of <see cref="CompositeReflectionElement" /> are
+        /// considered to be equal if their <see cref="IReflectionElement" /> 
+        /// sequences are equal.
+        /// </para>
+        /// </remarks>
         public override bool Equals(object obj)
         {
             var other = obj as CompositeReflectionElement;
@@ -67,6 +84,13 @@ namespace Ploeh.Albedo
             return this.SequenceEqual(other);
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing
+        /// algorithms and data structures like a hash table. 
+        /// </returns>
         public override int GetHashCode()
         {
             return (from element in this select element.GetHashCode())
