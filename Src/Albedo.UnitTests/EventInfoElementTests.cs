@@ -78,9 +78,9 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var c = TypeWithEvent.LocalEvent;
-            var sut = new EventInfoElement(c);
-            var other = new EventInfoElement(c);
+            var ei = TypeWithEvent.LocalEvent;
+            var sut = new EventInfoElement(ei);
+            var other = new EventInfoElement(ei);
 
             var actual = sut.Equals(other);
 
@@ -119,12 +119,12 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(typeof(EventInfoElement))]
         public void GetHashCodeReturnsCorrectResult(Type t)
         {
-            var c = TypeWithEvent.LocalEvent;
-            var sut = new EventInfoElement(c);
+            var ei = TypeWithEvent.LocalEvent;
+            var sut = new EventInfoElement(ei);
 
             var actual = sut.GetHashCode();
 
-            var expected = c.GetHashCode();
+            var expected = ei.GetHashCode();
             Assert.Equal(expected, actual);
         }
 

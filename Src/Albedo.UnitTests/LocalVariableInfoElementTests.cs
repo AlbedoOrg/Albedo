@@ -78,9 +78,9 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var c = TypeWithLocalVariable.LocalVariable;
-            var sut = new LocalVariableInfoElement(c);
-            var other = new LocalVariableInfoElement(c);
+            var lvi = TypeWithLocalVariable.LocalVariable;
+            var sut = new LocalVariableInfoElement(lvi);
+            var other = new LocalVariableInfoElement(lvi);
 
             var actual = sut.Equals(other);
 
@@ -119,12 +119,12 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(typeof(LocalVariableInfoElement))]
         public void GetHashCodeReturnsCorrectResult(Type t)
         {
-            var c = TypeWithLocalVariable.LocalVariable;
-            var sut = new LocalVariableInfoElement(c);
+            var lvi = TypeWithLocalVariable.LocalVariable;
+            var sut = new LocalVariableInfoElement(lvi);
 
             var actual = sut.GetHashCode();
 
-            var expected = c.GetHashCode();
+            var expected = lvi.GetHashCode();
             Assert.Equal(expected, actual);
         }
 

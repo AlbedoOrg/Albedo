@@ -78,9 +78,9 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var c = TypeWithField.Field;
-            var sut = new FieldInfoElement(c);
-            var other = new FieldInfoElement(c);
+            var fi = TypeWithField.Field;
+            var sut = new FieldInfoElement(fi);
+            var other = new FieldInfoElement(fi);
 
             var actual = sut.Equals(other);
 
@@ -119,12 +119,12 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(typeof(FieldInfoElement))]
         public void GetHashCodeReturnsCorrectResult(Type t)
         {
-            var c = TypeWithField.Field;
-            var sut = new FieldInfoElement(c);
+            var fi = TypeWithField.Field;
+            var sut = new FieldInfoElement(fi);
 
             var actual = sut.GetHashCode();
 
-            var expected = c.GetHashCode();
+            var expected = fi.GetHashCode();
             Assert.Equal(expected, actual);
         }
 
