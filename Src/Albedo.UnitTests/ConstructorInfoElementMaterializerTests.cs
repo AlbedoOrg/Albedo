@@ -32,6 +32,13 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void MaterializeNullSourceThrows()
+        {
+            var sut = new ConstructorInfoElementMaterializer<object>();
+            Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
+        }
+
         private class SourceObjects : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()
