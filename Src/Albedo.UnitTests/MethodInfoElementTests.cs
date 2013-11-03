@@ -78,9 +78,9 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var c = TypeWithMethod.Method;
-            var sut = new MethodInfoElement(c);
-            var other = new MethodInfoElement(c);
+            var mi = TypeWithMethod.Method;
+            var sut = new MethodInfoElement(mi);
+            var other = new MethodInfoElement(mi);
 
             var actual = sut.Equals(other);
 
@@ -119,12 +119,12 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(typeof(MethodInfoElement))]
         public void GetHashCodeReturnsCorrectResult(Type t)
         {
-            var c = TypeWithMethod.Method;
-            var sut = new MethodInfoElement(c);
+            var mi = TypeWithMethod.Method;
+            var sut = new MethodInfoElement(mi);
 
             var actual = sut.GetHashCode();
 
-            var expected = c.GetHashCode();
+            var expected = mi.GetHashCode();
             Assert.Equal(expected, actual);
         }
 
