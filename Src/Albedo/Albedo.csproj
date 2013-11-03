@@ -60,6 +60,7 @@
     <Compile Include="ConstructorInfoElement.cs" />
     <Compile Include="FieldInfoElement.cs" />
     <Compile Include="IReflectionElementMaterializer.cs" />
+    <Compile Include="LocalVariableInfoElementMaterializer.cs" />
     <Compile Include="MethodInfoElement.cs" />
     <Compile Include="IReflectionVisitor.cs" />
     <Compile Include="IReflectionElement.cs" />
