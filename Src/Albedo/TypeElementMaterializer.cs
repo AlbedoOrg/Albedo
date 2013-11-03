@@ -20,7 +20,7 @@ namespace Ploeh.Albedo
         /// <param name="source">The source objects.</param>
         /// <returns>
         /// A sequence of <see cref="TypeElement" /> instances created from
-        /// a <paramref name="source" />.
+        /// <paramref name="source" />.
         /// </returns>
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source" /> is null.
