@@ -63,6 +63,7 @@
     <Compile Include="ConstructorInfoElementMaterializerTests.cs" />
     <Compile Include="EventInfoElementMaterializerTests.cs" />
     <Compile Include="EventInfoElementTests.cs" />
+    <Compile Include="FieldInfoElementMaterializerTests.cs" />
     <Compile Include="LocalVariableInfoElementMaterializerTests.cs" />
     <Compile Include="LocalVariableInfoElementTests.cs" />
     <Compile Include="NullReflectionElementTests.cs" />
