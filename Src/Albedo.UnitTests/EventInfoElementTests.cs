@@ -113,11 +113,8 @@ namespace Ploeh.Albedo.UnitTests
             Assert.False(actual);
         }
 
-        [Theory]
-        [InlineData(typeof(Version))]
-        [InlineData(typeof(TheoryAttribute))]
-        [InlineData(typeof(EventInfoElement))]
-        public void GetHashCodeReturnsCorrectResult(Type t)
+        [Fact]
+        public void GetHashCodeReturnsCorrectResult()
         {
             var ei = TypeWithEvent.LocalEvent;
             var sut = new EventInfoElement(ei);
