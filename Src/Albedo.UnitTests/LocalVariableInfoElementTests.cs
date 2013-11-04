@@ -113,11 +113,8 @@ namespace Ploeh.Albedo.UnitTests
             Assert.False(actual);
         }
 
-        [Theory]
-        [InlineData(typeof(Version))]
-        [InlineData(typeof(TheoryAttribute))]
-        [InlineData(typeof(LocalVariableInfoElement))]
-        public void GetHashCodeReturnsCorrectResult(Type t)
+        [Fact]
+        public void GetHashCodeReturnsCorrectResult()
         {
             var lvi = TypeWithLocalVariable.LocalVariable;
             var sut = new LocalVariableInfoElement(lvi);
