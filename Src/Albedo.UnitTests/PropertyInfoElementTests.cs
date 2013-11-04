@@ -113,11 +113,8 @@ namespace Ploeh.Albedo.UnitTests
             Assert.False(actual);
         }
 
-        [Theory]
-        [InlineData(typeof(Version))]
-        [InlineData(typeof(TheoryAttribute))]
-        [InlineData(typeof(PropertyInfoElement))]
-        public void GetHashCodeReturnsCorrectResult(Type t)
+        [Fact]
+        public void GetHashCodeReturnsCorrectResult()
         {
             var pi = TypeWithProperty.Property;
             var sut = new PropertyInfoElement(pi);

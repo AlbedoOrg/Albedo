@@ -113,11 +113,8 @@ namespace Ploeh.Albedo.UnitTests
             Assert.False(actual);
         }
 
-        [Theory]
-        [InlineData(typeof(Version))]
-        [InlineData(typeof(TheoryAttribute))]
-        [InlineData(typeof(ParameterInfoElement))]
-        public void GetHashCodeReturnsCorrectResult(Type t)
+        [Fact]
+        public void GetHashCodeReturnsCorrectResult()
         {
             var par = TypeWithParameter.Parameter;
             var sut = new ParameterInfoElement(par);

@@ -113,11 +113,8 @@ namespace Ploeh.Albedo.UnitTests
             Assert.False(actual);
         }
 
-        [Theory]
-        [InlineData(typeof(Version))]
-        [InlineData(typeof(TheoryAttribute))]
-        [InlineData(typeof(ConstructorInfoElement))]
-        public void GetHashCodeReturnsCorrectResult(Type t)
+        [Fact]
+        public void GetHashCodeReturnsCorrectResult()
         {
             var ci = TypeWithCtor.Ctor;
             var sut = new ConstructorInfoElement(ci);
