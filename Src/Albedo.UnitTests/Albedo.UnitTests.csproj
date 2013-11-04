@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="AssemblyElementMaterializerTests.cs" />
     <Compile Include="AssemblyElementTests.cs" />
+    <Compile Include="ParameterInfoElementMaterializerTests.cs" />
     <Compile Include="CompositeReflectionElementTests.cs" />
     <Compile Include="ConstructorInfoElementMaterializerTests.cs" />
     <Compile Include="EventInfoElementMaterializerTests.cs" />
