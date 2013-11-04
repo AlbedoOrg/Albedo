@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="AssemblyElement.cs" />
     <Compile Include="AssemblyElementMaterializer.cs" />
+    <Compile Include="ParameterInfoElementMaterializer.cs" />
     <Compile Include="ConstructorInfoElementMaterializer.cs" />
     <Compile Include="EventInfoElement.cs" />
     <Compile Include="CompositeReflectionElement.cs" />
