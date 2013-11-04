@@ -72,6 +72,7 @@
     <Compile Include="TypeElementTests.cs" />
     <Compile Include="FieldInfoElementTests.cs" />
     <Compile Include="MethodInfoElementTests.cs" />
+    <Compile Include="MethodInfoElementMaterializerTests.cs" />
     <Compile Include="ConstructorInfoElementTests.cs" />
     <Compile Include="DelegatingReflectionVisitor.cs" />
     <Compile Include="FieldsTests.cs" />
