@@ -64,6 +64,7 @@
     <Compile Include="IReflectionElementMaterializer.cs" />
     <Compile Include="LocalVariableInfoElementMaterializer.cs" />
     <Compile Include="MethodInfoElement.cs" />
+    <Compile Include="MethodInfoElementMaterializer.cs" />
     <Compile Include="IReflectionVisitor.cs" />
     <Compile Include="IReflectionElement.cs" />
     <Compile Include="Fields.cs" />
