@@ -67,6 +67,7 @@
     <Compile Include="LocalVariableInfoElementMaterializerTests.cs" />
     <Compile Include="LocalVariableInfoElementTests.cs" />
     <Compile Include="NullReflectionElementTests.cs" />
+    <Compile Include="ParameterInfoElementMaterializerTests.cs" />
     <Compile Include="ParameterInfoElementTests.cs" />
     <Compile Include="PropertyInfoElementTests.cs" />
     <Compile Include="TypeElementMaterializerTests.cs" />
