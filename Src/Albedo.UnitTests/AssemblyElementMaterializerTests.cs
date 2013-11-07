@@ -74,6 +74,15 @@ namespace Ploeh.Albedo.UnitTests
                         typeof(Version).Assembly
                     } 
                 };
+                yield return new[]
+                {
+                    new object[]
+                    {
+                        typeof(AssemblyElementTest).Assembly,
+                        2,
+                        typeof(Version).Assembly
+                    } 
+                };
             }
 
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
