@@ -7,7 +7,7 @@ using Ploeh.Albedo;
 using Xunit.Extensions;
 using System.Reflection;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Ploeh.Albedo.Refraction.UnitTests
 {
     public class EventInfoElementMaterializerTests
     {

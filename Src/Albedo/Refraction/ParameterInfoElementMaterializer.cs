@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Ploeh.Albedo
+namespace Ploeh.Albedo.Refraction
 {
     /// <summary>
     /// Creates <see cref="ParameterInfoElement" /> instances from a sequence of

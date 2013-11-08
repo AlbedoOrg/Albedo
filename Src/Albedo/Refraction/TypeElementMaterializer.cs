@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Ploeh.Albedo
+namespace Ploeh.Albedo.Refraction
 {
     /// <summary>
     /// Creates <see cref="TypeElement" /> instances from a sequence of source

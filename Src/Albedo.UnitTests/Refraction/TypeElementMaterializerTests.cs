@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using Xunit;
 using Ploeh.Albedo;
+using Ploeh.Albedo.UnitTests;
 using Xunit.Extensions;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Ploeh.Albedo.Refraction.UnitTests
 {
     public class TypeElementMaterializerTests
     {

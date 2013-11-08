@@ -6,7 +6,7 @@ using System.Reflection;
 using Xunit;
 using Xunit.Extensions;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Ploeh.Albedo.Refraction.UnitTests
 {
     public class LocalVariableInfoElementMaterializerTests
     {

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Ploeh.Albedo
+namespace Ploeh.Albedo.Refraction
 {
     /// <summary>
     /// Creates <see cref="LocalVariableInfoElement" /> instances from a sequence of
