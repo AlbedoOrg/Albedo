@@ -62,7 +62,7 @@
     <Compile Include="Refraction\EventInfoElementMaterializer.cs" />
     <Compile Include="FieldInfoElement.cs" />
     <Compile Include="Refraction\FieldInfoElementMaterializer.cs" />
-    <Compile Include="Refraction\IReflectionElementMaterializer.cs" />
+    <Compile Include="Refraction\IReflectionElementRefraction.cs" />
     <Compile Include="Refraction\LocalVariableInfoElementMaterializer.cs" />
     <Compile Include="MethodInfoElement.cs" />
     <Compile Include="Refraction\MethodInfoElementMaterializer.cs" />

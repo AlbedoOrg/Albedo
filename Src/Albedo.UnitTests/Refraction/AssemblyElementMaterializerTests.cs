@@ -14,10 +14,10 @@ namespace Ploeh.Albedo.Refraction.UnitTests
     public class AssemblyElementMaterializerTests
     {
         [Fact]
-        public void SutIsReflectionElementMaterializer()
+        public void SutIsReflectionElementRefraction()
         {
             var sut = new AssemblyElementMaterializer<object>();
-            Assert.IsAssignableFrom<IReflectionElementMaterializer<object>>(sut);
+            Assert.IsAssignableFrom<IReflectionElementRefraction<object>>(sut);
         }
 
         [Theory, ClassData(typeof(SourceObjects))]

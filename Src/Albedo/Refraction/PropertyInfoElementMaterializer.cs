@@ -10,7 +10,7 @@ namespace Ploeh.Albedo.Refraction
     /// </summary>
     /// <typeparam name="T">The type of source objects.</typeparam>
     /// <seealso cref="Materialize(IEnumerable{T})" />
-    public class PropertyInfoElementMaterializer<T> : IReflectionElementMaterializer<T>
+    public class PropertyInfoElementMaterializer<T> : IReflectionElementRefraction<T>
     {
         /// <summary>
         /// Creates <see cref="PropertyInfoElement" /> instances from a sequence
@@ -33,7 +33,7 @@ namespace Ploeh.Albedo.Refraction
         /// and returned.
         /// </para>
         /// </remarks>
-        /// <seealso cref="IReflectionElementMaterializer{T}" />
+        /// <seealso cref="IReflectionElementRefraction{T}" />
 
         public IEnumerable<IReflectionElement> Materialize(IEnumerable<T> source)
         {

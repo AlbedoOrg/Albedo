@@ -28,7 +28,7 @@ namespace Ploeh.Albedo.Refraction
     /// </para>
     /// </remarks>
     /// <seealso cref="Materialize(IEnumerable{T})" />
-    public interface IReflectionElementMaterializer<T>
+    public interface IReflectionElementRefraction<T>
     {
         /// <summary>
         /// Creates a sequence of <see cref="IReflectionElement" /> instances
@@ -60,7 +60,7 @@ namespace Ploeh.Albedo.Refraction
         /// add new items in the output sequence.
         /// </para>
         /// </remarks>
-        /// <seealso cref="IReflectionElementMaterializer{T}" />
+        /// <seealso cref="IReflectionElementRefraction{T}" />
         IEnumerable<IReflectionElement> Materialize(IEnumerable<T> source);
     }
 }
