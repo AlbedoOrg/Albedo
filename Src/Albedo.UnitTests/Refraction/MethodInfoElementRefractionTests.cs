@@ -9,19 +9,19 @@ using Xunit.Extensions;
 
 namespace Ploeh.Albedo.Refraction.UnitTests
 {
-    public class MethodInfoElementMaterializerTests
+    public class MethodInfoElementRefractionTests
     {
         [Fact]
         public void SutIsReflectionElementRefraction()
         {
-            var sut = new MethodInfoElementMaterializer<object>();
+            var sut = new MethodInfoElementRefraction<object>();
             Assert.IsAssignableFrom<IReflectionElementRefraction<object>>(sut);
         }
 
         [Theory, ClassData(typeof(SourceObjects))]
         public void MaterializeObjectsReturnsCorrectResult(object[] objects)
         {
-            var sut = new MethodInfoElementMaterializer<object>();
+            var sut = new MethodInfoElementRefraction<object>();
 
             var actual = sut.Materialize(objects);
 
@@ -35,7 +35,7 @@ namespace Ploeh.Albedo.Refraction.UnitTests
          [Fact]
          public void MaterializeNullSourceThrows()
          {
-             var sut = new MethodInfoElementMaterializer<object>();
+             var sut = new MethodInfoElementRefraction<object>();
              Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
          }
 

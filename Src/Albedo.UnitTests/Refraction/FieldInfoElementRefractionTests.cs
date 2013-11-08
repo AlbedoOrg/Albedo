@@ -9,25 +9,25 @@ using System.Reflection;
 
 namespace Ploeh.Albedo.Refraction.UnitTests
 {
-    public class ConstructorInfoElementMaterializerTests
+    public class FieldInfoElementRefractionTests
     {
         [Fact]
         public void SutIsReflectionElementRefraction()
         {
-            var sut = new ConstructorInfoElementMaterializer<object>();
+            var sut = new FieldInfoElementRefraction<object>();
             Assert.IsAssignableFrom<IReflectionElementRefraction<object>>(sut);
         }
 
         [Theory, ClassData(typeof(SourceObjects))]
         public void MaterializeObjectsReturnsCorrectResult(object[] objects)
         {
-            var sut = new ConstructorInfoElementMaterializer<object>();
+            var sut = new FieldInfoElementRefraction<object>();
 
             var actual = sut.Materialize(objects);
 
             var expected = objects
-                .OfType<ConstructorInfo>()
-                .Select(ci => new ConstructorInfoElement(ci))
+                .OfType<FieldInfo>()
+                .Select(fi => new FieldInfoElement(fi))
                 .Cast<IReflectionElement>();
             Assert.Equal(expected, actual);
         }
@@ -35,7 +35,7 @@ namespace Ploeh.Albedo.Refraction.UnitTests
         [Fact]
         public void MaterializeNullSourceThrows()
         {
-            var sut = new ConstructorInfoElementMaterializer<object>();
+            var sut = new FieldInfoElementRefraction<object>();
             Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
         }
 
@@ -47,25 +47,21 @@ namespace Ploeh.Albedo.Refraction.UnitTests
                 {
                     new object[]
                     {
-                        this.GetType().GetConstructors().First() 
-                    } 
+                        typeof(int).GetFields(BindingFlags.Static | BindingFlags.Public).First()
+                    }
+                };
+                yield return new[]
+                {
+                    typeof(int).GetFields(BindingFlags.Static | BindingFlags.Public).Take(2).ToArray()
                 };
                 yield return new[]
                 {
                     new object[]
                     {
-                        this.GetType().GetConstructors().First(),
-                        typeof(Version).GetConstructors().First()
-                    } 
-                };
-                yield return new[]
-                {
-                    new object[]
-                    {
-                        this.GetType().GetConstructors().First(),
-                        typeof(Version),
-                        typeof(Version).GetConstructors().First()
-                    } 
+                        typeof(int).GetFields(BindingFlags.Static | BindingFlags.Public).First(),
+                        "",
+                        typeof(int).GetFields(BindingFlags.Static | BindingFlags.Public).Skip(1).First()
+                    }
                 };
             }
 
@@ -74,6 +70,5 @@ namespace Ploeh.Albedo.Refraction.UnitTests
                 return this.GetEnumerator();
             }
         }
-
     }
 }

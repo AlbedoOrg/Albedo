@@ -9,12 +9,12 @@ using Xunit.Extensions;
 
 namespace Ploeh.Albedo.Refraction.UnitTests
 {
-    public class TypeElementMaterializerTests
+    public class TypeElementRefractionTests
     {
         [Fact]
         public void SutIsReflectionElementRefraction()
         {
-            var sut = new TypeElementMaterializer<object>();
+            var sut = new TypeElementRefraction<object>();
             Assert.IsAssignableFrom<IReflectionElementRefraction<object>>(sut);
         }
 
@@ -26,7 +26,7 @@ namespace Ploeh.Albedo.Refraction.UnitTests
         [InlineData(new object[] { new object[] { typeof(AssemblyElement), "", typeof(Version) } })]
         public void MaterializeTypesReturnsCorrectResult(object[] types)
         {
-            var sut = new TypeElementMaterializer<object>();
+            var sut = new TypeElementRefraction<object>();
 
             var actual = sut.Materialize(types);
 
@@ -40,7 +40,7 @@ namespace Ploeh.Albedo.Refraction.UnitTests
         [Fact]
         public void MaterializeNullSourceThrows()
         {
-            var sut = new TypeElementMaterializer<object>();
+            var sut = new TypeElementRefraction<object>();
             Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
         }
     }

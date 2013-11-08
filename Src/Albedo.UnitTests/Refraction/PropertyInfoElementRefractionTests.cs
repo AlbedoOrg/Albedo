@@ -1,66 +1,70 @@
-﻿using System;
+﻿using Ploeh.Albedo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Xunit;
-using Ploeh.Albedo;
 using Xunit.Extensions;
-using System.Reflection;
 
 namespace Ploeh.Albedo.Refraction.UnitTests
 {
-    public class FieldInfoElementMaterializerTests
+    public class PropertyInfoElementRefractionTests
     {
         [Fact]
         public void SutIsReflectionElementRefraction()
         {
-            var sut = new FieldInfoElementMaterializer<object>();
+            var sut = new PropertyInfoElementRefraction<object>();
             Assert.IsAssignableFrom<IReflectionElementRefraction<object>>(sut);
         }
 
         [Theory, ClassData(typeof(SourceObjects))]
         public void MaterializeObjectsReturnsCorrectResult(object[] objects)
         {
-            var sut = new FieldInfoElementMaterializer<object>();
+            var sut = new PropertyInfoElementRefraction<object>();
 
             var actual = sut.Materialize(objects);
 
             var expected = objects
-                .OfType<FieldInfo>()
-                .Select(fi => new FieldInfoElement(fi))
+                .OfType<PropertyInfo>()
+                .Select(mi => new PropertyInfoElement(mi))
                 .Cast<IReflectionElement>();
             Assert.Equal(expected, actual);
         }
 
-        [Fact]
-        public void MaterializeNullSourceThrows()
-        {
-            var sut = new FieldInfoElementMaterializer<object>();
-            Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
-        }
+         [Fact]
+         public void MaterializeNullSourceThrows()
+         {
+             var sut = new PropertyInfoElementRefraction<object>();
+             Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
+         }
 
         private class SourceObjects : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()
             {
-                yield return new[]
+                yield return new object[]
                 {
                     new object[]
                     {
-                        typeof(int).GetFields(BindingFlags.Static | BindingFlags.Public).First()
+                        new Properties<Version>().Select(p => p.Major)
                     }
                 };
-                yield return new[]
-                {
-                    typeof(int).GetFields(BindingFlags.Static | BindingFlags.Public).Take(2).ToArray()
-                };
-                yield return new[]
+                yield return new object[]
                 {
                     new object[]
                     {
-                        typeof(int).GetFields(BindingFlags.Static | BindingFlags.Public).First(),
+                        new Properties<Version>().Select(p => p.Major),
+                        new Properties<Version>().Select(p => p.Minor)
+                    }
+                };
+                yield return new object[]
+                {
+                    new object[]
+                    {
+                        new Properties<Version>().Select(p => p.Major),
                         "",
-                        typeof(int).GetFields(BindingFlags.Static | BindingFlags.Public).Skip(1).First()
+                        new Properties<Version>().Select(p => p.Minor)
                     }
                 };
             }

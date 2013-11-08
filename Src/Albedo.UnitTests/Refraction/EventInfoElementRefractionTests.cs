@@ -4,33 +4,30 @@ using System.Linq;
 using System.Text;
 using Xunit;
 using Ploeh.Albedo;
-using Ploeh.Albedo.UnitTests;
 using Xunit.Extensions;
-using Moq;
 using System.Reflection;
 
 namespace Ploeh.Albedo.Refraction.UnitTests
 {
-    public class AssemblyElementMaterializerTests
+    public class EventInfoElementRefractionTests
     {
         [Fact]
         public void SutIsReflectionElementRefraction()
         {
-            var sut = new AssemblyElementMaterializer<object>();
+            var sut = new EventInfoElementRefraction<object>();
             Assert.IsAssignableFrom<IReflectionElementRefraction<object>>(sut);
         }
 
         [Theory, ClassData(typeof(SourceObjects))]
-        public void MaterializeAssembliesReturnsCorrectResult(
-            object[] objects)
+        public void MaterializeObjectsReturnsCorrectResult(object[] objects)
         {
-            var sut = new AssemblyElementMaterializer<object>();
+            var sut = new EventInfoElementRefraction<object>();
 
             var actual = sut.Materialize(objects);
 
             var expected = objects
-                .OfType<Assembly>()
-                .Select(a => new AssemblyElement(a))
+                .OfType<EventInfo>()
+                .Select(ei => new EventInfoElement(ei))
                 .Cast<IReflectionElement>();
             Assert.Equal(expected, actual);
         }
@@ -38,7 +35,7 @@ namespace Ploeh.Albedo.Refraction.UnitTests
         [Fact]
         public void MaterializeNullSourceThrows()
         {
-            var sut = new AssemblyElementMaterializer<object>();
+            var sut = new EventInfoElementRefraction<object>();
             Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
         }
 
@@ -50,39 +47,21 @@ namespace Ploeh.Albedo.Refraction.UnitTests
                 {
                     new object[]
                     {
-                        typeof(Version).Assembly
-                    } 
+                        typeof(AppDomain).GetEvents().First()
+                    }
+                };
+                yield return new[]
+                {
+                    typeof(AppDomain).GetEvents().Take(2).ToArray()
                 };
                 yield return new[]
                 {
                     new object[]
                     {
-                        typeof(AssemblyElement).Assembly
-                    } 
-                };
-                yield return new[]
-                {
-                    new object[]
-                    {
-                        typeof(AssemblyElementTest).Assembly
-                    } 
-                };
-                yield return new[]
-                {
-                    new object[]
-                    {
-                        typeof(AssemblyElementTest).Assembly,
-                        typeof(Version).Assembly
-                    } 
-                };
-                yield return new[]
-                {
-                    new object[]
-                    {
-                        typeof(AssemblyElementTest).Assembly,
-                        2,
-                        typeof(Version).Assembly
-                    } 
+                        typeof(AppDomain).GetEvents().First(),
+                        "",
+                        typeof(AppDomain).GetEvents().Skip(1).First(),
+                    }
                 };
             }
 

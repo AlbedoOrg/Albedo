@@ -8,12 +8,12 @@ using Xunit.Extensions;
 
 namespace Ploeh.Albedo.Refraction.UnitTests
 {
-    public class LocalVariableInfoElementMaterializerTests
+    public class LocalVariableInfoElementRefractionTests
     {
         [Fact]
         public void SutIsReflectionElementRefraction()
         {
-            var sut = new LocalVariableInfoElementMaterializer<object>();
+            var sut = new LocalVariableInfoElementRefraction<object>();
             Assert.IsAssignableFrom<IReflectionElementRefraction<object>>(sut);
         }
 
@@ -21,7 +21,7 @@ namespace Ploeh.Albedo.Refraction.UnitTests
         [ClassData(typeof(MaterializeSources))]
         public void MaterializeReturnsCorrectResult(object[] source)
         {
-            var sut = new LocalVariableInfoElementMaterializer<object>();
+            var sut = new LocalVariableInfoElementRefraction<object>();
 
             var actual = sut.Materialize(source);
 
@@ -35,7 +35,7 @@ namespace Ploeh.Albedo.Refraction.UnitTests
         [Fact]
         public void MaterializeNullSourceThrows()
         {
-            var sut = new LocalVariableInfoElementMaterializer<object>();
+            var sut = new LocalVariableInfoElementRefraction<object>();
             Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
         }
 

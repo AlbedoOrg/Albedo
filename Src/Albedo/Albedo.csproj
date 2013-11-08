@@ -54,18 +54,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyElement.cs" />
-    <Compile Include="Refraction\AssemblyElementMaterializer.cs" />
-    <Compile Include="Refraction\ConstructorInfoElementMaterializer.cs" />
+    <Compile Include="Refraction\AssemblyElementRefraction.cs" />
+    <Compile Include="Refraction\ConstructorInfoElementRefraction.cs" />
     <Compile Include="EventInfoElement.cs" />
     <Compile Include="CompositeReflectionElement.cs" />
     <Compile Include="ConstructorInfoElement.cs" />
-    <Compile Include="Refraction\EventInfoElementMaterializer.cs" />
+    <Compile Include="Refraction\EventInfoElementRefraction.cs" />
     <Compile Include="FieldInfoElement.cs" />
-    <Compile Include="Refraction\FieldInfoElementMaterializer.cs" />
+    <Compile Include="Refraction\FieldInfoElementRefraction.cs" />
     <Compile Include="Refraction\IReflectionElementRefraction.cs" />
-    <Compile Include="Refraction\LocalVariableInfoElementMaterializer.cs" />
+    <Compile Include="Refraction\LocalVariableInfoElementRefraction.cs" />
     <Compile Include="MethodInfoElement.cs" />
-    <Compile Include="Refraction\MethodInfoElementMaterializer.cs" />
+    <Compile Include="Refraction\MethodInfoElementRefraction.cs" />
     <Compile Include="IReflectionVisitor.cs" />
     <Compile Include="IReflectionElement.cs" />
     <Compile Include="Fields.cs" />
@@ -73,13 +73,13 @@
     <Compile Include="LocalVariableInfoElement.cs" />
     <Compile Include="NullReflectionElement.cs" />
     <Compile Include="ParameterInfoElement.cs" />
-    <Compile Include="Refraction\ParameterInfoElementMaterializer.cs" />
+    <Compile Include="Refraction\ParameterInfoElementRefraction.cs" />
     <Compile Include="Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfoElement.cs" />
-    <Compile Include="Refraction\PropertyInfoElementMaterializer.cs" />
+    <Compile Include="Refraction\PropertyInfoElementRefraction.cs" />
     <Compile Include="TypeElement.cs" />
-    <Compile Include="Refraction\TypeElementMaterializer.cs" />
+    <Compile Include="Refraction\TypeElementRefraction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Albedo.ruleset" />
