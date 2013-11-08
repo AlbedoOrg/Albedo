@@ -57,25 +57,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyElementMaterializerTests.cs" />
+    <Compile Include="Refraction\AssemblyElementMaterializerTests.cs" />
     <Compile Include="AssemblyElementTests.cs" />
     <Compile Include="CompositeReflectionElementTests.cs" />
-    <Compile Include="ConstructorInfoElementMaterializerTests.cs" />
-    <Compile Include="EventInfoElementMaterializerTests.cs" />
+    <Compile Include="Refraction\ConstructorInfoElementMaterializerTests.cs" />
+    <Compile Include="Refraction\EventInfoElementMaterializerTests.cs" />
     <Compile Include="EventInfoElementTests.cs" />
-    <Compile Include="FieldInfoElementMaterializerTests.cs" />
-    <Compile Include="LocalVariableInfoElementMaterializerTests.cs" />
+    <Compile Include="Refraction\FieldInfoElementMaterializerTests.cs" />
+    <Compile Include="Refraction\LocalVariableInfoElementMaterializerTests.cs" />
     <Compile Include="LocalVariableInfoElementTests.cs" />
     <Compile Include="NullReflectionElementTests.cs" />
-    <Compile Include="ParameterInfoElementMaterializerTests.cs" />
+    <Compile Include="Refraction\ParameterInfoElementMaterializerTests.cs" />
     <Compile Include="ParameterInfoElementTests.cs" />
     <Compile Include="PropertyInfoElementTests.cs" />
-    <Compile Include="TypeElementMaterializerTests.cs" />
+    <Compile Include="Refraction\TypeElementMaterializerTests.cs" />
     <Compile Include="TypeElementTests.cs" />
     <Compile Include="FieldInfoElementTests.cs" />
     <Compile Include="MethodInfoElementTests.cs" />
-    <Compile Include="MethodInfoElementMaterializerTests.cs" />
-    <Compile Include="PropertyInfoElementMaterializerTests.cs" />
+    <Compile Include="Refraction\MethodInfoElementMaterializerTests.cs" />
+    <Compile Include="Refraction\PropertyInfoElementMaterializerTests.cs" />
     <Compile Include="ConstructorInfoElementTests.cs" />
     <Compile Include="DelegatingReflectionVisitor.cs" />
     <Compile Include="FieldsTests.cs" />
