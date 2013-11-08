@@ -13,7 +13,7 @@ namespace Ploeh.Albedo.Refraction
     /// <remarks>
     /// <para>
     /// The purpose of the
-    /// <strong>IReflectionElementMaterializer&lt;T&gt;</strong> interface is
+    /// <strong>IReflectionElementRefraction&lt;T&gt;</strong> interface is
     /// to enable clients to easily transform one or more source objects into
     /// <see cref="IReflectionElement" /> instances. A common use case is to
     /// use implementations of this interface to transform one or more
@@ -27,7 +27,7 @@ namespace Ploeh.Albedo.Refraction
     /// <strong>IReflectionElement</strong> Adapter.
     /// </para>
     /// </remarks>
-    /// <seealso cref="Materialize(IEnumerable{T})" />
+    /// <seealso cref="Refract(IEnumerable{T})" />
     public interface IReflectionElementRefraction<T>
     {
         /// <summary>
@@ -44,14 +44,14 @@ namespace Ploeh.Albedo.Refraction
         /// This method doesn't guarantee that the returned sequence has the
         /// same number of items as <paramref name="source" />; in fact, an
         /// implementation is allowed to return an empty sequence if no items
-        /// in the input sequence could be materialized.
+        /// in the input sequence could be refracted.
         /// </para>
         /// <para>
         /// Note to implementers:
         /// </para>
         /// <para>
         /// It's perfectly fine to return an empty sequence if no items in
-        /// <paramref name="source" /> can be materialized. However,
+        /// <paramref name="source" /> can be refracted. However,
         /// <see langword="null" /> is never considered an appropriate return
         /// value.
         /// </para>
@@ -61,6 +61,6 @@ namespace Ploeh.Albedo.Refraction
         /// </para>
         /// </remarks>
         /// <seealso cref="IReflectionElementRefraction{T}" />
-        IEnumerable<IReflectionElement> Materialize(IEnumerable<T> source);
+        IEnumerable<IReflectionElement> Refract(IEnumerable<T> source);
     }
 }

@@ -18,12 +18,12 @@ namespace Ploeh.Albedo.Refraction.UnitTests
         }
 
         [Theory]
-        [ClassData(typeof(MaterializeSources))]
-        public void MaterializeReturnsCorrectResult(object[] source)
+        [ClassData(typeof(SourceObjects))]
+        public void RefractReturnsCorrectResult(object[] source)
         {
             var sut = new LocalVariableInfoElementRefraction<object>();
 
-            var actual = sut.Materialize(source);
+            var actual = sut.Refract(source);
 
             var expected = source
                 .OfType<LocalVariableInfo>()
@@ -33,13 +33,13 @@ namespace Ploeh.Albedo.Refraction.UnitTests
         }
 
         [Fact]
-        public void MaterializeNullSourceThrows()
+        public void RefractNullSourceThrows()
         {
             var sut = new LocalVariableInfoElementRefraction<object>();
-            Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
+            Assert.Throws<ArgumentNullException>(() => sut.Refract(null));
         }
 
-        private class MaterializeSources : IEnumerable<object[]>
+        private class SourceObjects : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()
             {

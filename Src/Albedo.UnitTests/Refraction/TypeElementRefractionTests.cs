@@ -24,11 +24,11 @@ namespace Ploeh.Albedo.Refraction.UnitTests
         [InlineData(new object[] { new[] { typeof(AssemblyElementTest) } })]
         [InlineData(new object[] { new[] { typeof(AssemblyElement), typeof(Version) } })]
         [InlineData(new object[] { new object[] { typeof(AssemblyElement), "", typeof(Version) } })]
-        public void MaterializeTypesReturnsCorrectResult(object[] types)
+        public void RefractTypesReturnsCorrectResult(object[] types)
         {
             var sut = new TypeElementRefraction<object>();
 
-            var actual = sut.Materialize(types);
+            var actual = sut.Refract(types);
 
             var expected = types
                 .OfType<Type>()
@@ -38,10 +38,10 @@ namespace Ploeh.Albedo.Refraction.UnitTests
         }
 
         [Fact]
-        public void MaterializeNullSourceThrows()
+        public void RefractNullSourceThrows()
         {
             var sut = new TypeElementRefraction<object>();
-            Assert.Throws<ArgumentNullException>(() => sut.Materialize(null));
+            Assert.Throws<ArgumentNullException>(() => sut.Refract(null));
         }
     }
 }

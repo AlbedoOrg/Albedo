@@ -9,7 +9,7 @@ namespace Ploeh.Albedo.Refraction
     /// source objects.
     /// </summary>
     /// <typeparam name="T">The type of source objects.</typeparam>
-    /// <seealso cref="Materialize(IEnumerable{T})" />
+    /// <seealso cref="Refract(IEnumerable{T})" />
     public class PropertyInfoElementRefraction<T> : IReflectionElementRefraction<T>
     {
         /// <summary>
@@ -35,7 +35,7 @@ namespace Ploeh.Albedo.Refraction
         /// </remarks>
         /// <seealso cref="IReflectionElementRefraction{T}" />
 
-        public IEnumerable<IReflectionElement> Materialize(IEnumerable<T> source)
+        public IEnumerable<IReflectionElement> Refract(IEnumerable<T> source)
         {
             return source
                 .OfType<PropertyInfo>()
