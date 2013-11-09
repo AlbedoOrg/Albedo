@@ -8,6 +8,14 @@ namespace Ploeh.Albedo.Refraction
     public class CompositeReflectionElementRefraction<T> : 
         IReflectionElementRefraction<T>, IEnumerable<IReflectionElementRefraction<T>>
     {
+        private readonly IEnumerable<IReflectionElementRefraction<T>> refractions;
+
+        public CompositeReflectionElementRefraction(
+            params IReflectionElementRefraction<T>[] refractions)
+        {
+            this.refractions = refractions;
+        }
+
         public IEnumerable<IReflectionElement> Refract(IEnumerable<T> source)
         {
             throw new NotImplementedException();
@@ -15,12 +23,12 @@ namespace Ploeh.Albedo.Refraction
 
         public IEnumerator<IReflectionElementRefraction<T>> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.refractions.GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.GetEnumerator();
         }
     }
 }
