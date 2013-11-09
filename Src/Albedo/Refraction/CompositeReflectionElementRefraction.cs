@@ -13,6 +13,9 @@ namespace Ploeh.Albedo.Refraction
         public CompositeReflectionElementRefraction(
             params IReflectionElementRefraction<T>[] refractions)
         {
+            if (refractions == null)
+                throw new ArgumentNullException("refractions");
+
             this.refractions = refractions;
         }
 

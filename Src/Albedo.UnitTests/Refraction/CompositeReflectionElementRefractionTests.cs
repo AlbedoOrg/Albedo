@@ -40,5 +40,12 @@ namespace Ploeh.Albedo.Refraction.UnitTests
             Assert.True(
                 expected.Cast<object>().SequenceEqual(sut.OfType<object>()));
         }
+
+        [Fact]
+        public void ConstructorWithNullArrayThrows()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => new CompositeReflectionElementRefraction<object>(null));
+        }
     }
 }
