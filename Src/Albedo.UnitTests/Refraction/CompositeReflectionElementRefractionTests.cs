@@ -15,5 +15,12 @@ namespace Ploeh.Albedo.Refraction.UnitTests
             var sut = new CompositeReflectionElementRefraction<object>();
             Assert.IsAssignableFrom<IReflectionElementRefraction<object>>(sut);
         }
+
+        [Fact]
+        public void SutIsIteratorOfRefractions()
+        {
+            var sut = new CompositeReflectionElementRefraction<object>();
+            Assert.IsAssignableFrom<IEnumerable<IReflectionElementRefraction<object>>>(sut);
+        }
     }
 }
