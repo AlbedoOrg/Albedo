@@ -16,6 +16,7 @@ namespace Ploeh.Albedo.Refraction
     /// This is a standard implementation of the Composite design pattern.
     /// </para>
     /// </remarks>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "This is not a 'collection', it's an Iterator. Reported as a CA bug at https://connect.microsoft.com/VisualStudio/feedback/details/771480/code-analysis-rule-about-ienumerable-leads-to-misleading-naming.")]
     public class CompositeReflectionElementRefraction<T> : 
         IReflectionElementRefraction<T>,
         IEnumerable<IReflectionElementRefraction<T>>
