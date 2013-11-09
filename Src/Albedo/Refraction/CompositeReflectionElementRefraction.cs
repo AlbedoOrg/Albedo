@@ -21,6 +21,9 @@ namespace Ploeh.Albedo.Refraction
 
         public IEnumerable<IReflectionElement> Refract(IEnumerable<T> source)
         {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
             return from r in this.refractions
                    from re in r.Refract(source)
                    select re;

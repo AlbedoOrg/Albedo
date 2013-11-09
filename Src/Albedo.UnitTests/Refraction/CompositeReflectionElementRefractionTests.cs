@@ -73,5 +73,12 @@ namespace Ploeh.Albedo.Refraction.UnitTests
             Assert.Equal(expected, actual);
             // Teardown
         }
+
+        [Fact]
+        public void RefractNullThrows()
+        {
+            var sut = new CompositeReflectionElementRefraction<object>();
+            Assert.Throws<ArgumentNullException>(() => sut.Refract(null));
+        }
     }
 }
