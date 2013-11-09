@@ -21,7 +21,9 @@ namespace Ploeh.Albedo.Refraction
 
         public IEnumerable<IReflectionElement> Refract(IEnumerable<T> source)
         {
-            throw new NotImplementedException();
+            return from r in this.refractions
+                   from re in r.Refract(source)
+                   select re;
         }
 
         public IEnumerator<IReflectionElementRefraction<T>> GetEnumerator()

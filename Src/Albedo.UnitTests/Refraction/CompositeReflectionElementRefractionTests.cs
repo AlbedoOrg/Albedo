@@ -47,5 +47,31 @@ namespace Ploeh.Albedo.Refraction.UnitTests
             Assert.Throws<ArgumentNullException>(
                 () => new CompositeReflectionElementRefraction<object>(null));
         }
+
+        [Fact]
+        public void RefractReturnsCorrectResult()
+        {
+            // Fixture setup
+            var source = Enumerable.Range(1, 4).ToArray();
+            var expected = Enumerable
+                .Range(1, 10)
+                .Select(_ => new Mock<IReflectionElement>().Object)
+                .ToArray();
+            var refractionStubs = Enumerable
+                .Range(1, 3)
+                .Select(_ => new Mock<IReflectionElementRefraction<int>>())
+                .ToArray();
+            refractionStubs[0].Setup(r => r.Refract(source)).Returns(expected.Take(4));
+            refractionStubs[1].Setup(r => r.Refract(source)).Returns(expected.Skip(4).Take(2));
+            refractionStubs[2].Setup(r => r.Refract(source)).Returns(expected.Skip(6).Take(4));
+
+            var sut = new CompositeReflectionElementRefraction<int>(
+                refractionStubs.Select(td => td.Object).ToArray());
+            // Exercise system
+            var actual = sut.Refract(source);
+            // Verify outcome
+            Assert.Equal(expected, actual);
+            // Teardown
+        }
     }
 }
