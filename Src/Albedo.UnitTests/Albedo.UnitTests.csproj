@@ -62,6 +62,7 @@
     <Compile Include="CompositeReflectionElementTests.cs" />
     <Compile Include="Refraction\CompositeReflectionElementRefractionTests.cs" />
     <Compile Include="Refraction\ConstructorInfoElementRefractionTests.cs" />
+    <Compile Include="Refraction\ConversionsTests.cs" />
     <Compile Include="Refraction\EventInfoElementRefractionTests.cs" />
     <Compile Include="EventInfoElementTests.cs" />
     <Compile Include="Refraction\FieldInfoElementRefractionTests.cs" />
