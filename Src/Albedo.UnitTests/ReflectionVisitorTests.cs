@@ -48,7 +48,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             var sut = new ReflectionVisitor();
             var fieldInfoElement =
-                new FieldInfoElement(Dummy.Field);
+                new FieldInfoElement(new Dummy().Field);
 
             var actual = sut.Visit(fieldInfoElement);
 
@@ -61,7 +61,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             var sut = new ReflectionVisitor();
             var methodInfoElement =
-                new MethodInfoElement(Dummy.Method);
+                new MethodInfoElement(new Dummy().Method);
 
             var actual = sut.Visit(methodInfoElement);
 
@@ -74,7 +74,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             var sut = new ReflectionVisitor();
             var parameterInfoElement =
-                new ParameterInfoElement(Dummy.Parameter);
+                new ParameterInfoElement(new Dummy().Parameter);
 
             var actual = sut.Visit(parameterInfoElement);
 
@@ -92,29 +92,30 @@ namespace Ploeh.Albedo.UnitTests
 
         private class Dummy
         {
-            internal static FieldInfo Field
+            internal FieldInfo Field
             {
                 get
                 {
-                    return typeof(Dummy).GetFields(
+                    return this.GetType().GetFields(
                         BindingFlags.NonPublic | BindingFlags.Instance)[0];
                 }
             }
 
-            internal static MethodInfo Method
+            internal MethodInfo Method
             {
                 get
                 {
-                    return typeof(Dummy).GetMethods(
+                    return this.GetType().GetMethods(
                         BindingFlags.NonPublic | BindingFlags.Instance)[0];
                 }
             }
 
-            internal static ParameterInfo Parameter
+            internal ParameterInfo Parameter
             {
                 get
                 {
-                    return typeof(Dummy)
+                    return this
+                        .GetType()
                         .GetMethods(
                             BindingFlags.NonPublic | BindingFlags.Instance)
                         .SelectMany(x => x.GetParameters())
@@ -122,13 +123,13 @@ namespace Ploeh.Albedo.UnitTests
                 }
             }
 
-            private int i = 123;
+            private int anonymousField = 123;
 
-            private void M() 
+            private void AnonymousMethod() 
             {
             }
 
-            private void M(object o) 
+            private void AnonymousMethod(object o) 
             {
             }
         }
