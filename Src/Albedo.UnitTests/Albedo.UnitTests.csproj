@@ -71,6 +71,7 @@
     <Compile Include="Refraction\ParameterInfoElementRefractionTests.cs" />
     <Compile Include="ParameterInfoElementTests.cs" />
     <Compile Include="PropertyInfoElementTests.cs" />
+    <Compile Include="Refraction\ReflectionElementRefractionTests.cs" />
     <Compile Include="Refraction\TypeElementRefractionTests.cs" />
     <Compile Include="TypeElementTests.cs" />
     <Compile Include="FieldInfoElementTests.cs" />
