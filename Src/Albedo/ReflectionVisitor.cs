@@ -9,9 +9,10 @@ namespace Ploeh.Albedo
     {
         public abstract T Value { get; }
 
-        public virtual IReflectionVisitor<T> Visit(AssemblyElement assemblyElement)
+        public virtual IReflectionVisitor<T> Visit(
+            AssemblyElement assemblyElement)
         {
-            throw new NotImplementedException();
+            return this;
         }
 
         public virtual IReflectionVisitor<T> Visit(ConstructorInfoElement constructorInfoElement)

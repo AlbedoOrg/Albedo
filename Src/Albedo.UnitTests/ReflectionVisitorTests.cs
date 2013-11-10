@@ -15,6 +15,19 @@ namespace Ploeh.Albedo.UnitTests
             Assert.IsAssignableFrom<IReflectionVisitor<T>>(sut);
         }
 
+        [Fact]
+        public void VisitAssemblyElementReturnsCorrectResult()
+        {
+            var sut = new ReflectionVisitor();
+            var assemblyElement =
+                new AssemblyElement(this.GetType().Assembly);
+
+            var actual = sut.Visit(assemblyElement);
+
+            var expected = sut;
+            Assert.Same(expected, actual);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
