@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Xunit;
 
@@ -42,11 +43,38 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
         }
 
+        [Fact]
+        public void VisitFieldInfoElementReturnsCorrectResult()
+        {
+            var sut = new ReflectionVisitor();
+            var fieldInfoElement =
+                new FieldInfoElement(Dummy.Field);
+
+            var actual = sut.Visit(fieldInfoElement);
+
+            var expected = sut;
+            Assert.Same(expected, actual);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
             {
                 get { throw new NotImplementedException(); }
+            }
+        }
+
+        private class Dummy
+        {
+            private int field = 123;
+
+            internal static FieldInfo Field
+            {
+                get
+                {
+                    return typeof(Dummy).GetFields(
+                        BindingFlags.NonPublic | BindingFlags.Instance)[0];
+                }
             }
         }
     }
