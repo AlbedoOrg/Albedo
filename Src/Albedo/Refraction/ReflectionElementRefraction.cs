@@ -9,7 +9,7 @@ namespace Ploeh.Albedo.Refraction
     {
         public IEnumerable<IReflectionElement> Refract(IEnumerable<T> source)
         {
-            throw new NotImplementedException();
+            return source.OfType<IReflectionElement>();
         }
     }
 }
