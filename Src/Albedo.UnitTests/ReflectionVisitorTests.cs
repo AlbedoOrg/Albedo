@@ -69,6 +69,19 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
         }
 
+        [Fact]
+        public void VisitParameterInfoElementReturnsCorrectResult()
+        {
+            var sut = new ReflectionVisitor();
+            var parameterInfoElement =
+                new ParameterInfoElement(Dummy.Parameter);
+
+            var actual = sut.Visit(parameterInfoElement);
+
+            var expected = sut;
+            Assert.Same(expected, actual);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
@@ -97,9 +110,25 @@ namespace Ploeh.Albedo.UnitTests
                 }
             }
 
+            internal static ParameterInfo Parameter
+            {
+                get
+                {
+                    return typeof(Dummy)
+                        .GetMethods(
+                            BindingFlags.NonPublic | BindingFlags.Instance)
+                        .SelectMany(x => x.GetParameters())
+                        .Single();
+                }
+            }
+
             private int i = 123;
 
             private void M() 
+            {
+            }
+
+            private void M(object o) 
             {
             }
         }
