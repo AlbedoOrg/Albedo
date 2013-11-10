@@ -24,14 +24,21 @@ namespace Ploeh.Albedo.Refraction
         /// <see cref="NullReflectionElement" />.
         /// </returns>
         /// <remarks>
+        /// <para>
         /// This method is guaranteed to return an
         /// <see cref="IReflectionElement" /> instance. However, if
         /// <paramref name="source" /> can't properly be adapted, a
         /// <see cref="NullReflectionElement" /> is returned.
+        /// </para>
+        /// <para>
+        /// For a stricter converion, you can use
+        /// <see cref="ToReflectionElement{T}(T)" />.
+        /// </para>
         /// </remarks>
         /// <exception cref="System.ArgumentNullException">
         /// <paramref name="source" /> is null.
         /// </exception>
+        /// <seealso cref="ToReflectionElement{T}(T)" />
         public static IReflectionElement AsReflectionElement<T>(this T source)
         {
             if (source == null)
@@ -53,6 +60,39 @@ namespace Ploeh.Albedo.Refraction
                 .Single();
         }
 
+        /// <summary>
+        /// Converts an object to an <see cref="IReflectionElement" />
+        /// instance. This method is guaranteed to handle only proper
+        /// Reflection objects.
+        /// </summary>
+        /// <typeparam name="T">The type of the object to convert.</typeparam>
+        /// <param name="source">The object to convert.</param>
+        /// <returns>
+        /// An <see cref="IReflectionElement" /> instance that adapts
+        /// <paramref name="source" />, if possibly; otherwise, an
+        /// <see cref="ArgumentException"/> is thrown.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This method is guaranteed to only convert proper Reflection
+        /// objects, such as <see cref="System.Reflection.ParameterInfo" />,
+        /// <see cref="System.Reflection.PropertyInfo" />, <see cref="Type" />,
+        /// <see cref="System.Reflection.Assembly" />, etc. If
+        /// <paramref name="source" /> isn't such a proper Reflection object,
+        /// an <see cref="ArgumentException" /> is thrown.
+        /// </para>
+        /// <para>
+        /// For a weaker, but more robust converion, you can use
+        /// <see cref="AsReflectionElement{T}(T)" />.
+        /// </para>
+        /// </remarks>
+        /// <exception cref="System.ArgumentNullException">
+        /// <paramref name="source" /> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="source" /> isn't a proper Reflection object.
+        /// </exception>
+        /// <seealso cref="AsReflectionElement{T}(T)" />
         public static IReflectionElement ToReflectionElement<T>(this T source)
         {
             if (source == null)
