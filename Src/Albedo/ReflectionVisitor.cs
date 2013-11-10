@@ -27,9 +27,10 @@ namespace Ploeh.Albedo
             return this;
         }
 
-        public virtual IReflectionVisitor<T> Visit(MethodInfoElement methodInfoElement)
+        public virtual IReflectionVisitor<T> Visit(
+            MethodInfoElement methodInfoElement)
         {
-            throw new NotImplementedException();
+            return this;
         }
 
         public virtual IReflectionVisitor<T> Visit(ParameterInfoElement parameterInfoElement)

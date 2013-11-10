@@ -56,6 +56,19 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
         }
 
+        [Fact]
+        public void VisitMethodInfoElementReturnsCorrectResult()
+        {
+            var sut = new ReflectionVisitor();
+            var methodInfoElement =
+                new MethodInfoElement(Dummy.Method);
+
+            var actual = sut.Visit(methodInfoElement);
+
+            var expected = sut;
+            Assert.Same(expected, actual);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
@@ -66,8 +79,6 @@ namespace Ploeh.Albedo.UnitTests
 
         private class Dummy
         {
-            private int field = 123;
-
             internal static FieldInfo Field
             {
                 get
@@ -75,6 +86,21 @@ namespace Ploeh.Albedo.UnitTests
                     return typeof(Dummy).GetFields(
                         BindingFlags.NonPublic | BindingFlags.Instance)[0];
                 }
+            }
+
+            internal static MethodInfo Method
+            {
+                get
+                {
+                    return typeof(Dummy).GetMethods(
+                        BindingFlags.NonPublic | BindingFlags.Instance)[0];
+                }
+            }
+
+            private int i = 123;
+
+            private void M() 
+            {
             }
         }
     }
