@@ -32,12 +32,12 @@ namespace Ploeh.Albedo.Refraction.UnitTests
             Assert.Equal(expected, actual);
         }
 
-         [Fact]
-         public void RefractNullSourceThrows()
-         {
-             var sut = new PropertyInfoElementRefraction<object>();
-             Assert.Throws<ArgumentNullException>(() => sut.Refract(null));
-         }
+        [Fact]
+        public void RefractNullSourceThrows()
+        {
+            var sut = new PropertyInfoElementRefraction<object>();
+            Assert.Throws<ArgumentNullException>(() => sut.Refract(null));
+        }
 
         private class SourceObjects : IEnumerable<object[]>
         {
