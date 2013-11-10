@@ -83,7 +83,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitPropertyInfoElementElementReturnsCorrectResult()
+        public void VisitPropertyInfoElementReturnsCorrectResult()
         {
             var sut = new ReflectionVisitor();
             var propertyInfoElement =
@@ -96,7 +96,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementElementReturnsCorrectResult()
+        public void VisitTypeElementReturnsCorrectResult()
         {
             var sut = new ReflectionVisitor();
             var typeElement =
@@ -215,7 +215,7 @@ namespace Ploeh.Albedo.UnitTests
                 get { return this.anonymousValue; }
             }
 
-            private event EventHandler AnonymousEvent;
+            private event EventHandler AnonymousEvent = (s, e) => { };
 
             private string AnonymousMethodWithLocalVariable() 
             {
