@@ -6,13 +6,25 @@ using Xunit;
 
 namespace Ploeh.Albedo.UnitTests
 {
-    public class ReflectionVisitorTests
+    public abstract class ReflectionVisitorTests<T>
     {
         [Fact]
         public void SutIsReflectionVisitor()
         {
-            var sut = new ReflectionVisitor<int>();
-            Assert.IsAssignableFrom<IReflectionVisitor<int>>(sut);
+            var sut = new ReflectionVisitor();
+            Assert.IsAssignableFrom<IReflectionVisitor<T>>(sut);
+        }
+
+        private class ReflectionVisitor : ReflectionVisitor<T>
+        {
+            public override T Value
+            {
+                get { throw new NotImplementedException(); }
+            }
         }
     }
+
+    public class ReflectionVisitorTestsOfObject : ReflectionVisitorTests<object> { }
+    public class ReflectionVisitorTestsOfDouble : ReflectionVisitorTests<double> { }
+    public class ReflectionVisitorTestsOfString : ReflectionVisitorTests<string> { }
 }
