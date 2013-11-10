@@ -136,5 +136,12 @@ namespace Ploeh.Albedo.Refraction.UnitTests
                 }
             }
         }
+
+        [Fact]
+        public void AsReflectionElementWithNullSourceThrows()
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => ((object)null).AsReflectionElement());
+        }
     }
 }

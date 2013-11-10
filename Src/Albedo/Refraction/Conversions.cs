@@ -29,8 +29,14 @@ namespace Ploeh.Albedo.Refraction
         /// <paramref name="source" /> can't properly be adapted, a
         /// <see cref="NullReflectionElement" /> is returned.
         /// </remarks>
+        /// <exception cref="System.ArgumentNullException">
+        /// <paramref name="source" /> is null.
+        /// </exception>
         public static IReflectionElement AsReflectionElement<T>(this T source)
         {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
             return new CompositeReflectionElementRefraction<T>(
                 new AssemblyElementRefraction<T>(),
                 new ConstructorInfoElementRefraction<T>(),
