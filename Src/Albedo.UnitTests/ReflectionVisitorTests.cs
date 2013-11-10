@@ -95,6 +95,19 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
         }
 
+        [Fact]
+        public void VisitTypeElementElementReturnsCorrectResult()
+        {
+            var sut = new ReflectionVisitor();
+            var typeElement =
+                new TypeElement(this.GetType());
+
+            var actual = sut.Visit(typeElement);
+
+            var expected = sut;
+            Assert.Same(expected, actual);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
