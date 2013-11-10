@@ -108,6 +108,19 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
         }
 
+        [Fact]
+        public void VisitLocalVariableInfoElementReturnsCorrectResult()
+        {
+            var sut = new ReflectionVisitor();
+            var localVariableInfoElement =
+                new LocalVariableInfoElement(new Dummy().LocalVariable);
+
+            var actual = sut.Visit(localVariableInfoElement);
+
+            var expected = sut;
+            Assert.Same(expected, actual);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
@@ -158,6 +171,21 @@ namespace Ploeh.Albedo.UnitTests
                 }
             }
 
+            internal LocalVariableInfo LocalVariable
+            {
+                get
+                {
+                    return this
+                        .GetType()
+                        .GetMethod(
+                            "AnonymousMethodWithLocalVariable",
+                            BindingFlags.NonPublic | BindingFlags.Instance)
+                        .GetMethodBody()
+                        .LocalVariables
+                        .First();
+                }
+            }
+
             private int anonymousValue = 123;
 
             private int AnonymousProperty
@@ -165,11 +193,12 @@ namespace Ploeh.Albedo.UnitTests
                 get { return this.anonymousValue; }
             }
 
-            private void AnonymousMethod() 
+            private string AnonymousMethodWithLocalVariable() 
             {
+                return "foo";
             }
 
-            private void AnonymousMethod(object o) 
+            private void AnonymousMethodWithParameter(object o) 
             {
             }
         }
