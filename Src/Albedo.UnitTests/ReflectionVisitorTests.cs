@@ -28,6 +28,20 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
         }
 
+        [Fact]
+        public void VisitConstructorInfoElementReturnsCorrectResult()
+        {
+            var sut = new ReflectionVisitor();
+            var constructorInfoElement =
+                new ConstructorInfoElement(
+                    this.GetType().GetConstructor(Type.EmptyTypes));
+
+            var actual = sut.Visit(constructorInfoElement);
+
+            var expected = sut;
+            Assert.Same(expected, actual);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
