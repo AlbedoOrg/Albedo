@@ -121,6 +121,19 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
         }
 
+        [Fact]
+        public void VisitEventInfoElementReturnsCorrectResult()
+        {
+            var sut = new ReflectionVisitor();
+            var eventInfoElement =
+                new EventInfoElement(new Dummy().Event);
+
+            var actual = sut.Visit(eventInfoElement);
+
+            var expected = sut;
+            Assert.Same(expected, actual);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
@@ -158,7 +171,7 @@ namespace Ploeh.Albedo.UnitTests
                         .GetMethods(
                             BindingFlags.NonPublic | BindingFlags.Instance)
                         .SelectMany(x => x.GetParameters())
-                        .Single();
+                        .First();
                 }
             }
 
@@ -186,12 +199,23 @@ namespace Ploeh.Albedo.UnitTests
                 }
             }
 
+            internal EventInfo Event
+            {
+                get
+                {
+                    return this.GetType().GetEvents(
+                        BindingFlags.NonPublic | BindingFlags.Instance)[0];
+                }
+            }
+
             private int anonymousValue = 123;
 
             private int AnonymousProperty
             {
                 get { return this.anonymousValue; }
             }
+
+            private event EventHandler AnonymousEvent;
 
             private string AnonymousMethodWithLocalVariable() 
             {
