@@ -9,7 +9,7 @@ using Xunit.Extensions;
 
 namespace Ploeh.Albedo.Refraction.UnitTests
 {
-    public class ConversionsTests
+    public class AsReflectionElementTests
     {
         [Theory, ClassData(typeof(AsReflectionElementTestCases))]
         public void AsReflectionElementReturnsCorrectResult(
