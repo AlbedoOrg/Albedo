@@ -39,9 +39,10 @@ namespace Ploeh.Albedo
             return this;
         }
 
-        public virtual IReflectionVisitor<T> Visit(PropertyInfoElement propertyInfoElement)
+        public virtual IReflectionVisitor<T> Visit(
+            PropertyInfoElement propertyInfoElement)
         {
-            throw new NotImplementedException();
+            return this;
         }
 
         public virtual IReflectionVisitor<T> Visit(TypeElement typeElement)

@@ -82,6 +82,19 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
         }
 
+        [Fact]
+        public void VisitPropertyInfoElementElementReturnsCorrectResult()
+        {
+            var sut = new ReflectionVisitor();
+            var propertyInfoElement =
+                new PropertyInfoElement(new Dummy().Property);
+
+            var actual = sut.Visit(propertyInfoElement);
+
+            var expected = sut;
+            Assert.Same(expected, actual);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
@@ -123,7 +136,21 @@ namespace Ploeh.Albedo.UnitTests
                 }
             }
 
-            private int anonymousField = 123;
+            internal PropertyInfo Property
+            {
+                get
+                {
+                    return this.GetType().GetProperties(
+                        BindingFlags.NonPublic | BindingFlags.Instance)[0];
+                }
+            }
+
+            private int anonymousValue = 123;
+
+            private int AnonymousProperty
+            {
+                get { return this.anonymousValue; }
+            }
 
             private void AnonymousMethod() 
             {
