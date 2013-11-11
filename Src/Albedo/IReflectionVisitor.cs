@@ -1,14 +1,31 @@
 ﻿namespace Ploeh.Albedo
 {
     /// <summary>
-    /// Represents a visitor which can visit <see cref="IReflectionElement"/> nodes.
+    /// Represents a Visitor which can visit <see cref="IReflectionElement" />
+    /// instances.
     /// </summary>
-    /// <typeparam name="T">The type of observations or calculations the 
-    /// visitor makes</typeparam>
+    /// <typeparam name="T">
+    /// The type of observation or calculation the Visitor makes.
+    /// </typeparam>
+    /// <remarks>
+    /// <para>
+    /// <strong>Note to implementers:</strong>
+    /// </para>
+    /// <para>
+    /// Prefer deriving from <see cref="ReflectionVisitor{T}" /> instead of
+    /// directly implementing the <strong>IReflectionVisitor&lt;T&gt;</strong>
+    /// interface. The reason for this is that future versions of Albedo may
+    /// add more methods to the interface. This will be a breaking change, so
+    /// will only happen on major releases, but still, deriving from the
+    /// <strong>ReflectionVisitor&lt;T&gt;</strong> base class gives you a
+    /// better chance that your implementation will be compatible across a
+    /// major release.
+    /// </para>
+    /// </remarks>
     public interface IReflectionVisitor<T>
     {
         /// <summary>
-        /// Gets the observations or values produced by this visitor instance.
+        /// Gets the observation or value produced by this Visitor instance.
         /// </summary>
         T Value { get; }
 

@@ -6,28 +6,55 @@ using System.Text;
 namespace Ploeh.Albedo
 {
     /// <summary>
-    /// Represents a visitor base class which can visit <see cref="IReflectionElement"/>
-    /// nodes.
+    /// Represents a Visitor base class which can visit
+    /// <see cref="IReflectionElement" /> instances.
     /// </summary>
-    /// <typeparam name="T">The type of observations or calculations the 
-    /// visitor makes</typeparam>
+    /// <typeparam name="T">
+    /// The type of observations or calculations the Visitor makes.
+    /// </typeparam>
+    /// <remarks>
+    /// <para>
+    /// Implementers should prefer deriving from this class instead of
+    /// implementing <see cref="IReflectionVisitor{T}" /> directly. The reason
+    /// for this is that future versions of Albedo may add more methods to the
+    /// interface. This will be a breaking change, so will only happen on major
+    /// releases, but still, deriving from the
+    /// <strong>ReflectionVisitor&lt;T&gt;</strong> base class gives you a
+    /// better chance that your implementation will be compatible across a
+    /// major release.
+    /// </para>
+    /// <para>
+    /// Consumers, on the other hand, should still rely on the
+    /// <strong>IReflectionVisitor&lt;T&gt;</strong> interface.
+    /// </para>
+    /// </remarks>
     public abstract class ReflectionVisitor<T> : IReflectionVisitor<T>
     {
         /// <summary>
-        /// Gets the observations or values produced by this visitor instance.
+        /// Gets the observation or value produced by this instance.
         /// </summary>
         public abstract T Value { get; }
 
         /// <summary>
-        /// Allows an <see cref="AssemblyElement"/> to be 'visited'. 
-        /// This method is called when the element 'accepts' this visitor
+        /// Allows an <see cref="AssemblyElement"/> to be visited. 
+        /// This method is called when the element accepts this visitor
         /// instance.
         /// </summary>
-        /// <param name="assemblyElement">The <see cref="AssemblyElement"/> 
-        /// being visited.</param>
-        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/>
-        /// instance which can be used to continue the visiting process with
-        /// potentially updated observations.</returns>
+        /// <param name="assemblyElement">
+        /// The <see cref="AssemblyElement"/> being visited.
+        /// </param>
+        /// <returns>
+        /// A <see cref="IReflectionVisitor{T}" /> instance which can be used
+        /// to continue the visiting process with potentially updated
+        /// observations.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This implementation simply returns
+        /// <paramref name="assemblyElement" /> without doing anything, but
+        /// since the method is virtual, child classes can override it.
+        /// </para>
+        /// </remarks>
         public virtual IReflectionVisitor<T> Visit(
             AssemblyElement assemblyElement)
         {
@@ -35,15 +62,25 @@ namespace Ploeh.Albedo
         }
 
         /// <summary>
-        /// Allows an <see cref="ConstructorInfoElement"/> to be 'visited'. 
-        /// This method is called when the element 'accepts' this visitor
+        /// Allows an <see cref="ConstructorInfoElement"/> to be visited. 
+        /// This method is called when the element accepts this visitor
         /// instance.
         /// </summary>
-        /// <param name="constructorInfoElement">The <see cref="ConstructorInfoElement"/>
-        /// being visited.</param>
-        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> 
-        /// instance which can be used to continue the visiting process with 
-        /// potentially updated observations.</returns>
+        /// <param name="constructorInfoElement">
+        /// The <see cref="ConstructorInfoElement"/> being visited.
+        /// </param>
+        /// <returns>
+        /// A <see cref="IReflectionVisitor{T}" /> instance which can be used
+        /// to continue the visiting process with potentially updated
+        /// observations.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This implementation simply returns
+        /// <paramref name="constructorInfoElement" /> without doing anything,
+        /// but since the method is virtual, child classes can override it.
+        /// </para>
+        /// </remarks>
         public virtual IReflectionVisitor<T> Visit(
             ConstructorInfoElement constructorInfoElement)
         {
@@ -51,15 +88,25 @@ namespace Ploeh.Albedo
         }
 
         /// <summary>
-        /// Allows an <see cref="FieldInfoElement"/> to be 'visited'.
-        /// This method is called when the element 'accepts' this visitor
+        /// Allows an <see cref="FieldInfoElement"/> to be visited. 
+        /// This method is called when the element accepts this visitor
         /// instance.
         /// </summary>
-        /// <param name="fieldInfoElement">The <see cref="FieldInfoElement"/>
-        /// being visited.</param>
-        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/>
-        /// instance which can be used to continue the visiting process with 
-        /// potentially updated observations.</returns>
+        /// <param name="fieldInfoElement">
+        /// The <see cref="FieldInfoElement"/> being visited.
+        /// </param>
+        /// <returns>
+        /// A <see cref="IReflectionVisitor{T}" /> instance which can be used
+        /// to continue the visiting process with potentially updated
+        /// observations.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This implementation simply returns
+        /// <paramref name="fieldInfoElement" /> without doing anything,
+        /// but since the method is virtual, child classes can override it.
+        /// </para>
+        /// </remarks>
         public virtual IReflectionVisitor<T> Visit(
             FieldInfoElement fieldInfoElement)
         {
@@ -67,15 +114,25 @@ namespace Ploeh.Albedo
         }
 
         /// <summary>
-        /// Allows an <see cref="MethodInfoElement"/> to be 'visited'. 
-        /// This method is called when the element 'accepts' this visitor
+        /// Allows an <see cref="MethodInfoElement"/> to be visited. 
+        /// This method is called when the element accepts this visitor
         /// instance.
         /// </summary>
-        /// <param name="methodInfoElement">The <see cref="MethodInfoElement"/>
-        /// being visited.</param>
-        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> 
-        /// instance which can be used to continue the visiting process with 
-        /// potentially updated observations.</returns>
+        /// <param name="methodInfoElement">
+        /// The <see cref="MethodInfoElement"/> being visited.
+        /// </param>
+        /// <returns>
+        /// A <see cref="IReflectionVisitor{T}" /> instance which can be used
+        /// to continue the visiting process with potentially updated
+        /// observations.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This implementation simply returns
+        /// <paramref name="methodInfoElement" /> without doing anything,
+        /// but since the method is virtual, child classes can override it.
+        /// </para>
+        /// </remarks>
         public virtual IReflectionVisitor<T> Visit(
             MethodInfoElement methodInfoElement)
         {
@@ -83,15 +140,25 @@ namespace Ploeh.Albedo
         }
 
         /// <summary>
-        /// Allows an <see cref="ParameterInfoElement"/> to be 'visited'. 
-        /// This method is called when the element 'accepts' this visitor
+        /// Allows an <see cref="ParameterInfoElement"/> to be visited. 
+        /// This method is called when the element accepts this visitor
         /// instance.
         /// </summary>
-        /// <param name="parameterInfoElement">The <see cref="ParameterInfoElement"/>
-        /// being visited.</param>
-        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> 
-        /// instance which can be used to continue the visiting process with
-        /// potentially updated observations.</returns>
+        /// <param name="parameterInfoElement">
+        /// The <see cref="ParameterInfoElement"/> being visited.
+        /// </param>
+        /// <returns>
+        /// A <see cref="IReflectionVisitor{T}" /> instance which can be used
+        /// to continue the visiting process with potentially updated
+        /// observations.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This implementation simply returns
+        /// <paramref name="parameterInfoElement" /> without doing anything,
+        /// but since the method is virtual, child classes can override it.
+        /// </para>
+        /// </remarks>
         public virtual IReflectionVisitor<T> Visit(
             ParameterInfoElement parameterInfoElement)
         {
@@ -99,15 +166,25 @@ namespace Ploeh.Albedo
         }
 
         /// <summary>
-        /// Allows an <see cref="PropertyInfoElement"/> to be 'visited'. 
-        /// This method is called when the element 'accepts' this visitor
+        /// Allows an <see cref="PropertyInfoElement"/> to be visited. 
+        /// This method is called when the element accepts this visitor
         /// instance.
         /// </summary>
-        /// <param name="propertyInfoElement">The <see cref="PropertyInfoElement"/>
-        /// being visited.</param>
-        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> 
-        /// instance which can be used to continue the visiting process with
-        /// potentially updated observations.</returns>
+        /// <param name="propertyInfoElement">
+        /// The <see cref="PropertyInfoElement"/> being visited.
+        /// </param>
+        /// <returns>
+        /// A <see cref="IReflectionVisitor{T}" /> instance which can be used
+        /// to continue the visiting process with potentially updated
+        /// observations.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This implementation simply returns
+        /// <paramref name="propertyInfoElement" /> without doing anything,
+        /// but since the method is virtual, child classes can override it.
+        /// </para>
+        /// </remarks>
         public virtual IReflectionVisitor<T> Visit(
             PropertyInfoElement propertyInfoElement)
         {
@@ -115,15 +192,24 @@ namespace Ploeh.Albedo
         }
 
         /// <summary>
-        /// Allows an <see cref="TypeElement"/> to be 'visited'.
-        /// This method is called when the element 'accepts' this visitor 
-        /// instance.
+        /// Allows an <see cref="TypeElement"/> to be visited. This method is
+        /// called when the element accepts this visitor instance.
         /// </summary>
-        /// <param name="typeElement">The <see cref="TypeElement"/> 
-        /// being visited.</param>
-        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> 
-        /// instance which can be used to continue the visiting process with
-        /// potentially updated observations.</returns>
+        /// <param name="typeElement">
+        /// The <see cref="TypeElement"/> being visited.
+        /// </param>
+        /// <returns>
+        /// A <see cref="IReflectionVisitor{T}" /> instance which can be used
+        /// to continue the visiting process with potentially updated
+        /// observations.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This implementation simply returns <paramref name="typeElement" />
+        /// without doing anything, but since the method is virtual, child
+        /// classes can override it.
+        /// </para>
+        /// </remarks>
         public virtual IReflectionVisitor<T> Visit(
             TypeElement typeElement)
         {
@@ -131,15 +217,26 @@ namespace Ploeh.Albedo
         }
 
         /// <summary>
-        /// Allows an <see cref="LocalVariableInfoElement"/> to be 'visited'.
-        /// This method is called when the element 'accepts' this visitor
+        /// Allows an <see cref="LocalVariableInfoElement"/> to be visited. 
+        /// This method is called when the element accepts this visitor
         /// instance.
         /// </summary>
-        /// <param name="localVariableInfoElement">The <see cref="LocalVariableInfoElement"/>
-        /// being visited.</param>
-        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> 
-        /// instance which can be used to continue the visiting process with
-        /// potentially updated observations.</returns>
+        /// <param name="localVariableInfoElement">
+        /// The <see cref="LocalVariableInfoElement"/> being visited.
+        /// </param>
+        /// <returns>
+        /// A <see cref="IReflectionVisitor{T}" /> instance which can be used
+        /// to continue the visiting process with potentially updated
+        /// observations.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This implementation simply returns
+        /// <paramref name="localVariableInfoElement" /> without doing
+        /// anything, but since the method is virtual, child classes can
+        /// override it.
+        /// </para>
+        /// </remarks>
         public virtual IReflectionVisitor<T> Visit(
             LocalVariableInfoElement localVariableInfoElement)
         {
@@ -147,15 +244,24 @@ namespace Ploeh.Albedo
         }
 
         /// <summary>
-        /// Allows an <see cref="EventInfoElement"/> to be 'visited'. 
-        /// This method is called when the element 'accepts' this visitor
-        /// instance.
+        /// Allows an <see cref="EventInfoElement"/> to be visited. This method
+        /// is called when the element accepts this visitor instance.
         /// </summary>
-        /// <param name="eventInfoElement">The <see cref="EventInfoElement"/> 
-        /// being visited.</param>
-        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> 
-        /// instance which can be used to continue the visiting process with
-        /// potentially updated observations.</returns>
+        /// <param name="eventInfoElement">
+        /// The <see cref="EventInfoElement"/> being visited.
+        /// </param>
+        /// <returns>
+        /// A <see cref="IReflectionVisitor{T}" /> instance which can be used
+        /// to continue the visiting process with potentially updated
+        /// observations.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This implementation simply returns
+        /// <paramref name="eventInfoElement" /> without doing anything, but
+        /// since the method is virtual, child classes can override it.
+        /// </para>
+        /// </remarks>
         public virtual IReflectionVisitor<T> Visit(
             EventInfoElement eventInfoElement)
         {
