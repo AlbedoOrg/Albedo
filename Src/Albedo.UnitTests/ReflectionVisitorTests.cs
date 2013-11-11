@@ -219,7 +219,8 @@ namespace Ploeh.Albedo.UnitTests
 
             private string AnonymousMethodWithLocalVariable() 
             {
-                return "foo";
+                string value = "foo";
+                return value;
             }
 
             private void AnonymousMethodWithParameter(object o) 
