@@ -74,6 +74,7 @@
     <Compile Include="LocalVariableInfoElement.cs" />
     <Compile Include="NullReflectionElement.cs" />
     <Compile Include="ParameterInfoElement.cs" />
+    <Compile Include="ReflectionVisitor.cs" />
     <Compile Include="Refraction\ParameterInfoElementRefraction.cs" />
     <Compile Include="Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

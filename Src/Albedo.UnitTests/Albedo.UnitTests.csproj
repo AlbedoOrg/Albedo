@@ -76,6 +76,7 @@
     <Compile Include="TypeElementTests.cs" />
     <Compile Include="FieldInfoElementTests.cs" />
     <Compile Include="MethodInfoElementTests.cs" />
+    <Compile Include="ReflectionVisitorTests.cs" />
     <Compile Include="Refraction\MethodInfoElementRefractionTests.cs" />
     <Compile Include="Refraction\PropertyInfoElementRefractionTests.cs" />
     <Compile Include="ConstructorInfoElementTests.cs" />
