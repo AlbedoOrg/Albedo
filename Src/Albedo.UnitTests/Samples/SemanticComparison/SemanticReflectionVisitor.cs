@@ -1,27 +1,27 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Ploeh.Albedo.UnitTests.Samples.SemanticComparison
 {
-    public class SemanticReflectionVisitor :
-        ReflectionVisitor<IEnumerable<SemanticComparisonValue>>
+    public class SemanticReflectionVisitor : ReflectionVisitor<IEnumerable>
     {
-        private readonly SemanticComparisonValue[] values;
+        private readonly object[] values;
 
         public SemanticReflectionVisitor(
-            params SemanticComparisonValue[] values)
+            params object[] values)
         {
             this.values = values;
         }
 
-        public override IEnumerable<SemanticComparisonValue> Value
+        public override IEnumerable Value
         {
             get { return this.values; }
         }
 
-        public override IReflectionVisitor<IEnumerable<SemanticComparisonValue>> Visit(
+        public override IReflectionVisitor<IEnumerable> Visit(
             FieldInfoElement fieldInfoElement)
         {
             var v = new SemanticComparisonValue(
@@ -31,7 +31,7 @@ namespace Ploeh.Albedo.UnitTests.Samples.SemanticComparison
                 this.values.Concat(new[] { v }).ToArray());
         }
 
-        public override IReflectionVisitor<IEnumerable<SemanticComparisonValue>> Visit(
+        public override IReflectionVisitor<IEnumerable> Visit(
             ParameterInfoElement parameterInfoElement)
         {
             var v = new SemanticComparisonValue(
@@ -41,7 +41,7 @@ namespace Ploeh.Albedo.UnitTests.Samples.SemanticComparison
                 this.values.Concat(new[] { v }).ToArray());
         }
 
-        public override IReflectionVisitor<IEnumerable<SemanticComparisonValue>> Visit(
+        public override IReflectionVisitor<IEnumerable> Visit(
             PropertyInfoElement propertyInfoElement)
         {
             var v = new SemanticComparisonValue(

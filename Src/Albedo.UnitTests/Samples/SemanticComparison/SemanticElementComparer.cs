@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +8,10 @@ namespace Ploeh.Albedo.UnitTests.Samples.SemanticComparison
 {
     public class SemanticElementComparer : IEqualityComparer<IReflectionElement>
     {
-        private readonly IReflectionVisitor<IEnumerable<SemanticComparisonValue>> visitor;
+        private readonly IReflectionVisitor<IEnumerable> visitor;
 
         public SemanticElementComparer(
-            IReflectionVisitor<IEnumerable<SemanticComparisonValue>> visitor)
+            IReflectionVisitor<IEnumerable> visitor)
         {
             this.visitor = visitor;
         }
@@ -20,6 +21,7 @@ namespace Ploeh.Albedo.UnitTests.Samples.SemanticComparison
             var values = new CompositeReflectionElement(x, y)
                 .Accept(this.visitor)
                 .Value
+                .Cast<object>()
                 .ToArray();
             return values.Length == 2
                 && values.Distinct().Count() == 1;
@@ -30,6 +32,7 @@ namespace Ploeh.Albedo.UnitTests.Samples.SemanticComparison
             return obj
                 .Accept(this.visitor)
                 .Value
+                .Cast<object>()
                 .Single()
                 .GetHashCode();
         }
