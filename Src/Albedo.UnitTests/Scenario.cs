@@ -78,7 +78,9 @@ namespace Ploeh.Albedo.UnitTests
                     .Where(p => p.Name == parameterName)
                     .Single());
 
-            var actual = new SemanticElementComparer().Equals(prop, param);
+            var actual = 
+                new SemanticElementComparer(new SemanticReflectionVisitor())
+                    .Equals(prop, param);
 
             Assert.Equal(expected, actual);
         }

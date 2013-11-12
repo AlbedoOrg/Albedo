@@ -7,10 +7,18 @@ namespace Ploeh.Albedo.UnitTests.Samples.SemanticComparison
 {
     public class SemanticElementComparer : IEqualityComparer<IReflectionElement>
     {
+        private readonly IReflectionVisitor<IEnumerable<SemanticComparisonValue>> visitor;
+
+        public SemanticElementComparer(
+            IReflectionVisitor<IEnumerable<SemanticComparisonValue>> visitor)
+        {
+            this.visitor = visitor;
+        }
+
         public bool Equals(IReflectionElement x, IReflectionElement y)
         {
             var values = new CompositeReflectionElement(x, y)
-                .Accept(new SemanticReflectionVisitor())
+                .Accept(this.visitor)
                 .Value
                 .ToArray();
             return values.Length == 2
@@ -20,7 +28,7 @@ namespace Ploeh.Albedo.UnitTests.Samples.SemanticComparison
         public int GetHashCode(IReflectionElement obj)
         {
             return obj
-                .Accept(new SemanticReflectionVisitor())
+                .Accept(this.visitor)
                 .Value
                 .Single()
                 .GetHashCode();
