@@ -6,6 +6,7 @@ using System.Text;
 using Xunit;
 using Xunit.Extensions;
 using Ploeh.Albedo.UnitTests.Samples.SemanticComparison;
+using Ploeh.Albedo.UnitTests.Samples.ValueReading;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -83,6 +84,40 @@ namespace Ploeh.Albedo.UnitTests
                     .Equals(prop, param);
 
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ReadFromProperty()
+        {
+            var pi = from v in new Properties<Version>() select v.Minor;
+            var version = new Version(2, 7);
+            var visitor = new ValueCollectingVisitor(version);
+
+            var actual = new PropertyInfoElement(pi).Accept(visitor);
+
+            Assert.Equal(version.Minor, actual.Value.Cast<int>().Single());
+        }
+
+        [Fact]
+        public void ReadFromSeveralProperties()
+        {
+            var elements = typeof(Version)
+                .GetProperties()
+                .Select(pi => new PropertyInfoElement(pi))
+                .ToArray();
+            var version = new Version(1, 3, 3, 7);
+            var visitor = new ValueCollectingVisitor(version);
+
+            var actual = 
+                new CompositeReflectionElement(elements).Accept(visitor);
+
+            var actualValues = actual.Value.Cast<object>().ToList();
+            Assert.Equal(elements.Length, actualValues.Count);
+            Assert.Equal(1, actualValues.Count(1.Equals));
+            Assert.Equal(2, actualValues.Count(3.Equals));
+            Assert.Equal(1, actualValues.Count(7.Equals));
+            Assert.Equal(1, actualValues.Count(((short)7).Equals));
+            Assert.Equal(1, actualValues.Count(((short)0).Equals));
         }
     }
 }

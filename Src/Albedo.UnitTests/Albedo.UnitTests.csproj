@@ -78,6 +78,7 @@
     <Compile Include="Samples\SemanticComparison\SemanticComparisonValue.cs" />
     <Compile Include="Samples\SemanticComparison\SemanticElementComparer.cs" />
     <Compile Include="Samples\SemanticComparison\SemanticReflectionVisitor.cs" />
+    <Compile Include="Samples\ValueReading\ValueCollectingVisitor.cs" />
     <Compile Include="TypeElementTests.cs" />
     <Compile Include="FieldInfoElementTests.cs" />
     <Compile Include="MethodInfoElementTests.cs" />
