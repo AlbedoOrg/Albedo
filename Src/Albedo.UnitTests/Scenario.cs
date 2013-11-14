@@ -7,6 +7,7 @@ using Xunit;
 using Xunit.Extensions;
 using Ploeh.Albedo.UnitTests.Samples.SemanticComparison;
 using Ploeh.Albedo.UnitTests.Samples.ValueReading;
+using Ploeh.Albedo.UnitTests.Samples.ValueWriting;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -101,7 +102,6 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void ReadFromSeveralPropertiesAndFields()
         {
-            // Fixture setup
             var ts = new TimeSpan(2, 4, 3, 8, 9);
             var flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public;
             var elements = ts.GetType()
@@ -114,10 +114,10 @@ namespace Ploeh.Albedo.UnitTests
                     .Cast<IReflectionElement>())
                 .ToArray();
             var visitor = new ValueCollectingVisitor(ts);
-            // Exercise system
+
             var actual =
                 new CompositeReflectionElement(elements).Accept(visitor);
-            // Verify outcome
+
             var actualValues = actual.Value.Cast<object>().ToArray();
             Assert.Equal(elements.Length, actualValues.Length);
             Assert.Equal(1, actualValues.Count(ts.Days.Equals));
@@ -139,7 +139,31 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal(1, actualValues.Count(TimeSpan.TicksPerMinute.Equals));
             Assert.Equal(1, actualValues.Count(TimeSpan.TicksPerSecond.Equals));
             Assert.Equal(1, actualValues.Count(TimeSpan.Zero.Equals));
-            // Teardown
+        }
+
+        [Fact]
+        public void WriteToSeveralPropertiesAndFields()
+        {
+            var t = new ClassWithWritablePropertiesAndFields<int>();
+            var elements = t.GetType()
+                .GetProperties()
+                .Select(pi => new PropertyInfoElement(pi))
+                .Cast<IReflectionElement>()
+                .Concat(t.GetType()
+                    .GetFields()
+                    .Select(fi => new FieldInfoElement(fi))
+                    .Cast<IReflectionElement>())
+                .ToArray();
+            var visitor = new ValueWritingVisitor(t);
+
+            var actual =
+                new CompositeReflectionElement(elements).Accept(visitor);
+            actual.Value(42);
+
+            Assert.Equal(42, t.Field1);
+            Assert.Equal(42, t.Field2);
+            Assert.Equal(42, t.Property1);
+            Assert.Equal(42, t.Property2);
         }
     }
 }
