@@ -17,6 +17,10 @@ Assert.Equal(version.Minor, actual.Value.OfType<int>().First());
 
 More examples further down.
 
+## Where do you get it?
+
+Obviously, the source code is available here on GitHub, but you can [download the compiled library with NuGet](http://www.nuget.org/packages/Albedo).
+
 ## Which problem does it address?
 
 Albedo addresses the problem that the .NET Reflection API (mainly in [System.Reflection](http://msdn.microsoft.com/en-us/library/system.reflection.aspx)) doesn't provide a set of good abstractions. As an example, both [PropertyInfo](http://msdn.microsoft.com/en-us/library/system.reflection.propertyinfo.aspx) and [FieldInfo](http://msdn.microsoft.com/en-us/library/system.reflection.fieldinfo.aspx) expose `GetValue` and `SetValue` functions, but despite their similarities, these functions are defined directly on each of those two classes, so there's no polymorphic API to read a value from a property *or* field, or assign a value to a property *or* field.
