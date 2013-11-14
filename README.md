@@ -235,3 +235,165 @@ public class ValueWritingVisitor : ReflectionVisitor<Action<object>>
 ```
 
 As you can see in this example, the `ValueWritingVisitor` collects an array of Actions that can be executed once the Visitor has visited all the elements. (Once again, for demonstration purposes, the above sample code assumes that each assignment is possible, which may very well not be the case if the property or field is read-only, or if the types don't match.)
+
+### Comparison
+
+Another, more advanced scenario (and [the scenario that ultimately sparked the Albedo project](https://github.com/AutoFixture/AutoFixture/pull/171#discussion_r6505484) in the first place) is to compare disparate Reflection elements.
+
+Imagine, for example, that you want to match a constructor's `ParameterInfo` to a `PropertyInfo` that exposes the value originally passed to the constructor ([Structural Inspection](http://blog.ploeh.dk/2013/04/04/structural-inspection)). For example, you might want to check whether the [Version](http://msdn.microsoft.com/en-us/library/system.version.aspx) `major` constructor argument matches the [Major](http://msdn.microsoft.com/en-us/library/system.version.major.aspx) property.
+
+Since this is a comparison, it sounds like a job for [`IEqualityComparer<T>`](http://msdn.microsoft.com/en-us/library/ms132151.aspx), but what should `T` be?
+
+The challenge is that `ParameterInfo` shares no API with `PropertyInfo`, and additionally, you'll want to make a case-insensitive comparison of their names.
+
+Albedo can address this scenario with its abstractions on top of Reflection, so that you can declare an `IEqualityComparer<IReflectionElement>` and use it like this:
+
+```C#
+[Theory]
+[InlineData("Major", "major", true)]
+[InlineData("Major", "minor", false)]
+[InlineData("Minor", "major", false)]
+[InlineData("Minor", "minor", true)]
+public void MatchContructorArgumentAgainstReadOnlyProperty(
+    string propertyName, string parameterName, bool expected)
+{
+    var prop = new PropertyInfoElement(
+        typeof(Version).GetProperty(propertyName));
+    var param = new ParameterInfoElement(
+        typeof(Version)
+            .GetConstructor(new[] { typeof(int), typeof(int) })
+            .GetParameters()
+            .Where(p => p.Name == parameterName)
+            .Single());
+
+    var actual = 
+        new SemanticElementComparer(new SemanticReflectionVisitor())
+            .Equals(prop, param);
+
+    Assert.Equal(expected, actual);
+}
+```
+
+The custom `SemanticReflectionVisitor` collects comparison values, based on properties, fields, and parameters:
+
+```C#
+public class SemanticReflectionVisitor : ReflectionVisitor<IEnumerable>
+{
+    private readonly object[] values;
+
+    public SemanticReflectionVisitor(
+        params object[] values)
+    {
+        this.values = values;
+    }
+
+    public override IEnumerable Value
+    {
+        get { return this.values; }
+    }
+
+    public override IReflectionVisitor<IEnumerable> Visit(
+        FieldInfoElement fieldInfoElement)
+    {
+        var v = new SemanticComparisonValue(
+            fieldInfoElement.FieldInfo.Name,
+            fieldInfoElement.FieldInfo.FieldType);
+        return new SemanticReflectionVisitor(
+            this.values.Concat(new[] { v }).ToArray());
+    }
+
+    public override IReflectionVisitor<IEnumerable> Visit(
+        ParameterInfoElement parameterInfoElement)
+    {
+        var v = new SemanticComparisonValue(
+            parameterInfoElement.ParameterInfo.Name,
+            parameterInfoElement.ParameterInfo.ParameterType);
+        return new SemanticReflectionVisitor(
+            this.values.Concat(new[] { v }).ToArray());
+    }
+
+    public override IReflectionVisitor<IEnumerable> Visit(
+        PropertyInfoElement propertyInfoElement)
+    {
+        var v = new SemanticComparisonValue(
+            propertyInfoElement.PropertyInfo.Name,
+            propertyInfoElement.PropertyInfo.PropertyType);
+        return new SemanticReflectionVisitor(
+            this.values.Concat(new[] { v }).ToArray());
+    }
+}
+```
+
+The `SemanticComparisonValue` class is a custom [Value Object](http://martinfowler.com/bliki/ValueObject.html) that collects the names and types of the fields, properties, or parameters:
+
+```C#
+public class SemanticComparisonValue
+{
+    private readonly string name;
+    private readonly Type type;
+
+    public SemanticComparisonValue(string name, Type type)
+    {
+        this.name = name;
+        this.type = type;
+    }
+
+    public override bool Equals(object obj)
+    {
+        var other = obj as SemanticComparisonValue;
+        if (other == null)
+            return base.Equals(obj);
+
+        return object.Equals(this.type, other.type)
+            && string.Equals(this.name, other.name,
+                StringComparison.OrdinalIgnoreCase);
+    }
+
+    public override int GetHashCode()
+    {
+        return
+            this.name.ToUpperInvariant().GetHashCode() ^
+            this.type.GetHashCode();
+    }
+}
+```
+
+The important quality of the `SemanticComparisonValue` class is that it implements custom equality comparison, so that it compares the names in a case-insensitive manner.
+
+With these two custom classes, it's fairly straight-forward to implement the EqualityComparer:
+
+```C#
+public class SemanticElementComparer : IEqualityComparer<IReflectionElement>
+{
+    private readonly IReflectionVisitor<IEnumerable> visitor;
+
+    public SemanticElementComparer(
+        IReflectionVisitor<IEnumerable> visitor)
+    {
+        this.visitor = visitor;
+    }
+
+    public bool Equals(IReflectionElement x, IReflectionElement y)
+    {
+        var values = new CompositeReflectionElement(x, y)
+            .Accept(this.visitor)
+            .Value
+            .Cast<object>()
+            .ToArray();
+        return values.Length == 2
+            && values.Distinct().Count() == 1;
+    }
+
+    public int GetHashCode(IReflectionElement obj)
+    {
+        return obj
+            .Accept(this.visitor)
+            .Value
+            .Cast<object>()
+            .Single()
+            .GetHashCode();
+    }
+}
+```
+
+Since the `Equals` method compares exactly *two* elements, there should also be *exactly two* collected elements. This isn't guaranteed, because `x` or `y` could also be instances of `TypeElement` og `MethodInfoElement`, and `SemanticReflectionVisitor` doesn't collect those. On the other hand, while there should be exactly two instances, they should be equal to each other for the `Equals` method to return true; thus, if the count of *distinct* values is *one*, they are equal to each other, since the `Distinct` method uses object equality, as implemented by each element's `Equals` method (and recall that `SemanticComparisonValue` overrides `Equals`).
