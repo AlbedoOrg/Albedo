@@ -99,25 +99,47 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void ReadFromSeveralProperties()
+        public void ReadFromSeveralPropertiesAndFields()
         {
-            var elements = typeof(Version)
-                .GetProperties()
+            // Fixture setup
+            var ts = new TimeSpan(2, 4, 3, 8, 9);
+            var flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public;
+            var elements = ts.GetType()
+                .GetProperties(flags)
                 .Select(pi => new PropertyInfoElement(pi))
+                .Cast<IReflectionElement>()
+                .Concat(ts.GetType()
+                    .GetFields(flags)
+                    .Select(fi => new FieldInfoElement(fi))
+                    .Cast<IReflectionElement>())
                 .ToArray();
-            var version = new Version(1, 3, 3, 7);
-            var visitor = new ValueCollectingVisitor(version);
-
-            var actual = 
+            var visitor = new ValueCollectingVisitor(ts);
+            // Exercise system
+            var actual =
                 new CompositeReflectionElement(elements).Accept(visitor);
-
-            var actualValues = actual.Value.Cast<object>().ToList();
-            Assert.Equal(elements.Length, actualValues.Count);
-            Assert.Equal(1, actualValues.Count(1.Equals));
-            Assert.Equal(2, actualValues.Count(3.Equals));
-            Assert.Equal(1, actualValues.Count(7.Equals));
-            Assert.Equal(1, actualValues.Count(((short)7).Equals));
-            Assert.Equal(1, actualValues.Count(((short)0).Equals));
+            // Verify outcome
+            var actualValues = actual.Value.Cast<object>().ToArray();
+            Assert.Equal(elements.Length, actualValues.Length);
+            Assert.Equal(1, actualValues.Count(ts.Days.Equals));
+            Assert.Equal(1, actualValues.Count(ts.Hours.Equals));
+            Assert.Equal(1, actualValues.Count(ts.Milliseconds.Equals));
+            Assert.Equal(1, actualValues.Count(ts.Minutes.Equals));
+            Assert.Equal(1, actualValues.Count(ts.Seconds.Equals));
+            Assert.Equal(1, actualValues.Count(ts.Ticks.Equals));
+            Assert.Equal(1, actualValues.Count(ts.TotalDays.Equals));
+            Assert.Equal(1, actualValues.Count(ts.TotalHours.Equals));
+            Assert.Equal(1, actualValues.Count(ts.TotalMilliseconds.Equals));
+            Assert.Equal(1, actualValues.Count(ts.TotalMinutes.Equals));
+            Assert.Equal(1, actualValues.Count(ts.TotalSeconds.Equals));
+            Assert.Equal(1, actualValues.Count(TimeSpan.MaxValue.Equals));
+            Assert.Equal(1, actualValues.Count(TimeSpan.MinValue.Equals));
+            Assert.Equal(1, actualValues.Count(TimeSpan.TicksPerDay.Equals));
+            Assert.Equal(1, actualValues.Count(TimeSpan.TicksPerHour.Equals));
+            Assert.Equal(1, actualValues.Count(TimeSpan.TicksPerMillisecond.Equals));
+            Assert.Equal(1, actualValues.Count(TimeSpan.TicksPerMinute.Equals));
+            Assert.Equal(1, actualValues.Count(TimeSpan.TicksPerSecond.Equals));
+            Assert.Equal(1, actualValues.Count(TimeSpan.Zero.Equals));
+            // Teardown
         }
     }
 }
