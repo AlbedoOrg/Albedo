@@ -399,3 +399,24 @@ public class SemanticElementComparer : IEqualityComparer<IReflectionElement>
 ```
 
 Since the `Equals` method compares exactly *two* elements, there should also be *exactly two* collected elements. This isn't guaranteed, because `x` or `y` could also be instances of `TypeElement` og `MethodInfoElement`, and `SemanticReflectionVisitor` doesn't collect those. On the other hand, while there should be exactly two instances, they should be equal to each other for the `Equals` method to return true; thus, if the count of *distinct* values is *one*, they are equal to each other, since the `Distinct` method uses object equality, as implemented by each element's `Equals` method (and recall that `SemanticComparisonValue` overrides `Equals`).
+
+### Strongly-typed queries of type members
+
+Sometimes, you'd like to get a `PropertyInfo` instance for a particular class' property, or similar for fields and methods. The problem with the BCL Reflection API is that you have to refer to the property by naming it with a string, which isn't refactoring-safe.
+
+As a convenience, Albedo provides a couple of strongly typed queries over type members:
+
+```C#
+MethodInfo mi = new Methods<Version>().Select(v => v.ToString());
+Assert.Equal("ToString", mi.Name);
+```
+
+Due to the signature of the `Select` method, you can alternatively write the above query as a LINQ query!
+
+```C#
+MethodInfo mi = from v in new Methods<Version>()
+                select v.ToString();
+Assert.Equal("ToString", mi.Name);
+```
+
+In addition to strongly-typed queries over properties, Albedo also provides strongly-typed queries over fields and methods.
