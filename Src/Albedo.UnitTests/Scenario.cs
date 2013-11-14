@@ -90,13 +90,14 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void ReadFromProperty()
         {
-            var pi = from v in new Properties<Version>() select v.Minor;
+            PropertyInfo pi = from v in new Properties<Version>()
+                              select v.Minor;
             var version = new Version(2, 7);
             var visitor = new ValueCollectingVisitor(version);
 
             var actual = new PropertyInfoElement(pi).Accept(visitor);
 
-            Assert.Equal(version.Minor, actual.Value.Cast<int>().Single());
+            Assert.Equal(version.Minor, actual.Value.OfType<int>().First());
         }
 
         [Fact]
