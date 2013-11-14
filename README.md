@@ -3,6 +3,21 @@ Albedo
 
 A .NET library targeted at making Reflection programming more consistent, using a common set of abstractions and utilities.
 
+This examples uses a [PropertyInfo](http://msdn.microsoft.com/en-us/library/system.reflection.propertyinfo.aspx) to read a value off a [System.Version](http://msdn.microsoft.com/en-us/library/system.version.aspx) instance:
+
+```c#
+PropertyInfo pi = from v in new Properties<Version>()
+                  select v.Minor;
+var version = new Version(2, 7);
+var visitor = new ValueCollectingVisitor(version);
+
+var actual = new PropertyInfoElement(pi).Accept(visitor);
+
+Assert.Equal(version.Minor, actual.Value.OfType<int>().First());
+```
+
+More examples further down.
+
 Which problem does it address?
 ------------------------------
 
