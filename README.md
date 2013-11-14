@@ -136,3 +136,102 @@ Assert.Equal(1, actualValues.Count(TimeSpan.Zero.Equals));
 ```
 
 The `ValueCollectingVisitor` class is the only custom code written to implement this behaviour. The rest of the types in the above code example is either defined in the BCL (`TimeSpan`, etc.) or provided by Albedo (`PropertyInfoElement`, `FieldInfoElement`, `CompositeReflectionElement`).
+
+### Assigning values
+
+Albedo wouldn't be a truly flexible library if the only thing it can do is read values from properties and fields. It can do other things as well; closely related to *reading* values is *assigning* values.
+
+Assume that you have a class like this:
+
+```C#
+    public class ClassWithWritablePropertiesAndFields<T>
+    {
+        public T Field1;
+
+        public T Field2;
+
+        public T Property1 { get; set; }
+
+        public T Property2 { get; set; }
+    }
+```
+
+If you want to assign a value to all fields and properties, you can do it like this:
+
+```C#
+var t = new ClassWithWritablePropertiesAndFields<int>();
+var elements = t.GetType()
+    .GetProperties()
+    .Select(pi => new PropertyInfoElement(pi))
+    .Cast<IReflectionElement>()
+    .Concat(t.GetType()
+        .GetFields()
+        .Select(fi => new FieldInfoElement(fi))
+        .Cast<IReflectionElement>())
+    .ToArray();
+var visitor = new ValueWritingVisitor(t);
+
+var actual =
+    new CompositeReflectionElement(elements).Accept(visitor);
+actual.Value(42);
+
+Assert.Equal(42, t.Field1);
+Assert.Equal(42, t.Field2);
+Assert.Equal(42, t.Property1);
+Assert.Equal(42, t.Property2);
+```
+
+Apart from `ClassWithWritablePropertiesAndFields<T>`, the only custom type you'd have to provide to enable this feature is the `ValueWritingVisitor`:
+
+```C#
+public class ValueWritingVisitor : ReflectionVisitor<Action<object>>
+{
+    private readonly object target;
+    private readonly Action<object>[] actions;
+
+    public ValueWritingVisitor(
+        object target,
+        params Action<object>[] actions)
+    {
+        this.target = target;
+        this.actions = actions;
+    }
+
+    public override Action<object> Value
+    {
+        get
+        {
+            return x =>
+            {
+                foreach (var a in this.actions)
+                    a(x);
+            };
+        }
+    }
+
+    public override IReflectionVisitor<Action<object>> Visit(
+        FieldInfoElement fieldInfoElement)
+    {
+        Action<object> a =
+            v => fieldInfoElement.FieldInfo.SetValue(this.target, v);
+        return new ValueWritingVisitor(
+            this.target,
+            this.actions.Concat(new[] { a }).ToArray());
+    }
+
+    public override IReflectionVisitor<Action<object>> Visit(
+        PropertyInfoElement propertyInfoElement)
+    {
+        Action<object> a =
+            v => propertyInfoElement.PropertyInfo.SetValue(
+                this.target,
+                v,
+                null);
+        return new ValueWritingVisitor(
+            this.target,
+            this.actions.Concat(new[] { a }).ToArray());
+    }
+}
+```
+
+As you can see in this example, the `ValueWritingVisitor` collects an array of Actions that can be executed once the Visitor has visited all the elements. (Once again, for demonstration purposes, the above sample code assumes that each assignment is possible, which may very well not be the case if the property or field is read-only, or if the types don't match.)
