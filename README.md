@@ -17,6 +17,8 @@ Assert.Equal(version.Minor, actual.Value.OfType<int>().First());
 
 More examples further down.
 
+Albedo follows [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html).
+
 ## Where do you get it?
 
 Obviously, the source code is available here on GitHub, but you can [download the compiled library with NuGet](http://www.nuget.org/packages/Albedo).
