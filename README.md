@@ -1,5 +1,4 @@
-Albedo
-======
+# Albedo
 
 A .NET library targeted at making Reflection programming more consistent, using a common set of abstractions and utilities.
 
@@ -18,8 +17,7 @@ Assert.Equal(version.Minor, actual.Value.OfType<int>().First());
 
 More examples further down.
 
-Which problem does it address?
-------------------------------
+## Which problem does it address?
 
 Albedo addresses the problem that the .NET Reflection API (mainly in [System.Reflection](http://msdn.microsoft.com/en-us/library/system.reflection.aspx)) doesn't provide a set of good abstractions. As an example, both [PropertyInfo](http://msdn.microsoft.com/en-us/library/system.reflection.propertyinfo.aspx) and [FieldInfo](http://msdn.microsoft.com/en-us/library/system.reflection.fieldinfo.aspx) expose `GetValue` and `SetValue` functions, but despite their similarities, these functions are defined directly on each of those two classes, so there's no polymorphic API to read a value from a property *or* field, or assign a value to a property *or* field.
 
@@ -29,8 +27,7 @@ At least PropertyInfo and FieldInfo both derive from the abstract [MemberInfo](h
 
 While you can define your own interfaces or delegates to deal with this lack of polymorphism in the Reflection API, Albedo offers a **common set of abstractions** over the Reflection API. These abstractions are based on tried-and-true design patterns, and as the code examples below demonstrate, are very flexible.
 
-Who cares?
-----------
+## Who cares?
 
 People who write lots of Reflection code might benefit from Albedo: Programmers of
 - ORMs
@@ -46,8 +43,7 @@ Albedo was born out of [a need for such abstractions in AutoFixture](https://git
 
 If you don't write a lot of Reflection code, you probably don't need Albedo.
 
-How does it work?
------------------
+## How does it work?
 
 In OOD, whenever you find yourself in a situation where you need to provide a consistent API over a *final*, known set of *concrete* classes, the much-derided [Visitor pattern](http://en.wikipedia.org/wiki/Visitor_pattern) is very useful. Albedo is based on an `IReflectionVisitor<T>` interface that visits [Adapters](http://en.wikipedia.org/wiki/Adapter_pattern) over the known Reflection types, such as PropertyInfo, ParameterInfo, etc.
 
