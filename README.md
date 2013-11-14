@@ -47,6 +47,8 @@ If you don't write a lot of Reflection code, you probably don't need Albedo.
 
 In OOD, whenever you find yourself in a situation where you need to provide a consistent API over a *final*, known set of *concrete* classes, the much-derided [Visitor pattern](http://en.wikipedia.org/wiki/Visitor_pattern) is very useful. Albedo is based on an `IReflectionVisitor<T>` interface that visits [Adapters](http://en.wikipedia.org/wiki/Adapter_pattern) over the known Reflection types, such as PropertyInfo, ParameterInfo, etc.
 
+### Collecting values
+
 While Albedo defines the `IReflectionVisitor<T>` interface, it also provides a `ReflectionVisitor<T>` abstract base class you can use to only visit those `IReflectionElement` Adapters you care about.
 
 The initial example uses a sample `ValueCollectingVisitor`, which is implemented like this:
