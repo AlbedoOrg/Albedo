@@ -22,6 +22,17 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
+        public void SelectParameterLessWithReturnValueReturnsCorrectMethod()
+        {
+            var sut = new Methods<ClassWithMethods>();
+
+            MethodInfo actual = sut.Select(x => x.OmitParametersWithReturnValue());
+
+            var expected = typeof(ClassWithMethods).GetMethod("OmitParametersWithReturnValue");
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void QueryParameterLessMethodUsingLinqSyntax()
         {
             var sut = new Methods<ClassWithMethods>();
@@ -33,12 +44,23 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
+        public void QueryParameterLessMethodWithReturnValueUsingLinqSyntax()
+        {
+            var sut = new Methods<ClassWithMethods>();
+
+            var actual = from x in sut select x.OmitParametersWithReturnValue();
+
+            var expected = typeof(ClassWithMethods).GetMethod("OmitParametersWithReturnValue");
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void SelectNullThrows()
         {
             var sut = new Methods<ClassWithMethods>();
             Assert.Throws<ArgumentNullException>(() => sut.Select(null));
         }
-
+        
         [Fact]
         public void SelectNonMethodCallExpressionThrows()
         {
@@ -51,6 +73,11 @@ namespace Ploeh.Albedo.UnitTests
         {
             public void OmitParameters()
             {
+            }
+
+            public object OmitParametersWithReturnValue()
+            {
+                return new object();
             }
         }
     }
