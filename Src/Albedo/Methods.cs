@@ -90,5 +90,11 @@ namespace Ploeh.Albedo
 
             return methodCallExp.Method;
         }
+
+        public MethodInfo Select<TResult>(
+            Expression<Func<T, TResult>> methodSelector)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
