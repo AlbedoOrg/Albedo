@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using Xunit;
 using Ploeh.Albedo;
@@ -60,13 +61,31 @@ namespace Ploeh.Albedo.UnitTests
             var sut = new Methods<ClassWithMethods>();
             Assert.Throws<ArgumentNullException>(() => sut.Select(null));
         }
-        
+
         [Fact]
         public void SelectNonMethodCallExpressionThrows()
         {
             var sut = new Methods<ClassWithMethods>();
             Assert.Throws<ArgumentException>(
-                () => sut.Select(_ => new object()));
+                () => sut.Select(_ => 1 + 1));
+        }
+
+        [Fact]
+        public void SelectNullFuncThrows()
+        {
+            var sut = new Methods<ClassWithMethods>();
+            Assert.Throws<ArgumentNullException>(() =>
+                sut.Select((Expression<Func<ClassWithMethods, object>>)null));
+        }
+
+        [Fact]
+        public void SelectNonMethodCallExpressionWithoutReturnThrows()
+        {
+            var sut = new Methods<ClassWithMethods>();
+            Expression<Action<ClassWithMethods>> nonMethodCallExpression =
+                _ => new object();
+            Assert.Throws<ArgumentException>(
+                () => sut.Select(nonMethodCallExpression));
         }
 
         private class ClassWithMethods

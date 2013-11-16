@@ -94,7 +94,14 @@ namespace Ploeh.Albedo
         public MethodInfo Select<TResult>(
             Expression<Func<T, TResult>> methodSelector)
         {
-            throw new NotImplementedException();
+            if (methodSelector == null)
+                throw new ArgumentNullException("methodSelector");
+
+            var methodCallExp = methodSelector.Body as MethodCallExpression;
+            if (methodCallExp == null)
+                throw new ArgumentException("The expression's body must be a MethodCallExpression. The code block supplied should invoke a method.\nExample: x => x.Foo().", "methodSelector");
+
+            return methodCallExp.Method;
         }
     }
 }
