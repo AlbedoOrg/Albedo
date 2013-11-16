@@ -91,6 +91,53 @@ namespace Ploeh.Albedo
             return methodCallExp.Method;
         }
 
+        /// <summary>
+        /// Selects a <see cref="MethodInfo" /> instance based on a
+        /// strongly-typed, refactoring-safe LINQ expression.
+        /// </summary>
+        /// <param name="methodSelector">
+        /// A LINQ expression that identifies the desired method.
+        /// </param>
+        /// <returns>
+        /// A <see cref="MethodInfo" /> instance representing the method
+        /// identified by <paramref name="methodSelector" />.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// The Select method provides a strongly-typed, refactoring-safe way
+        /// to get a <see cref="MethodInfo" /> instance. It supports both
+        /// normal method invocation syntax, as well as LINQ syntax.
+        /// </para>
+        /// </remarks>
+        /// <example>
+        /// This example demonstrates how to use <see cref="Methods{T}" />
+        /// with normal method invocation syntax. The <strong>Select</strong>
+        /// method returns a <see cref="MethodInfo" /> instance representing
+        /// the <see cref="Version.ToString()" /> method of
+        /// <see cref="Version" />.
+        /// <code>
+        /// MethodInfo mi = new Methods&lt;Version&gt;().Select(v => v.ToString());
+        /// </code>
+        /// This example demonstrates how to use <see cref="Methods{T}" />
+        /// with LINQ syntax. The <strong>Select</strong>
+        /// method returns a <strong>MethodInfo</strong> instance
+        /// representing the <strong>ToString()</strong> method of
+        /// <strong>Version</strong>.
+        /// <code>
+        /// MethodInfo mi = from v in new Methods&lt;Version&gt;()
+        ///                 select v.ToString();
+        /// </code>
+        /// </example>
+        /// <exception cref="System.ArgumentNullException">
+        /// <paramref name="methodSelector" /> is null.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">
+        /// The expression's body isn't a <see cref="MethodCallExpression"/> or
+        /// it doesn't identify a method. The code block supplied should
+        /// identify a method.
+        /// Example: x => x.Foo().
+        /// </exception>
+        /// <seealso cref="Methods{T}" />
         public MethodInfo Select<TResult>(
             Expression<Func<T, TResult>> methodSelector)
         {
