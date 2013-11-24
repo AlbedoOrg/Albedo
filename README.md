@@ -404,7 +404,7 @@ public class SemanticElementComparer : IEqualityComparer<IReflectionElement>
 }
 ```
 
-Since the `Equals` method compares exactly *two* elements, there should also be *exactly two* collected elements. This isn't guaranteed, because `x` or `y` could also be instances of `TypeElement` og `MethodInfoElement`, and `SemanticReflectionVisitor` doesn't collect those. On the other hand, while there should be exactly two instances, they should be equal to each other for the `Equals` method to return true; thus, if the count of *distinct* values is *one*, they are equal to each other, since the `Distinct` method uses object equality, as implemented by each element's `Equals` method (and recall that `SemanticComparisonValue` overrides `Equals`).
+Since the `Equals` method compares exactly *two* elements, there should also be *exactly two* collected elements. This isn't guaranteed, because `x` or `y` could also be instances of `TypeElement` or `MethodInfoElement`, and `SemanticReflectionVisitor` doesn't collect those. On the other hand, while there should be exactly two instances, they should be equal to each other for the `Equals` method to return true; thus, if the count of *distinct* values is *one*, they are equal to each other, since the `Distinct` method uses object equality, as implemented by each element's `Equals` method (and recall that `SemanticComparisonValue` overrides `Equals`).
 
 ### Strongly-typed queries of type members
 
