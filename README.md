@@ -23,13 +23,13 @@ Albedo follows [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html).
 
 Obviously, the source code is available here on GitHub, but you can [download the compiled library with NuGet](http://www.nuget.org/packages/Albedo).
 
-## Which problem does it address?
+## What problem does it address?
 
-Albedo addresses the problem that the .NET Reflection API (mainly in [System.Reflection](http://msdn.microsoft.com/en-us/library/system.reflection.aspx)) doesn't provide a set of good abstractions. As an example, both [PropertyInfo](http://msdn.microsoft.com/en-us/library/system.reflection.propertyinfo.aspx) and [FieldInfo](http://msdn.microsoft.com/en-us/library/system.reflection.fieldinfo.aspx) expose `GetValue` and `SetValue` functions, but despite their similarities, these functions are defined directly on each of those two classes, so there's no polymorphic API to read a value from a property *or* field, or assign a value to a property *or* field.
+Albedo addresses the problem that the .NET Reflection API (mainly in [System.Reflection](http://msdn.microsoft.com/en-us/library/system.reflection.aspx)) doesn't provide a set of good abstractions. As an example, both [PropertyInfo](http://msdn.microsoft.com/en-us/library/system.reflection.propertyinfo.aspx) and [FieldInfo](http://msdn.microsoft.com/en-us/library/system.reflection.fieldinfo.aspx) expose `GetValue` and `SetValue` functions, yet despite their similarities, these functions are defined directly on each of those two classes, so there's no polymorphic API to read a value from a property *or* field, or assign a value to a property *or* field.
 
 It's also difficult to extract the type of a property or field in a polymorphic manner, because the type of a property is defined by the [PropertyType](http://msdn.microsoft.com/en-us/library/system.reflection.propertyinfo.propertytype.aspx) property, while the type of a field is defined by the [FieldType](http://msdn.microsoft.com/en-us/library/system.reflection.fieldinfo.fieldtype.aspx) property.
 
-At least PropertyInfo and FieldInfo both derive from the abstract [MemberInfo](http://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx) class, so they still have a *little* in common. However, if you want to compare any of these to, say, a [ParameterInfo](http://msdn.microsoft.com/en-us/library/system.reflection.parameterinfo.aspx) instance, the highest common ancestor is `object`!
+At least PropertyInfo and FieldInfo both derive from the abstract [MemberInfo](http://msdn.microsoft.com/en-us/library/system.reflection.memberinfo.aspx) class, so they still have a *little* in common. However, if you want to compare any of these to, say, a [ParameterInfo](http://msdn.microsoft.com/en-us/library/system.reflection.parameterinfo.aspx) instance, the highest common ancestor is `Object`!
 
 While you can define your own interfaces or delegates to deal with this lack of polymorphism in the Reflection API, Albedo offers a **common set of abstractions** over the Reflection API. These abstractions are based on tried-and-true design patterns, and as the code examples below demonstrate, are very flexible.
 
@@ -53,7 +53,7 @@ If you don't write a lot of Reflection code, you probably don't need Albedo.
 
 In OOD, whenever you find yourself in a situation where you need to provide a consistent API over a *final*, known set of *concrete* classes, the much-derided [Visitor pattern](http://en.wikipedia.org/wiki/Visitor_pattern) is very useful. Albedo is based on an `IReflectionVisitor<T>` interface that visits [Adapters](http://en.wikipedia.org/wiki/Adapter_pattern) over the known Reflection types, such as PropertyInfo, ParameterInfo, etc.
 
-While Albedo defines the `IReflectionVisitor<T>` interface, it also provides a `ReflectionVisitor<T>` abstract base class you can use to only visit those `IReflectionElement` Adapters you care about.
+While Albedo defines the `IReflectionVisitor<T>` interface, it also provides a `ReflectionVisitor<T>` abstract base class you can use to visit only those `IReflectionElement` Adapters you care about.
 
 All examples shown here can be found in the `Scenario` class in the Albedo code base's unit tests.
 
@@ -147,7 +147,7 @@ The `ValueCollectingVisitor` class is the only custom code written to implement 
 
 ### Assigning values
 
-Albedo wouldn't be a truly flexible library if the only thing it can do is read values from properties and fields. It can do other things as well; closely related to *reading* values is *assigning* values.
+Albedo wouldn't be a truly flexible library if the only thing it could do is to read values from properties and fields. It can also do other things; closely related to *reading* values is *assigning* values.
 
 Assume that you have a class like this:
 
@@ -242,7 +242,7 @@ public class ValueWritingVisitor : ReflectionVisitor<Action<object>>
 }
 ```
 
-As you can see in this example, the `ValueWritingVisitor` collects an array of Actions that can be executed once the Visitor has visited all the elements. (Once again, for demonstration purposes, the above sample code assumes that each assignment is possible, which may very well not be the case if the property or field is read-only, or if the types don't match.)
+As you can see in this example, the `ValueWritingVisitor` collects an array of `Action`s that can be executed once the Visitor has visited all the elements. (Once again, for demonstration purposes, the above sample code assumes that each assignment is possible, which may very well not be the case if the property or field is read-only, or if the types don't match.)
 
 ### Comparison
 
@@ -254,7 +254,7 @@ Since this is a comparison, it sounds like a job for [`IEqualityComparer<T>`](ht
 
 The challenge is that `ParameterInfo` shares no API with `PropertyInfo`, and additionally, you'll want to make a case-insensitive comparison of their names.
 
-Albedo can address this scenario with its abstractions on top of Reflection, so that you can declare an `IEqualityComparer<IReflectionElement>` and use it like this:
+Albedo can address this scenario with its abstractions on top of Reflection, enabling you to declare an `IEqualityComparer<IReflectionElement>` and use it like this:
 
 ```C#
 [Theory]
@@ -404,7 +404,7 @@ public class SemanticElementComparer : IEqualityComparer<IReflectionElement>
 }
 ```
 
-Since the `Equals` method compares exactly *two* elements, there should also be *exactly two* collected elements. This isn't guaranteed, because `x` or `y` could also be instances of `TypeElement` og `MethodInfoElement`, and `SemanticReflectionVisitor` doesn't collect those. On the other hand, while there should be exactly two instances, they should be equal to each other for the `Equals` method to return true; thus, if the count of *distinct* values is *one*, they are equal to each other, since the `Distinct` method uses object equality, as implemented by each element's `Equals` method (and recall that `SemanticComparisonValue` overrides `Equals`).
+Since the `Equals` method compares exactly *two* elements, there should also be *exactly two* collected elements. This isn't guaranteed, because `x` or `y` could also be instances of `TypeElement` or `MethodInfoElement`, and `SemanticReflectionVisitor` doesn't collect those. On the other hand, while there should be exactly two instances, they must be equal to each other for the `Equals` method to return `true`; thus, if the count of *distinct* values is *one*, they are equal to each other, since the `Distinct` method uses object equality, as implemented by each element's `Equals` method (and recall that `SemanticComparisonValue` overrides `Equals`).
 
 ### Strongly-typed queries of type members
 
