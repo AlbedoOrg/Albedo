@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReflectionElementExtensionsTests.cs" />
     <Compile Include="Refraction\AssemblyElementRefractionTests.cs" />
     <Compile Include="AssemblyElementTests.cs" />
     <Compile Include="CompositeReflectionElementTests.cs" />
