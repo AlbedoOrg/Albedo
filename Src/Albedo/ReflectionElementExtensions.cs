@@ -35,5 +35,20 @@ namespace Ploeh.Albedo
             if (elements == null) throw new ArgumentNullException("elements");
             return new CompositeReflectionElement(elements.ToArray()).Accept(visitor);
         }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly",
+            MessageId = "Attr", Justification = "This is the standard naming pattern for a BindingFlags parameter, used in the .NET Framework.")]
+        public static IEnumerable<IReflectionElement> GetPropertiesAndFields(
+            this Type type, BindingFlags bindingAttr)
+        {
+            if (type == null) throw new ArgumentNullException("type");
+            return type
+                .GetProperties(bindingAttr)
+                .Select(pi => new PropertyInfoElement(pi))
+                .Cast<IReflectionElement>()
+                .Concat(type
+                    .GetFields(bindingAttr)
+                    .Select(fi => new FieldInfoElement(fi))
+                    .Cast<IReflectionElement>());
+        }
     }
 }

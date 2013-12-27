@@ -51,5 +51,115 @@ namespace Ploeh.Albedo.UnitTests
 
             // Teardown
         }
+
+        [Fact]
+        public void GetPropertiesAndFieldsThrowsOnNullType()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                ReflectionElementExtensions.GetPropertiesAndFields(null, BindingFlags.Default));
+            Assert.Equal("type", e.ParamName);
+        }
+
+        [Theory, ClassData(typeof(GetPropertiesAndFieldsTestCases))]
+        public void GetPropertiesAndFieldsReturnsTheCorrectResults(
+            Type type, BindingFlags bindingAttr, IEnumerable<IReflectionElement> expectedElements)
+        {
+            var actual = type.GetPropertiesAndFields(bindingAttr);
+            Assert.Equal(expectedElements, actual);
+        }
+
+        private class GetPropertiesAndFieldsTestCases : IEnumerable<object[]>
+        {
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                var type = typeof (TypeWithStaticAndInstanceMembers<int>);
+                var properties = new Properties<TypeWithStaticAndInstanceMembers<int>>();
+                var fields = new Fields<TypeWithStaticAndInstanceMembers<int>>();
+                yield return new object[]
+                {
+                    typeof (TypeWithStaticAndInstanceMembers<int>),
+                    BindingFlags.Public | BindingFlags.Instance,
+                    new IReflectionElement[]
+                    {
+                        new PropertyInfoElement(properties.Select(i => i.PublicReadOnlyProperty)),
+                        new PropertyInfoElement(properties.Select(i => i.PublicProperty)),
+                        new FieldInfoElement(fields.Select(i => i.PublicReadOnlyField)),
+                        new FieldInfoElement(fields.Select(i => i.PublicField)), 
+                    }
+                };
+
+                yield return new object[]
+                {
+                    typeof(TypeWithStaticAndInstanceMembers<int>),
+                    BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static,
+                    new IReflectionElement[]
+                    {
+                        new PropertyInfoElement(type.GetProperty("PublicStaticReadOnlyProperty")),
+                        new PropertyInfoElement(type.GetProperty("PublicStaticProperty")),
+                        new PropertyInfoElement(properties.Select(i => i.PublicReadOnlyProperty)),
+                        new PropertyInfoElement(properties.Select(i => i.PublicProperty)),
+                        new FieldInfoElement(fields.Select(i => i.PublicReadOnlyField)),
+                        new FieldInfoElement(fields.Select(i => i.PublicField)),
+                        new FieldInfoElement(type.GetField("PublicStaticField")),
+                        new FieldInfoElement(type.GetField("PublicStaticReadOnlyFieldWithDefault")),
+                    }
+                };
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
+
+        public class TypeWithStaticAndInstanceMembers<TValue>
+        {
+            static TypeWithStaticAndInstanceMembers()
+            {
+                PublicStaticReadOnlyProperty = default(TValue);
+                PrivateStaticReadOnlyFieldWithDefault = default(TValue);
+                PrivateStaticField = default(TValue);
+                _protectedInternalStaticProperty = default(TValue);
+                ProtectedInternalStaticProperty = default(TValue);
+            }
+
+            // Static fields
+            private static readonly TValue PrivateStaticReadOnlyFieldWithDefault;
+            private static TValue PrivateStaticField;
+            public static TValue PublicStaticField;
+            public static readonly TValue PublicStaticReadOnlyFieldWithDefault = default(TValue);
+            private static TValue _protectedInternalStaticProperty;
+
+            // Static properties
+            private static TValue PrivateStaticProperty { get; set; }
+            internal static TValue InternalStaticProperty { get; set; }
+            protected internal static TValue ProtectedInternalStaticProperty { get; set; }
+            public static TValue PublicStaticReadOnlyProperty { get; private set; }
+            public static TValue PublicStaticProperty { get; set; }
+
+            // Instance fields
+            public readonly TValue PublicReadOnlyField;
+            public TValue PublicField = default(TValue);
+            private TValue privateField;
+            private readonly TValue privateReadOnlyField;
+
+            // Instance Properties
+            public TValue PublicReadOnlyProperty { get; private set; }
+            public TValue PublicProperty { get; set; }
+            internal TValue InternalProperty { get; set; }
+
+            public TypeWithStaticAndInstanceMembers(
+                TValue publicReadOnlyField,
+                TValue privateField,
+                TValue privateReadOnlyField,
+                TValue publicReadOnlyProperty)
+            {
+                PublicReadOnlyField = publicReadOnlyField;
+                PublicReadOnlyProperty = publicReadOnlyProperty;
+                this.privateReadOnlyField = privateReadOnlyField;
+                this.privateField = privateField;
+            }
+        }
+
     }
 }
