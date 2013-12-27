@@ -9,7 +9,7 @@ namespace Ploeh.Albedo
     /// Contains extension methods for dealing with <see cref="IReflectionElement"/>
     /// instances, both producing and consuming them.
     /// </summary>
-    public static class ReflectionElementExtensions
+    public static class ReflectionElementEnvy
     {
         /// <summary>
         /// Accepts the <see cref="IReflectionVisitor{T}"/> visitor on each of the

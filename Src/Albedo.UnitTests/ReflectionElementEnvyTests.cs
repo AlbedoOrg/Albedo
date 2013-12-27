@@ -11,16 +11,13 @@ using Xunit.Extensions;
 
 namespace Ploeh.Albedo.UnitTests
 {
-    public class ReflectionElementExtensionsTests
+    public class ReflectionElementEnvyTests
     {
         [Fact]
         public void AcceptThrowsOnNullElements()
         {
-            // Fixture setup
-            IEnumerable<IReflectionElement> elements = null;
-            // Exercise system
             var e = Assert.Throws<ArgumentNullException>(() =>
-                elements.Accept(new DelegatingReflectionVisitor<object>()));
+                ReflectionElementEnvy.Accept(null, new DelegatingReflectionVisitor<object>()));
 
             Assert.Equal("elements", e.ParamName);
         }
@@ -39,7 +36,7 @@ namespace Ploeh.Albedo.UnitTests
             e1.Setup(x => x.Accept(v1)).Returns(v2);
             e2.Setup(x => x.Accept(v2)).Returns(v3);
             e3.Setup(x => x.Accept(v3)).Returns(v4);
-            
+
             var elements = new[] { e1.Object, e2.Object, e3.Object };
 
             // Exercise system
@@ -56,7 +53,7 @@ namespace Ploeh.Albedo.UnitTests
         public void GetPropertiesAndFieldsThrowsOnNullType()
         {
             var e = Assert.Throws<ArgumentNullException>(() =>
-                ReflectionElementExtensions.GetPropertiesAndFields(null, BindingFlags.Default));
+                ReflectionElementEnvy.GetPropertiesAndFields(null, BindingFlags.Default));
             Assert.Equal("type", e.ParamName);
         }
 
@@ -114,6 +111,7 @@ namespace Ploeh.Albedo.UnitTests
 
         public class TypeWithStaticAndInstanceMembers<TValue>
         {
+#pragma warning disable 414
             static TypeWithStaticAndInstanceMembers()
             {
                 PublicStaticReadOnlyProperty = default(TValue);
@@ -160,6 +158,7 @@ namespace Ploeh.Albedo.UnitTests
                 this.privateField = privateField;
             }
         }
+#pragma warning restore 414
 
     }
 }
