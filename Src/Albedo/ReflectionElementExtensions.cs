@@ -11,5 +11,12 @@ namespace Ploeh.Albedo
     /// </summary>
     public static class ReflectionElementExtensions
     {
+        public static IReflectionVisitor<T> Accept<T>(
+            this IEnumerable<IReflectionElement> elements,
+            IReflectionVisitor<T> visitor)
+        {
+            if (elements == null) throw new ArgumentNullException("elements");
+            return new CompositeReflectionElement(elements.ToArray()).Accept(visitor);
+        }
     }
 }
