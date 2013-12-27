@@ -35,6 +35,16 @@ namespace Ploeh.Albedo
             if (elements == null) throw new ArgumentNullException("elements");
             return new CompositeReflectionElement(elements.ToArray()).Accept(visitor);
         }
+        /// <summary>
+        /// Gets the matching properties and fields from the <paramref name="type"/>, and
+        /// returns them as a sequence of <see cref="IReflectionElement"/> instances.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> which properties and fields are
+        /// obtained from.</param>
+        /// <param name="bindingAttr">The <see cref="BindingFlags"/> used determine which
+        /// properties and fields to get.</param>
+        /// <returns>The sequence of <see cref="IReflectionElement"/> instances representing
+        /// the matching properties and fields from the <paramref name="type"/>.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly",
             MessageId = "Attr", Justification = "This is the standard naming pattern for a BindingFlags parameter, used in the .NET Framework.")]
         public static IEnumerable<IReflectionElement> GetPropertiesAndFields(
