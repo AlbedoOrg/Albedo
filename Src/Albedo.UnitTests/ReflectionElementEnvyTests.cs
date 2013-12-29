@@ -14,6 +14,34 @@ namespace Ploeh.Albedo.UnitTests
     public class ReflectionElementEnvyTests
     {
         [Fact]
+        public void GetProperMethodsThrowsOnNullType()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                ReflectionElementEnvy.GetProperMethods(null, BindingFlags.Default));
+
+            Assert.Equal("type", e.ParamName);
+        }
+
+        [Theory, ClassData(typeof(GetProperMethodsTestCases))]
+        public void GetProperMethodsReturnsMethodsExcludingPropertyAccessors(
+            Type type, BindingFlags bindingAttr, IEnumerable<IReflectionElement> expectedElements)
+        {
+            // Fixture setup
+            Func<MethodInfoElement, string> orderBy = mie => mie.MethodInfo.ToString();
+
+            // Exercise system
+            var actual = type.GetProperMethods(bindingAttr);
+
+            // Verify outcome
+            AssertUnorderedElementsEqual(
+                expectedElements,
+                actual,
+                orderBy);
+
+            // Fixture teardown
+        }
+
+        [Fact]
         public void AcceptThrowsOnNullElements()
         {
             var e = Assert.Throws<ArgumentNullException>(() =>
@@ -63,6 +91,59 @@ namespace Ploeh.Albedo.UnitTests
         {
             var actual = type.GetPropertiesAndFields(bindingAttr);
             Assert.Equal(expectedElements, actual);
+        }
+
+        static void AssertUnorderedElementsEqual<TConcreteElement, TKey>(
+            IEnumerable<IReflectionElement> expected,
+            IEnumerable<IReflectionElement> actual,
+            Func<TConcreteElement, TKey> orderBy)
+        {
+            Assert.Equal(
+                expected.Cast<TConcreteElement>().OrderBy(orderBy),
+                actual.Cast<TConcreteElement>().OrderBy(orderBy));
+        }
+
+        private class GetProperMethodsTestCases : IEnumerable<object[]>
+        {
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                var type = typeof(TypeWithStaticAndInstanceMembers<int>);
+                var methods = new Methods<TypeWithStaticAndInstanceMembers<int>>(); 
+
+                yield return new object[]
+                {
+                    type,
+                    BindingFlags.Public | BindingFlags.Instance,
+                    new IReflectionElement[]
+                    {
+                        new MethodInfoElement(methods.Select(t => t.PublicMethod())),
+                        new MethodInfoElement(type.GetMethod("ToString")),
+                        new MethodInfoElement(type.GetMethod("Equals")),
+                        new MethodInfoElement(type.GetMethod("GetHashCode")),
+                        new MethodInfoElement(type.GetMethod("GetType")),
+                    }
+                };
+
+                yield return new object[]
+                {
+                    type,
+                    BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static,
+                    new IReflectionElement[]
+                    {
+                        new MethodInfoElement(methods.Select(t => t.PublicMethod())),
+                        new MethodInfoElement(type.GetMethod("PublicStaticVoidMethod")),
+                        new MethodInfoElement(type.GetMethod("ToString")),
+                        new MethodInfoElement(type.GetMethod("Equals")),
+                        new MethodInfoElement(type.GetMethod("GetHashCode")),
+                        new MethodInfoElement(type.GetMethod("GetType")),
+                    }
+                };
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
         }
 
         private class GetPropertiesAndFieldsTestCases : IEnumerable<object[]>
@@ -143,6 +224,41 @@ namespace Ploeh.Albedo.UnitTests
 
         public class TypeWithStaticAndInstanceMembers<TValue>
         {
+            public static TValue PublicStaticVoidMethod()
+            {
+                return default(TValue);
+            }
+
+            internal static TValue InternalStaticMethod()
+            {
+                return default(TValue);
+            }
+
+            protected static TValue ProtectedStaticMethod()
+            {
+                return default(TValue);
+            }
+
+            public TValue PublicMethod()
+            {
+                return default(TValue);
+            }
+
+            protected internal TValue ProtectedInternalMethod()
+            {
+                return default(TValue);
+            }
+
+            protected virtual TValue ProtectedVirtualMethod()
+            {
+                return default(TValue);
+            }
+
+            internal virtual TValue InternalVirtualMethod()
+            {
+                return default(TValue);
+            }
+
 #pragma warning disable 414
             static TypeWithStaticAndInstanceMembers()
             {
