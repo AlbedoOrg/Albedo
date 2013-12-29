@@ -63,19 +63,17 @@ namespace Ploeh.Albedo
         }
 
         /// <summary>
-        /// Gets the public instance and public static properties and fields from the 
-        /// <paramref name="type"/>, and returns them as a sequence of 
-        /// <see cref="IReflectionElement"/> instances.
+        /// Gets the public instance properties and fields from the <paramref name="type"/>,
+        /// and returns them as a sequence of <see cref="IReflectionElement"/> instances.
         /// </summary>
         /// <param name="type">The <see cref="Type"/> which properties and fields are
         /// obtained from.</param>
         /// <returns>The sequence of <see cref="IReflectionElement"/> instances representing
-        /// the public static and public instance properties and fields from the 
+        /// the public instance properties and fields from the 
         /// <paramref name="type"/>.</returns>
         public static IEnumerable<IReflectionElement> GetPublicPropertiesAndFields(this Type type)
         {
-            return type.GetPropertiesAndFields(
-                BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
+            return type.GetPropertiesAndFields(BindingFlags.Public | BindingFlags.Instance);
         }
     }
 }
