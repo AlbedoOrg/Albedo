@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Moq;
 using Xunit;
 using Xunit.Extensions;
 
@@ -18,6 +19,30 @@ namespace Ploeh.Albedo.UnitTests
             // Verify outcome
             Assert.IsAssignableFrom<IReflectionElement>(sut);
             // Teardown
+        }
+
+        [Fact]
+        public void SutOverridesToString()
+        {
+            var toStringMethodInfo = typeof(AssemblyElement).GetMethod(
+                "ToString",
+                BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+
+            Assert.NotNull(toStringMethodInfo);
+            Assert.Equal(typeof(AssemblyElement), toStringMethodInfo.DeclaringType);
+        }
+
+        [Theory]
+        [InlineData(typeof(TimeSpan))] // Assembly: mscorlib
+        [InlineData(typeof(Mock))] // Assembly: Moq
+        [InlineData(typeof(System.Linq.Enumerable))] // Assembly: System.Core
+        [InlineData(typeof(System.Data.DataSet))] // Assembly: System.Data
+        [InlineData(typeof(Xunit.Assert))] // Assembly: xunit
+        public void ToStringReturnsTheSameAsTheUnderlyingReflectionInstance(
+            Type typeInAssembly)
+        {
+            var sut = new AssemblyElement(typeInAssembly.Assembly);
+            Assert.Equal(typeInAssembly.Assembly.ToString(), sut.ToString());
         }
 
         [Fact]
