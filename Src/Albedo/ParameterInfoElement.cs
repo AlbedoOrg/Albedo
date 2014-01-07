@@ -79,5 +79,16 @@ namespace Ploeh.Albedo
         {
             return this.ParameterInfo.GetHashCode();
         }
+
+        /// <summary>
+        /// Gets the string representation of the <see cref="ParameterInfo"/>
+        /// suitable for development / debugging display purposes.
+        /// </summary>
+        /// <returns>The string representation of the contained
+        /// <see cref="ParameterInfo"/></returns>
+        public override string ToString()
+        {
+            return this.ParameterInfo.ToString();
+        }
     }
 }

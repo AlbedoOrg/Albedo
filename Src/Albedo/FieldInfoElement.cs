@@ -79,5 +79,16 @@ namespace Ploeh.Albedo
         {
             return this.FieldInfo.GetHashCode();
         }
+
+        /// <summary>
+        /// Gets the string representation of the <see cref="FieldInfo"/>
+        /// suitable for development / debugging display purposes.
+        /// </summary>
+        /// <returns>The string representation of the contained
+        /// <see cref="FieldInfo"/></returns>
+        public override string ToString()
+        {
+            return this.FieldInfo.ToString();
+        }
     }
 }

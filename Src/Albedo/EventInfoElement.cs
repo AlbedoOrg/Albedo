@@ -79,5 +79,16 @@ namespace Ploeh.Albedo
         {
             return this.EventInfo.GetHashCode();
         }
+
+        /// <summary>
+        /// Gets the string representation of the <see cref="EventInfo"/>
+        /// suitable for development / debugging display purposes.
+        /// </summary>
+        /// <returns>The string representation of the contained
+        /// <see cref="EventInfo"/></returns>
+        public override string ToString()
+        {
+            return this.EventInfo.ToString();
+        }
     }
 }

@@ -80,5 +80,16 @@ namespace Ploeh.Albedo
         {
             return this.MethodInfo.GetHashCode();
         }
+
+        /// <summary>
+        /// Gets the string representation of the <see cref="MethodInfo"/>
+        /// suitable for development / debugging display purposes.
+        /// </summary>
+        /// <returns>The string representation of the contained
+        /// <see cref="MethodInfo"/></returns>
+        public override string ToString()
+        {
+            return this.MethodInfo.ToString();
+        }
     }
 }

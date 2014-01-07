@@ -77,5 +77,16 @@ namespace Ploeh.Albedo
         {
             return this.Assembly.GetHashCode();
         }
+
+        /// <summary>
+        /// Gets the string representation of the <see cref="Assembly"/>
+        /// suitable for development / debugging display purposes.
+        /// </summary>
+        /// <returns>The string representation of the contained
+        /// <see cref="Assembly"/></returns>
+        public override string ToString()
+        {
+            return this.Assembly.ToString();
+        }
     }
 }
