@@ -89,7 +89,7 @@ namespace Ploeh.Albedo
         /// <see cref="MethodInfo"/></returns>
         public override string ToString()
         {
-            return this.MethodInfo.ToString();
+            return string.Format("[[{0}]] ({1})", this.MethodInfo, "method");
         }
     }
 }

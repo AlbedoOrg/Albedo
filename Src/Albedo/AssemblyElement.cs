@@ -86,7 +86,7 @@ namespace Ploeh.Albedo
         /// <see cref="Assembly"/></returns>
         public override string ToString()
         {
-            return this.Assembly.ToString();
+            return string.Format("[[{0}]] ({1})", this.Assembly, "assembly");
         }
     }
 }

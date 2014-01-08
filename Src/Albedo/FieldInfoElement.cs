@@ -88,7 +88,7 @@ namespace Ploeh.Albedo
         /// <see cref="FieldInfo"/></returns>
         public override string ToString()
         {
-            return this.FieldInfo.ToString();
+            return string.Format("[[{0}]] ({1})", this.FieldInfo, "field");
         }
     }
 }

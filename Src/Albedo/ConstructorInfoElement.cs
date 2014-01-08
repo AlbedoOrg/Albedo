@@ -89,7 +89,7 @@ namespace Ploeh.Albedo
         /// <see cref="ConstructorInfo"/></returns>
         public override string ToString()
         {
-            return this.ConstructorInfo.ToString();
+            return string.Format("[[{0}]] ({1})", this.ConstructorInfo, "constructor");
         }
     }
 }

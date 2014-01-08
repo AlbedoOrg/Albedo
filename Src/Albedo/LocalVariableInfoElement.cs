@@ -88,7 +88,7 @@ namespace Ploeh.Albedo
         /// <see cref="LocalVariableInfo"/></returns>
         public override string ToString()
         {
-            return this.LocalVariableInfo.ToString();
+            return string.Format("[[{0}]] ({1})", this.LocalVariableInfo, "local");
         }
     }
 }

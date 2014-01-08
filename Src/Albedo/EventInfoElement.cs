@@ -88,7 +88,7 @@ namespace Ploeh.Albedo
         /// <see cref="EventInfo"/></returns>
         public override string ToString()
         {
-            return this.EventInfo.ToString();
+            return string.Format("[[{0}]] ({1})", this.EventInfo, "event");
         }
     }
 }
