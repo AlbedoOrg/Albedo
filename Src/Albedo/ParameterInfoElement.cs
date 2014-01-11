@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Reflection;
 
 namespace Ploeh.Albedo
@@ -88,7 +89,8 @@ namespace Ploeh.Albedo
         /// <see cref="ParameterInfo"/></returns>
         public override string ToString()
         {
-            return string.Format("[[{0}]] ({1})", this.ParameterInfo, "parameter");
+            return string.Format(
+                CultureInfo.CurrentCulture, "[[{0}]] ({1})", this.ParameterInfo, "parameter");
         }
     }
 }
