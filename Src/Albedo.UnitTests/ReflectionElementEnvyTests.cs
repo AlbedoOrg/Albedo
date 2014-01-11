@@ -14,7 +14,7 @@ namespace Ploeh.Albedo.UnitTests
     public class ReflectionElementEnvyTests
     {
         [Fact]
-        public void GetProperMethodsThrowsOnNullType()
+        public void GetProperMethodsWithBindingFlagsThrowsOnNullType()
         {
             var e = Assert.Throws<ArgumentNullException>(() =>
                 ReflectionElementEnvy.GetProperMethods(null, BindingFlags.Default));
@@ -22,8 +22,47 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal("type", e.ParamName);
         }
 
+        [Fact]
+        public void GetProperMethodsThrowsOnNullType()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                ReflectionElementEnvy.GetProperMethods(null));
+
+            Assert.Equal("type", e.ParamName);
+        }
+
+        [Fact]
+        public void GetProperMethodsReturnsPublicStaticAndPublicInstanceProperMethods()
+        {
+            // Fixture setup
+            Func<MethodInfoElement, string> orderBy = mie => mie.MethodInfo.ToString();
+
+            var type = typeof(TypeWithStaticAndInstanceMembers<int>);
+            var methods = new Methods<TypeWithStaticAndInstanceMembers<int>>();
+            var expected = new IReflectionElement[]
+            {
+                new MethodInfoElement(methods.Select(t => t.PublicMethod())),
+                new MethodInfoElement(type.GetMethod("PublicStaticVoidMethod")),
+                new MethodInfoElement(type.GetMethod("ToString")),
+                new MethodInfoElement(type.GetMethod("Equals")),
+                new MethodInfoElement(type.GetMethod("GetHashCode")),
+                new MethodInfoElement(type.GetMethod("GetType")),
+            };
+
+            // Exercise system
+            var actual = type.GetProperMethods();
+
+            // Verify outcome
+            AssertUnorderedElementsEqual(
+                expected,
+                actual,
+                orderBy);
+
+            // Fixture teardown
+        }
+
         [Theory, ClassData(typeof(GetProperMethodsTestCases))]
-        public void GetProperMethodsReturnsMethodsExcludingPropertyAccessors(
+        public void GetProperMethodsWithBindingFlagsReturnsMethodsExcludingPropertyAccessors(
             Type type, BindingFlags bindingAttr, IEnumerable<IReflectionElement> expectedElements)
         {
             // Fixture setup
