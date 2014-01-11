@@ -144,8 +144,10 @@ namespace Ploeh.Albedo.UnitTests
 #pragma warning restore 67
 
 #pragma warning disable 169
+#pragma warning disable 649
             public int TheOnlyField;
 #pragma warning restore 169
+#pragma warning restore 649
 
             public static void MethodWithLocal(int parameter)
             {
