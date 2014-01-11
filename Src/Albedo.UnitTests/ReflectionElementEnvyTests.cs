@@ -200,7 +200,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void GetPublicPropertiesAndFieldsReturnsOnlyInstancePropertiesAndFields()
+        public void GetPublicPropertiesAndFieldsYieldsStaticAndInstanceElements()
         {
             // Fixture setup
             var type = typeof(TypeWithStaticAndInstanceMembers<int>);
@@ -208,10 +208,14 @@ namespace Ploeh.Albedo.UnitTests
             var fields = new Fields<TypeWithStaticAndInstanceMembers<int>>();
             var expectedElements = new IReflectionElement[]
             {
+                new PropertyInfoElement(type.GetProperty("PublicStaticReadOnlyProperty")),
+                new PropertyInfoElement(type.GetProperty("PublicStaticProperty")),
                 new PropertyInfoElement(properties.Select(i => i.PublicReadOnlyProperty)),
                 new PropertyInfoElement(properties.Select(i => i.PublicProperty)),
                 new FieldInfoElement(fields.Select(i => i.PublicReadOnlyField)),
                 new FieldInfoElement(fields.Select(i => i.PublicField)),
+                new FieldInfoElement(type.GetField("PublicStaticField")),
+                new FieldInfoElement(type.GetField("PublicStaticReadOnlyFieldWithDefault")),
             };
 
             // Exercise system
@@ -219,10 +223,11 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expectedElements, actualElements);
+
             // Fixture teardown
         }
 
-        public class TypeWithStaticAndInstanceMembers<TValue>
+       public class TypeWithStaticAndInstanceMembers<TValue>
         {
             public static TValue PublicStaticVoidMethod()
             {

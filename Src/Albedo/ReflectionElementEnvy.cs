@@ -97,7 +97,8 @@ namespace Ploeh.Albedo
         /// <paramref name="type"/>.</returns>
         public static IEnumerable<IReflectionElement> GetPublicPropertiesAndFields(this Type type)
         {
-            return type.GetPropertiesAndFields(BindingFlags.Public | BindingFlags.Instance);
+            return type.GetPropertiesAndFields(
+                BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
         }
     }
 }
