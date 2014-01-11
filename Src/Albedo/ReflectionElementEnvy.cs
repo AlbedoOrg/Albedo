@@ -36,6 +36,19 @@ namespace Ploeh.Albedo
         }
 
         /// <summary>
+        /// Gets 'proper' methods from the <paramref name="type"/>; that is, methods excluding
+        /// property accessors. Public | Static | Instance methods are returned.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> from which methods are selected</param>
+        /// <returns>The sequence of <see cref="IReflectionElement"/> instances representing
+        /// the public static or public instance methods on the <paramref name="type"/>.</returns>
+        public static IEnumerable<IReflectionElement> GetProperMethods(this Type type)
+        {
+            return type.GetProperMethods(
+                BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
+        }
+
+        /// <summary>
         /// Accepts the <see cref="IReflectionVisitor{T}"/> visitor on each of the
         /// <paramref name="elements"/> in the sequence.
         /// </summary>
@@ -97,7 +110,8 @@ namespace Ploeh.Albedo
         /// <paramref name="type"/>.</returns>
         public static IEnumerable<IReflectionElement> GetPublicPropertiesAndFields(this Type type)
         {
-            return type.GetPropertiesAndFields(BindingFlags.Public | BindingFlags.Instance);
+            return type.GetPropertiesAndFields(
+                BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance);
         }
     }
 }
