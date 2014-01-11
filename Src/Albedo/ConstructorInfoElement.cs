@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
@@ -79,6 +80,18 @@ namespace Ploeh.Albedo
         public override int GetHashCode()
         {
             return this.ConstructorInfo.GetHashCode();
+        }
+
+        /// <summary>
+        /// Gets the string representation of the <see cref="ConstructorInfo"/>
+        /// suitable for development / debugging display purposes.
+        /// </summary>
+        /// <returns>The string representation of the contained
+        /// <see cref="ConstructorInfo"/></returns>
+        public override string ToString()
+        {
+            return string.Format(
+                CultureInfo.CurrentCulture, "[[{0}]] ({1})", this.ConstructorInfo, "constructor");
         }
     }
 }
