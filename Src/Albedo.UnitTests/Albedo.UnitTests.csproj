@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ValueCollectingVisitorTests.cs" />
     <Compile Include="ConcreteElementConversionsTests.cs" />
     <Compile Include="ReflectionElementEnvyTests.cs" />
     <Compile Include="Refraction\AssemblyElementRefractionTests.cs" />
@@ -80,7 +81,6 @@
     <Compile Include="Samples\SemanticComparison\SemanticComparisonValue.cs" />
     <Compile Include="Samples\SemanticComparison\SemanticElementComparer.cs" />
     <Compile Include="Samples\SemanticComparison\SemanticReflectionVisitor.cs" />
-    <Compile Include="Samples\ValueReading\ValueCollectingVisitor.cs" />
     <Compile Include="Samples\ValueWriting\ClassWithWritablePropertiesAndFields.cs" />
     <Compile Include="Samples\ValueWriting\ValueWritingVisitor.cs" />
     <Compile Include="TypeElementTests.cs" />

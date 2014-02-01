@@ -89,6 +89,7 @@
     <Compile Include="Refraction\ReflectionElementRefraction.cs" />
     <Compile Include="TypeElement.cs" />
     <Compile Include="Refraction\TypeElementRefraction.cs" />
+    <Compile Include="ValueCollectingVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Albedo.ruleset" />

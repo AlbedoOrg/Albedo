@@ -6,7 +6,6 @@ using System.Text;
 using Xunit;
 using Xunit.Extensions;
 using Ploeh.Albedo.UnitTests.Samples.SemanticComparison;
-using Ploeh.Albedo.UnitTests.Samples.ValueReading;
 using Ploeh.Albedo.UnitTests.Samples.ValueWriting;
 
 namespace Ploeh.Albedo.UnitTests
@@ -104,22 +103,11 @@ namespace Ploeh.Albedo.UnitTests
         public void ReadFromSeveralPropertiesAndFields()
         {
             var ts = new TimeSpan(2, 4, 3, 8, 9);
-            var flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public;
-            var elements = ts.GetType()
-                .GetProperties(flags)
-                .Select(pi => new PropertyInfoElement(pi))
-                .Cast<IReflectionElement>()
-                .Concat(ts.GetType()
-                    .GetFields(flags)
-                    .Select(fi => new FieldInfoElement(fi))
-                    .Cast<IReflectionElement>())
-                .ToArray();
-            var visitor = new ValueCollectingVisitor(ts);
 
-            var actual =
-                new CompositeReflectionElement(elements).Accept(visitor);
+            var elements = ts.GetType().GetPublicPropertiesAndFields().ToArray();
+            var actual = elements.Accept(new ValueCollectingVisitor(ts));
 
-            var actualValues = actual.Value.Cast<object>().ToArray();
+            var actualValues = actual.Value.ToArray();
             Assert.Equal(elements.Length, actualValues.Length);
             Assert.Equal(1, actualValues.Count(ts.Days.Equals));
             Assert.Equal(1, actualValues.Count(ts.Hours.Equals));
@@ -146,21 +134,9 @@ namespace Ploeh.Albedo.UnitTests
         public void WriteToSeveralPropertiesAndFields()
         {
             var t = new ClassWithWritablePropertiesAndFields<int>();
-            var elements = t.GetType()
-                .GetProperties()
-                .Select(pi => new PropertyInfoElement(pi))
-                .Cast<IReflectionElement>()
-                .Concat(t.GetType()
-                    .GetFields()
-                    .Select(fi => new FieldInfoElement(fi))
-                    .Cast<IReflectionElement>())
-                .ToArray();
-            var visitor = new ValueWritingVisitor(t);
-
-            var actual =
-                new CompositeReflectionElement(elements).Accept(visitor);
-            actual.Value(42);
-
+            var elements = t.GetType().GetPublicPropertiesAndFields().ToArray();
+            elements.Accept(new ValueWritingVisitor(t)).Value(42);
+            
             Assert.Equal(42, t.Field1);
             Assert.Equal(42, t.Field2);
             Assert.Equal(42, t.Property1);
