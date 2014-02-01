@@ -79,10 +79,10 @@ namespace Ploeh.Albedo.UnitTests
             var target = new TypeWithPublicIntValues();
             var expected = new object[] {target.Property2};
             var sut = new ValueCollectingVisitor(target);
-            var field = reflect.Select(x => x.Property2).ToElement();
+            var property = reflect.Select(x => x.Property2).ToElement();
 
             // Act
-            var result = sut.Visit(field);
+            var result = sut.Visit(property);
 
             // Assert
             Assert.Equal(expected, result.Value);
