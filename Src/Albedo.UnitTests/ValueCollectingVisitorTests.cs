@@ -14,8 +14,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutIsReflectionVisitor()
         {
-            var sut = new ValueCollectingVisitor<object>(new object());
-            Assert.IsAssignableFrom<IReflectionVisitor<IEnumerable<object>>>(sut);
+            var sut = new ValueCollectingVisitor(new object());
             Assert.IsAssignableFrom<ReflectionVisitor<IEnumerable<object>>>(sut);
         }
 
@@ -23,7 +22,7 @@ namespace Ploeh.Albedo.UnitTests
         public void ValueIsInitiallyCorrect()
         {
             var expectedValues = new[] {new object(), new object()};
-            var sut = new ValueCollectingVisitor<object>(new object(), expectedValues);
+            var sut = new ValueCollectingVisitor(new object(), expectedValues);
             Assert.Equal(expectedValues, sut.Value);
         }
 
@@ -31,9 +30,18 @@ namespace Ploeh.Albedo.UnitTests
         public void ConstructWithNullTargetThrows()
         {
             var e = Assert.Throws<ArgumentNullException>(() =>
-                new ValueCollectingVisitor<object>(null));
+                new ValueCollectingVisitor(null));
 
             Assert.Equal("target", e.ParamName);
+        }
+
+        [Fact]
+        public void ConstructWithNullValuesThrows()
+        {
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                new ValueCollectingVisitor(new object(), null));
+
+            Assert.Equal("values", e.ParamName);
         }
 
         [Theory]
@@ -41,90 +49,83 @@ namespace Ploeh.Albedo.UnitTests
         public void DoesNotVisitElementsOtherThanPropertyAndField(
             IReflectionElement element)
         {
-            var sut = new ValueCollectingVisitor<object>(new object());
+            var sut = new ValueCollectingVisitor(new object());
             var acceptResult = element.Accept(sut);
-            Assert.Same(sut, acceptResult);
+            Assert.Equal(sut, acceptResult);
         }
 
         [Fact]
         public void VisitFieldElementWithNoInitialValuesProducesTheCorrectValue()
         {
+            // Arrange
             var reflect = new Fields<TypeWithPublicIntValues>();
             var target = new TypeWithPublicIntValues();
-            var sut = new ValueCollectingVisitor<object>(target);
+            var expected = new object[] {target.Field2};
+            var sut = new ValueCollectingVisitor(target);
             var field = reflect.Select(x => x.Field2).ToElement();
 
             // Act
             var result = sut.Visit(field);
 
             // Assert
-            Assert.Equal(new object[] { 2 }, result.Value);
+            Assert.Equal(expected, result.Value);
         }
 
         [Fact]
         public void VisitPropertyElementWithNoInitialValuesProducesTheCorrectValue()
         {
+            // Arrange
             var reflect = new Properties<TypeWithPublicIntValues>();
             var target = new TypeWithPublicIntValues();
-            var sut = new ValueCollectingVisitor<object>(target);
+            var expected = new object[] {target.Property2};
+            var sut = new ValueCollectingVisitor(target);
             var field = reflect.Select(x => x.Property2).ToElement();
 
             // Act
             var result = sut.Visit(field);
 
             // Assert
-            Assert.Equal(new object[] { 2 }, result.Value);
+            Assert.Equal(expected, result.Value);
         }
 
         [Fact]
-        public void VisitPropertyThatIsNotAssignableFromValueCollectionTypeProducesNothing()
+        public void VisitNullFieldElementThrows()
         {
-            var reflect = new Properties<TypeWithPublicIntValues>();
-            var target = new TypeWithPublicIntValues();
-            var sut = new ValueCollectingVisitor<string>(target);
-            var field = reflect.Select(x => x.Property2).ToElement();
+            var sut = new ValueCollectingVisitor(new object());
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                sut.Visit((FieldInfoElement)null));
 
-            // Act
-            var result = sut.Visit(field);
-
-            // Assert
-            Assert.Same(sut, result);
+            Assert.Equal("fieldInfoElement", e.ParamName);
         }
 
         [Fact]
-        public void VisitFieldThatIsNotAssignableFromValueCollectionTypeProducesNothing()
+        public void VisitNullPropertyElementThrows()
         {
-            var reflect = new Fields<TypeWithPublicIntValues>();
-            var target = new TypeWithPublicIntValues();
-            var sut = new ValueCollectingVisitor<string>(target);
-            var field = reflect.Select(x => x.Field2).ToElement();
+            var sut = new ValueCollectingVisitor(new object());
+            var e = Assert.Throws<ArgumentNullException>(() =>
+                sut.Visit((PropertyInfoElement)null));
 
-            // Act
-            var result = sut.Visit(field);
-
-            // Assert
-            Assert.Same(sut, result);
+            Assert.Equal("propertyInfoElement", e.ParamName);
         }
 
         [Fact]
         public void AcceptFieldElementsWithInitialValuesProducesTheCorrectValues()
         {
             // Arrange
-            var initialVisitorValues = new[] { 9, 8, 7 };
+            var initialVisitorValues = new object[] { 9, 8, 7 };
             var target = new TypeWithPublicIntValues();
 
             var expected = initialVisitorValues
-                .Concat(new[] { target.Field1, target.Field2, target.Field3 });
+                .Concat(new object[] { target.Field1, target.Field2, target.Field3 });
 
             var reflect = new Fields<TypeWithPublicIntValues>();
-            var fieldElements = new[]
-            {
-                reflect.Select(x => x.Field1),
-                reflect.Select(x => x.Field2),
-                reflect.Select(x => x.Field3)
-            }.Select(e => e.ToElement()).Cast<IReflectionElement>();
+            var field1 = reflect.Select(x => x.Field1);
+            var field2 = reflect.Select(x => x.Field2);
+            var field3 = reflect.Select(x => x.Field3);
+            var fieldElements = new[] { field1, field2, field3 }
+                .Select(e => e.ToElement()).Cast<IReflectionElement>();
 
-            var sut = new ValueCollectingVisitor<int>(target, initialVisitorValues);
+            var sut = new ValueCollectingVisitor(target, initialVisitorValues);
 
             // Act
             var result = fieldElements.Accept(sut);
@@ -137,20 +138,20 @@ namespace Ploeh.Albedo.UnitTests
         public void AcceptPropertyElementsWithInitialValuesProducesTheCorrectValues()
         {
             // Arrange
-            var initialVisitorValues = new[] { 9, 8, 7 };
+            var initialVisitorValues = new object[] { 9, 8, 7 };
             var target = new TypeWithPublicIntValues();
 
             var expected = initialVisitorValues
-                .Concat(new[] { target.Property1, target.Property2 });
+                .Concat(new object[] { target.Property1, target.Property2, target.Property3 });
 
             var reflect = new Properties<TypeWithPublicIntValues>();
-            var propertyElements = new[]
-            {
-                reflect.Select(x => x.Property1),
-                reflect.Select(x => x.Property2),
-            }.Select(e => e.ToElement()).Cast<IReflectionElement>();
+            var property1 = reflect.Select(x => x.Property1);
+            var property2 = reflect.Select(x => x.Property2);
+            var property3 = reflect.Select(x => x.Property3);
+            var propertyElements = new[] { property1, property2, property3 }
+                .Select(e => e.ToElement()).Cast<IReflectionElement>();
 
-            var sut = new ValueCollectingVisitor<int>(target, initialVisitorValues);
+            var sut = new ValueCollectingVisitor(target, initialVisitorValues);
 
             // Act
             var result = propertyElements.Accept(sut);
@@ -167,6 +168,7 @@ namespace Ploeh.Albedo.UnitTests
 
             public int Property1 { get { return 1; } }
             public int Property2 { get { return 2; } }
+            public int Property3 { get { return 3; } }
         }
 
         class AllElementsExceptPropertyAndField : IEnumerable<object[]>
@@ -203,27 +205,7 @@ namespace Ploeh.Albedo.UnitTests
                 }
             }
 
-            public static LocalVariableInfo OtherLocalVariable
-            {
-                get
-                {
-                    return typeof(TypeWithLocalVariable)
-                        .GetMethod("TheOtherMethod")
-                        .GetMethodBody()
-                        .LocalVariables[0];
-                }
-            }
-
             public void TheMethod()
-            {
-                // This is required to prevent the compiler from
-                // warning and optimising away the local variable.
-                var local = 1;
-                local = local + 1;
-                local = local + 2;
-            }
-
-            public void TheOtherMethod()
             {
                 // This is required to prevent the compiler from
                 // warning and optimising away the local variable.
@@ -246,22 +228,7 @@ namespace Ploeh.Albedo.UnitTests
                 }
             }
 
-            public static ParameterInfo OtherParameter
-            {
-                get
-                {
-                    return typeof(TypeWithParameter)
-                        .GetMethod("TheOtherMethod")
-                        .GetParameters()
-                        .First();
-                }
-            }
-
             public void TheMethod(int param1)
-            {
-            }
-
-            public void TheOtherMethod(int param1)
             {
             }
         }
