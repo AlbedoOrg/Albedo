@@ -22,7 +22,7 @@
     /// major release.
     /// </para>
     /// </remarks>
-    public interface IReflectionVisitor<T>
+    public interface IReflectionVisitor<out T>
     {
         /// <summary>
         /// Gets the observation or value produced by this Visitor instance.
