@@ -108,6 +108,26 @@ namespace Ploeh.Albedo
             return null;
         }
 
+        public virtual IReflectionVisitor<T> Visit(params PropertyInfoElement[] constructorInfoElements)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual IReflectionVisitor<T> Visit(params MethodInfoElement[] constructorInfoElements)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual IReflectionVisitor<T> Visit(params EventInfoElement[] constructorInfoElements)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] constructorInfoElements)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Allows an <see cref="ConstructorInfoElement"/> to be visited. 
         /// This method is called when the element accepts this visitor
