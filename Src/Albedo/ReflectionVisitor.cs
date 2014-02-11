@@ -58,6 +58,9 @@ namespace Ploeh.Albedo
         public virtual IReflectionVisitor<T> Visit(
             AssemblyElement assemblyElement)
         {
+            if (assemblyElement == null)
+                throw new ArgumentNullException("assemblyElement");
+
             return this;
         }
 

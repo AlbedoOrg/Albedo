@@ -134,6 +134,18 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
         }
 
+        [Fact]
+        public void VisitNullAssemblyElementThrows()
+        {
+            // Fixture setup
+            var sut = new ReflectionVisitor();
+
+            // Exercise system
+            // Verify outcome
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((AssemblyElement)null));
+            Assert.Equal("assemblyElement", e.ParamName);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
