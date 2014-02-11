@@ -145,12 +145,12 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitAssemblyRecursivelyVisitsTypeElementArray()
+        public void VisitAssemblyRelaiesTypeElements()
         {
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
             var assembly = Assembly.GetExecutingAssembly();
             var types = assembly.GetTypes();
-            var expected = new DelegatingReflectionVisitor<T>();
             Mock.Get(sut)
                 .Setup(x => x.Visit(It.Is<TypeElement[]>(p => p.Select(t => t.Type).SequenceEqual(types))))
                 .Returns(expected);
@@ -178,6 +178,33 @@ namespace Ploeh.Albedo.UnitTests
             var actual = sut.Visit(new TypeElement[0]);
 
             Assert.Equal(sut, actual);
+        }
+
+        [Fact]
+        public void VisitTypeElementsRelaiesEachTypeElement()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var visitor1 = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var visitor2 = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
+
+            var typeElement1 = typeof(object).ToElement();
+            var typeElement2 = typeof(int).ToElement();
+            var typeElement3 = typeof(string).ToElement();
+
+            Mock.Get(sut).Setup(x => x.Visit(typeElement1)).Returns(visitor1).Verifiable();
+            Mock.Get(visitor1).Setup(x => x.Visit(typeElement2)).Returns(visitor2).Verifiable();
+            Mock.Get(visitor2).Setup(x => x.Visit(typeElement3)).Returns(expected).Verifiable();
+
+            // Exercise system
+            var actual = sut.Visit(new[] { typeElement1, typeElement2, typeElement3});
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+            Mock.Get(sut).Verify();
+            Mock.Get(visitor1).Verify();
+            Mock.Get(visitor2).Verify();
         }
         
         private class ReflectionVisitor : ReflectionVisitor<T>
