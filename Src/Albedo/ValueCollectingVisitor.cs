@@ -47,6 +47,16 @@ namespace Ploeh.Albedo
             get { return this.target; }
         }
 
+        public override IReflectionVisitor<IEnumerable<object>> Visit(AssemblyElement assemblyElement)
+        {
+            return this;
+        }
+
+        public override IReflectionVisitor<IEnumerable<object>> Visit(TypeElement typeElement)
+        {
+            return this;
+        }
+
         /// <summary>
         /// Visits the <see cref="FieldInfoElement"/> and collects the value for this
         /// field from the <see cref="Target"/> instance.
