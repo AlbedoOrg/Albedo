@@ -61,7 +61,12 @@ namespace Ploeh.Albedo
             if (assemblyElement == null)
                 throw new ArgumentNullException("assemblyElement");
 
-            return this;
+            return Visit(GetTypeElements(assemblyElement));
+        }
+
+        public virtual IReflectionVisitor<T> Visit(TypeElement[] typeElements)
+        {
+            return null;
         }
 
         /// <summary>
@@ -269,6 +274,11 @@ namespace Ploeh.Albedo
             EventInfoElement eventInfoElement)
         {
             return this;
+        }
+
+        private static TypeElement[] GetTypeElements(AssemblyElement assemblyElement)
+        {
+            return assemblyElement.Assembly.GetTypes().Select(t => t.ToElement()).ToArray();
         }
     }
 }
