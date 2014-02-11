@@ -328,6 +328,29 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal("fieldInfoElements", e.ParamName);
         }
 
+        [Fact]
+        public void VisitFieldInfoElementsRelaiesEachFieldInfoElement()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var visitor = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
+
+            var fieldInfoElement1 = TypeWithField.Field.ToElement();
+            var fieldInfoElement2 = TypeWithField.OtherField.ToElement();
+
+            Mock.Get(sut).Setup(x => x.Visit(fieldInfoElement1)).Returns(visitor).Verifiable();
+            Mock.Get(visitor).Setup(x => x.Visit(fieldInfoElement2)).Returns(expected).Verifiable();
+
+            // Exercise system
+            var actual = sut.Visit(new[] { fieldInfoElement1, fieldInfoElement2 });
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+            Mock.Get(sut).Verify();
+            Mock.Get(visitor).Verify();
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
