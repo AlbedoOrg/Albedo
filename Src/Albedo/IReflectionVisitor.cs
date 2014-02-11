@@ -109,5 +109,9 @@
         /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
         /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(EventInfoElement eventInfoElement);
+
+        IReflectionVisitor<T> Visit(params TypeElement[] typeElements);
+        IReflectionVisitor<T> Visit(params FieldInfoElement[] fieldInfoElements);
+        IReflectionVisitor<T> Visit(params ConstructorInfoElement[] constructorInfoElements);
     }
 }

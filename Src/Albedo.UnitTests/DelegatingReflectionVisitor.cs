@@ -73,5 +73,20 @@ namespace Ploeh.Albedo.UnitTests
         {
             return OnVisitEventInfoElement(eventInfoElement);
         }
+
+        public IReflectionVisitor<T> Visit(params TypeElement[] typeElements)
+        {
+            throw new NotSupportedException();
+        }
+
+        public IReflectionVisitor<T> Visit(params FieldInfoElement[] fieldInfoElements)
+        {
+            throw new NotSupportedException();
+        }
+
+        public IReflectionVisitor<T> Visit(params ConstructorInfoElement[] constructorInfoElements)
+        {
+            throw new NotSupportedException();
+        }
     }
 }
