@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 
 namespace Ploeh.Albedo
 {
@@ -105,15 +106,25 @@ namespace Ploeh.Albedo
 
         internal PropertyInfoElement[] GetPropertyInfoElements()
         {
-            return this.Type.GetProperties().Select(c => c.ToElement()).ToArray();
+            return this.GetProperties().Select(c => c.ToElement()).ToArray();
         }
 
         internal MethodInfoElement[] GetMethodInfoElements()
         {
             return this.Type.GetMethods()
-                .Except(this.Type.GetProperties().SelectMany(p => p.GetAccessors()))
+                .Except(this.GetProperties().SelectMany(p => p.GetAccessors()))
                 .Select(m => m.ToElement())
                 .ToArray();
+        }
+
+        internal EventInfoElement[] GetEventInfoElements()
+        {
+            return this.Type.GetEvents().Select(e => e.ToElement()).ToArray();
+        }
+
+        private PropertyInfo[] GetProperties()
+        {
+            return this.Type.GetProperties();
         }
     }
 }

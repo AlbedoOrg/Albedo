@@ -218,6 +218,7 @@ namespace Ploeh.Albedo.UnitTests
             Mock.Get(expected).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(expected);
             Mock.Get(expected).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(expected);
             Mock.Get(expected).Setup(x => x.Visit(It.IsAny<MethodInfoElement[]>())).Returns(expected);
+            Mock.Get(expected).Setup(x => x.Visit(It.IsAny<EventInfoElement[]>())).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(typeElement);
@@ -239,6 +240,7 @@ namespace Ploeh.Albedo.UnitTests
                 .Returns(expected);
             Mock.Get(expected).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(expected);
             Mock.Get(expected).Setup(x => x.Visit(It.IsAny<MethodInfoElement[]>())).Returns(expected);
+            Mock.Get(expected).Setup(x => x.Visit(It.IsAny<EventInfoElement[]>())).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(typeElement);
@@ -260,6 +262,7 @@ namespace Ploeh.Albedo.UnitTests
                     p => p.SequenceEqual(typeElement.Type.GetProperties().Select(pi => pi.ToElement())))))
                 .Returns(expected);
             Mock.Get(expected).Setup(x => x.Visit(It.IsAny<MethodInfoElement[]>())).Returns(expected);
+            Mock.Get(expected).Setup(x => x.Visit(It.IsAny<EventInfoElement[]>())).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(typeElement);
@@ -284,6 +287,29 @@ namespace Ploeh.Albedo.UnitTests
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(sut);
             Mock.Get(sut).Setup(x => x.Visit(It.Is<MethodInfoElement[]>(
                     p => p.SequenceEqual(methodInfos.Select(m => m.ToElement())))))
+                .Returns(expected);
+            Mock.Get(expected).Setup(x => x.Visit(It.IsAny<EventInfoElement[]>())).Returns(expected);
+
+            // Exercise system
+            var actual = sut.Visit(typeElement);
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void VisitTypeElementRelaiesEventInfoElements()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
+            var typeElement = typeof(TypeWithEvent).ToElement();
+            Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(sut);
+            Mock.Get(sut).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(sut);
+            Mock.Get(sut).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(sut);
+            Mock.Get(sut).Setup(x => x.Visit(It.IsAny<MethodInfoElement[]>())).Returns(sut);
+            Mock.Get(sut).Setup(x => x.Visit(It.Is<EventInfoElement[]>(
+                    p => p.SequenceEqual(typeElement.Type.GetEvents().Select(e => e.ToElement())))))
                 .Returns(expected);
 
             // Exercise system
