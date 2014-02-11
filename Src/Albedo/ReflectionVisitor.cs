@@ -69,7 +69,7 @@ namespace Ploeh.Albedo
             if (typeElements == null)
                 throw new ArgumentNullException("typeElements");
 
-            return null;
+            return this;
         }
 
         /// <summary>

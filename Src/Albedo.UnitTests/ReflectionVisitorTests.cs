@@ -169,6 +169,16 @@ namespace Ploeh.Albedo.UnitTests
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((TypeElement[])null));
             Assert.Equal("typeElements", e.ParamName);
         }
+
+        [Fact]
+        public void VisitEmptyTypeElementsReturnSUTItself()
+        {
+            var sut = new ReflectionVisitor();
+
+            var actual = sut.Visit(new TypeElement[0]);
+
+            Assert.Equal(sut, actual);
+        }
         
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
