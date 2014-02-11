@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="TypeWithCtor.cs" />
     <Compile Include="TypeWithField.cs" />
+    <Compile Include="TypeWithMethod.cs" />
     <Compile Include="TypeWithProperty.cs" />
     <Compile Include="ValueCollectingVisitorTests.cs" />
     <Compile Include="ConcreteElementConversionsTests.cs" />

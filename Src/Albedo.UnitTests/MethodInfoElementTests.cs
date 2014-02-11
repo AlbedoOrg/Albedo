@@ -127,21 +127,5 @@ namespace Ploeh.Albedo.UnitTests
             var expected = mi.GetHashCode();
             Assert.Equal(expected, actual);
         }
-
-
-        class TypeWithMethod
-        {
-            public static MethodInfo Method
-            {
-                get
-                {
-                    return typeof(TypeWithMethod).GetMethods()[0];
-                }
-            }
-
-            public void TheMethod()
-            {
-            }
-        }
     }
 }
