@@ -92,5 +92,28 @@ namespace Ploeh.Albedo
             return string.Format(
                 CultureInfo.CurrentCulture, "[[{0}]] ({1})", this.Type, "type");
         }
+
+        internal FieldInfoElement[] GetFieldElements()
+        {
+            return this.Type.GetFields().Select(f => f.ToElement()).ToArray();
+        }
+
+        internal ConstructorInfoElement[] GetConstructorInfoElements()
+        {
+            return this.Type.GetConstructors().Select(c => c.ToElement()).ToArray();
+        }
+
+        internal PropertyInfoElement[] GetPropertyInfoElements()
+        {
+            return this.Type.GetProperties().Select(c => c.ToElement()).ToArray();
+        }
+
+        internal MethodInfoElement[] GetMethodInfoElements()
+        {
+            return this.Type.GetMethods()
+                .Except(this.Type.GetProperties().SelectMany(p => p.GetAccessors()))
+                .Select(m => m.ToElement())
+                .ToArray();
+        }
     }
 }

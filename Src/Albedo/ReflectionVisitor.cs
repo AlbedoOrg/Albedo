@@ -94,10 +94,10 @@ namespace Ploeh.Albedo
         public virtual IReflectionVisitor<T> Visit(
             TypeElement typeElement)
         {
-            return Visit(GetFieldElements(typeElement))
-                .Visit(GetConstructorInfoElements(typeElement))
-                .Visit(GetPropertyInfoElements(typeElement))
-                .Visit(GetMethodInfoElements(typeElement));
+            return Visit(typeElement.GetFieldElements())
+                .Visit(typeElement.GetConstructorInfoElements())
+                .Visit(typeElement.GetPropertyInfoElements())
+                .Visit(typeElement.GetMethodInfoElements());
         }
 
         public virtual IReflectionVisitor<T> Visit(params FieldInfoElement[] fieldInfoElements)
@@ -310,29 +310,6 @@ namespace Ploeh.Albedo
             EventInfoElement eventInfoElement)
         {
             return this;
-        }
-
-        private static FieldInfoElement[] GetFieldElements(TypeElement typeElement)
-        {
-            return typeElement.Type.GetFields().Select(f => f.ToElement()).ToArray();
-        }
-
-        private static ConstructorInfoElement[] GetConstructorInfoElements(TypeElement typeElement)
-        {
-            return typeElement.Type.GetConstructors().Select(c => c.ToElement()).ToArray();
-        }
-
-        private static PropertyInfoElement[] GetPropertyInfoElements(TypeElement typeElement)
-        {
-            return typeElement.Type.GetProperties().Select(c => c.ToElement()).ToArray();
-        }
-
-        private static MethodInfoElement[] GetMethodInfoElements(TypeElement typeElement)
-        {
-            return typeElement.Type.GetMethods()
-                .Except(typeElement.Type.GetProperties().SelectMany(p => p.GetAccessors()))
-                .Select(m => m.ToElement())
-                .ToArray();
         }
     }
 }
