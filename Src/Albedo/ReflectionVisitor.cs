@@ -126,6 +126,11 @@ namespace Ploeh.Albedo
             throw new NotImplementedException();
         }
 
+        public IReflectionVisitor<T> Visit(params ParameterInfoElement[] parameterInfoElements)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] localVariableInfoElements)
         {
             throw new NotImplementedException();

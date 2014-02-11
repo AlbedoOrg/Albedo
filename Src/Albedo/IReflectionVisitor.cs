@@ -116,6 +116,7 @@
         IReflectionVisitor<T> Visit(params PropertyInfoElement[] propertyInfoElements);
         IReflectionVisitor<T> Visit(params MethodInfoElement[] methodInfoElements);
         IReflectionVisitor<T> Visit(params EventInfoElement[] eventInfoElements);
+        IReflectionVisitor<T> Visit(params ParameterInfoElement[] parameterInfoElements);
         IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] localVariableInfoElements);
     }
 }

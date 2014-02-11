@@ -104,6 +104,11 @@ namespace Ploeh.Albedo.UnitTests
             throw new NotSupportedException();
         }
 
+        public IReflectionVisitor<T> Visit(params ParameterInfoElement[] parameterInfoElements)
+        {
+            throw new NotSupportedException();
+        }
+
         public IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] localVariableInfoElements)
         {
             throw new NotSupportedException();
