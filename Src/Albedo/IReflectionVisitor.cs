@@ -113,9 +113,9 @@
         IReflectionVisitor<T> Visit(params TypeElement[] typeElements);
         IReflectionVisitor<T> Visit(params FieldInfoElement[] fieldInfoElements);
         IReflectionVisitor<T> Visit(params ConstructorInfoElement[] constructorInfoElements);
-        IReflectionVisitor<T> Visit(params PropertyInfoElement[] constructorInfoElements);
-        IReflectionVisitor<T> Visit(params MethodInfoElement[] constructorInfoElements);
-        IReflectionVisitor<T> Visit(params EventInfoElement[] constructorInfoElements);
-        IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] constructorInfoElements);
+        IReflectionVisitor<T> Visit(params PropertyInfoElement[] propertyInfoElements);
+        IReflectionVisitor<T> Visit(params MethodInfoElement[] methodInfoElements);
+        IReflectionVisitor<T> Visit(params EventInfoElement[] eventInfoElements);
+        IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] localVariableInfoElements);
     }
 }

@@ -89,22 +89,22 @@ namespace Ploeh.Albedo.UnitTests
             throw new NotSupportedException();
         }
 
-        public IReflectionVisitor<T> Visit(params PropertyInfoElement[] constructorInfoElements)
+        public IReflectionVisitor<T> Visit(params PropertyInfoElement[] propertyInfoElements)
         {
             throw new NotSupportedException();
         }
 
-        public IReflectionVisitor<T> Visit(params MethodInfoElement[] constructorInfoElements)
+        public IReflectionVisitor<T> Visit(params MethodInfoElement[] methodInfoElements)
         {
             throw new NotSupportedException();
         }
 
-        public IReflectionVisitor<T> Visit(params EventInfoElement[] constructorInfoElements)
+        public IReflectionVisitor<T> Visit(params EventInfoElement[] eventInfoElements)
         {
             throw new NotSupportedException();
         }
 
-        public IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] constructorInfoElements)
+        public IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] localVariableInfoElements)
         {
             throw new NotSupportedException();
         }

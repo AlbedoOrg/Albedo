@@ -110,22 +110,22 @@ namespace Ploeh.Albedo
             return null;
         }
 
-        public virtual IReflectionVisitor<T> Visit(params PropertyInfoElement[] constructorInfoElements)
+        public virtual IReflectionVisitor<T> Visit(params PropertyInfoElement[] propertyInfoElements)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IReflectionVisitor<T> Visit(params MethodInfoElement[] constructorInfoElements)
+        public virtual IReflectionVisitor<T> Visit(params MethodInfoElement[] methodInfoElements)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IReflectionVisitor<T> Visit(params EventInfoElement[] constructorInfoElements)
+        public virtual IReflectionVisitor<T> Visit(params EventInfoElement[] eventInfoElements)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] constructorInfoElements)
+        public virtual IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] localVariableInfoElements)
         {
             throw new NotImplementedException();
         }
