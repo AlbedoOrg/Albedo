@@ -96,7 +96,8 @@ namespace Ploeh.Albedo
         {
             return Visit(GetFieldElements(typeElement))
                 .Visit(GetConstructorInfoElements(typeElement))
-                .Visit(GetPropertyInfoElements(typeElement));
+                .Visit(GetPropertyInfoElements(typeElement))
+                .Visit(GetMethodInfoElements(typeElement));
         }
 
         public virtual IReflectionVisitor<T> Visit(params FieldInfoElement[] fieldInfoElements)
@@ -329,6 +330,14 @@ namespace Ploeh.Albedo
         private static PropertyInfoElement[] GetPropertyInfoElements(TypeElement typeElement)
         {
             return typeElement.Type.GetProperties().Select(c => c.ToElement()).ToArray();
+        }
+
+        private static MethodInfoElement[] GetMethodInfoElements(TypeElement typeElement)
+        {
+            return typeElement.Type.GetMethods()
+                .Except(typeElement.Type.GetProperties().SelectMany(p => p.GetAccessors()))
+                .Select(m => m.ToElement())
+                .ToArray();
         }
     }
 }

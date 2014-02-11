@@ -217,6 +217,7 @@ namespace Ploeh.Albedo.UnitTests
                 .Returns(expected);
             Mock.Get(expected).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(expected);
             Mock.Get(expected).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(expected);
+            Mock.Get(expected).Setup(x => x.Visit(It.IsAny<MethodInfoElement[]>())).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(typeElement);
@@ -237,6 +238,7 @@ namespace Ploeh.Albedo.UnitTests
                     p => p.Select(f => f.ConstructorInfo).SequenceEqual(typeElement.Type.GetConstructors()))))
                 .Returns(expected);
             Mock.Get(expected).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(expected);
+            Mock.Get(expected).Setup(x => x.Visit(It.IsAny<MethodInfoElement[]>())).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(typeElement);
@@ -251,11 +253,37 @@ namespace Ploeh.Albedo.UnitTests
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var expected = new Mock<ReflectionVisitor<T>>().Object;
-            var typeElement = typeof(TypeWithCtor).ToElement();
+            var typeElement = typeof(TypeWithProperty).ToElement();
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(sut);
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(sut);
             Mock.Get(sut).Setup(x => x.Visit(It.Is<PropertyInfoElement[]>(
-                    p => p.Select(f => f.PropertyInfo).SequenceEqual(typeElement.Type.GetProperties()))))
+                    p => p.Select(pi => pi.PropertyInfo).SequenceEqual(typeElement.Type.GetProperties()))))
+                .Returns(expected);
+            Mock.Get(expected).Setup(x => x.Visit(It.IsAny<MethodInfoElement[]>())).Returns(expected);
+
+            // Exercise system
+            var actual = sut.Visit(typeElement);
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void VisitTypeElementRelaiesMethodInfoElements()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
+            var typeElement = typeof(TypeWithMethod).ToElement();
+            var methodInfos = typeElement.Type.GetMethods()
+                .Except(typeElement.Type.GetProperties().SelectMany(p => p.GetAccessors()));
+            Assert.Equal(6, methodInfos.Count());
+
+            Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(sut);
+            Mock.Get(sut).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(sut);
+            Mock.Get(sut).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(sut);
+            Mock.Get(sut).Setup(x => x.Visit(It.Is<MethodInfoElement[]>(
+                    p => p.Select(m => m.MethodInfo).SequenceEqual(methodInfos))))
                 .Returns(expected);
 
             // Exercise system

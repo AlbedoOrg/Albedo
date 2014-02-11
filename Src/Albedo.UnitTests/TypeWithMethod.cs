@@ -27,7 +27,5 @@ namespace Ploeh.Albedo.UnitTests
         public void TheOtherMethod()
         {
         }
-
-        public object PropertyToConfirmExceptAccessors { get; set; }
     }
 }
