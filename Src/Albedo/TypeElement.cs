@@ -93,7 +93,7 @@ namespace Ploeh.Albedo
                 CultureInfo.CurrentCulture, "[[{0}]] ({1})", this.Type, "type");
         }
 
-        internal FieldInfoElement[] GetFieldElements()
+        internal FieldInfoElement[] GetFieldInfoElements()
         {
             return this.Type.GetFields().Select(f => f.ToElement()).ToArray();
         }

@@ -94,7 +94,7 @@ namespace Ploeh.Albedo
         public virtual IReflectionVisitor<T> Visit(
             TypeElement typeElement)
         {
-            return Visit(typeElement.GetFieldElements())
+            return Visit(typeElement.GetFieldInfoElements())
                 .Visit(typeElement.GetConstructorInfoElements())
                 .Visit(typeElement.GetPropertyInfoElements())
                 .Visit(typeElement.GetMethodInfoElements());
