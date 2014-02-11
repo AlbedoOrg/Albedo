@@ -124,19 +124,5 @@ namespace Ploeh.Albedo.UnitTests
             var expected = fi.GetHashCode();
             Assert.Equal(expected, actual);
         }
-
-
-        class TypeWithField
-        {
-            public static FieldInfo Field
-            {
-                get
-                {
-                    return typeof(TypeWithField).GetFields()[0];
-                }
-            }
-
-            public int TheField = 0;
-        }
     }
 }
