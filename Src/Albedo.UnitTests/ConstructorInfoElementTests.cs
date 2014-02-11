@@ -124,20 +124,5 @@ namespace Ploeh.Albedo.UnitTests
             var expected = ci.GetHashCode();
             Assert.Equal(expected, actual);
         }
-
-        class TypeWithCtor
-        {
-            public static ConstructorInfo Ctor
-            {
-                get
-                {
-                    return typeof(TypeWithCtor).GetConstructors()[0];
-                }
-            }
-
-            public TypeWithCtor()
-            {
-            }
-        }
     }
 }
