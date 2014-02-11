@@ -138,11 +138,8 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void VisitNullAssemblyElementThrows()
         {
-            // Fixture setup
             var sut = new ReflectionVisitor();
 
-            // Exercise system
-            // Verify outcome
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((AssemblyElement)null));
             Assert.Equal("assemblyElement", e.ParamName);
         }
@@ -150,7 +147,6 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void VisitAssemblyRecursivelyVisitsTypeElementArray()
         {
-            // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var assembly = Assembly.GetExecutingAssembly();
             var types = assembly.GetTypes();
@@ -159,12 +155,19 @@ namespace Ploeh.Albedo.UnitTests
                 .Setup(x => x.Visit(It.Is<TypeElement[]>(p => p.Select(t => t.Type).SequenceEqual(types))))
                 .Returns(expected);
 
-            // Exercise system
             var actual = sut.Visit(assembly.ToElement());
 
-            // Verify outcome
             Assert.Equal(expected, actual);
 
+        }
+
+        [Fact]
+        public void VisitNullTypeElementsThrows()
+        {
+            var sut = new ReflectionVisitor();
+
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((TypeElement[])null));
+            Assert.Equal("typeElements", e.ParamName);
         }
         
         private class ReflectionVisitor : ReflectionVisitor<T>

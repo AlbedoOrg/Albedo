@@ -66,6 +66,9 @@ namespace Ploeh.Albedo
 
         public virtual IReflectionVisitor<T> Visit(TypeElement[] typeElements)
         {
+            if (typeElements == null)
+                throw new ArgumentNullException("typeElements");
+
             return null;
         }
 
