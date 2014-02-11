@@ -94,7 +94,12 @@ namespace Ploeh.Albedo
         public virtual IReflectionVisitor<T> Visit(
             TypeElement typeElement)
         {
-            return this;
+            return Visit(GetFieldElements(typeElement));
+        }
+
+        public virtual IReflectionVisitor<T> Visit(params FieldInfoElement[] fieldElements)
+        {
+            return null;
         }
 
         /// <summary>
@@ -282,6 +287,11 @@ namespace Ploeh.Albedo
         private static TypeElement[] GetTypeElements(AssemblyElement assemblyElement)
         {
             return assemblyElement.Assembly.GetTypes().Select(t => t.ToElement()).ToArray();
+        }
+
+        private static FieldInfoElement[] GetFieldElements(TypeElement typeElement)
+        {
+            return typeElement.Type.GetFields().Select(f => f.ToElement()).ToArray();
         }
     }
 }
