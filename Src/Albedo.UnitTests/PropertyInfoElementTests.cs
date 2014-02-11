@@ -124,27 +124,5 @@ namespace Ploeh.Albedo.UnitTests
             var expected = pi.GetHashCode();
             Assert.Equal(expected, actual);
         }
-
-
-        class TypeWithProperty
-        {
-            public static PropertyInfo Property
-            {
-                get
-                {
-                    return typeof (TypeWithProperty).GetProperty("TheProperty");
-                }
-            }
-            public static PropertyInfo OtherProperty
-            {
-                get
-                {
-                    return typeof(TypeWithProperty).GetProperty("TheOtherProperty");
-                }
-            }
-
-            public int TheProperty { get; set; }
-            public int TheOtherProperty { get; set; }
-        }
     }
 }
