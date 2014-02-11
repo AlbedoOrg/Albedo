@@ -124,23 +124,5 @@ namespace Ploeh.Albedo.UnitTests
             var expected = ei.GetHashCode();
             Assert.Equal(expected, actual);
         }
-
-
-        class TypeWithEvent
-        {
-            public static EventInfo LocalEvent
-            {
-                get
-                {
-                    return typeof (TypeWithEvent).GetEvent("TheEvent");
-                }
-            }
-
-            public event EventHandler TheEvent
-            {
-                add { throw new NotImplementedException(); }
-                remove { throw new NotImplementedException(); }
-            }
-        }
     }
 }
