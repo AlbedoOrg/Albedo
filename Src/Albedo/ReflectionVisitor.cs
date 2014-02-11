@@ -106,7 +106,7 @@ namespace Ploeh.Albedo
             if (fieldInfoElements == null)
                 throw new ArgumentNullException("fieldInfoElements");
 
-            return fieldInfoElements.Aggregate((IReflectionVisitor<T>)this, (c, f) => c.Visit(f));
+            return fieldInfoElements.Aggregate((IReflectionVisitor<T>)this, (v, f) => v.Visit(f));
         }
 
         public virtual IReflectionVisitor<T> Visit(params ConstructorInfoElement[] constructorInfoElements)
@@ -114,7 +114,7 @@ namespace Ploeh.Albedo
             if (constructorInfoElements == null)
                 throw new ArgumentNullException("constructorInfoElements");
 
-            return null;
+            return constructorInfoElements.Aggregate((IReflectionVisitor<T>)this, (v, c) => v.Visit(c));
         }
 
         public virtual IReflectionVisitor<T> Visit(params PropertyInfoElement[] propertyInfoElements)

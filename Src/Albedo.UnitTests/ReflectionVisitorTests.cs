@@ -360,6 +360,29 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal("constructorInfoElements", e.ParamName);
         }
 
+        [Fact]
+        public void VisitConstructorInfoElementsRelaiesEachConstructorInfoElement()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var visitor = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
+
+            var constructorInfoElement1 = TypeWithCtor.Ctor.ToElement();
+            var constructorInfoElement2 = TypeWithCtor.OtherCtor.ToElement();
+
+            Mock.Get(sut).Setup(x => x.Visit(constructorInfoElement1)).Returns(visitor).Verifiable();
+            Mock.Get(visitor).Setup(x => x.Visit(constructorInfoElement2)).Returns(expected).Verifiable();
+
+            // Exercise system
+            var actual = sut.Visit(new[] { constructorInfoElement1, constructorInfoElement2 });
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+            Mock.Get(sut).Verify();
+            Mock.Get(visitor).Verify();
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
