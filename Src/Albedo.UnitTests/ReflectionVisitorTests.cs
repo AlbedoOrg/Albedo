@@ -157,7 +157,6 @@ namespace Ploeh.Albedo.UnitTests
             var actual = sut.Visit(assembly.ToElement());
 
             Assert.Equal(expected, actual);
-
         }
 
         [Fact]
@@ -215,6 +214,26 @@ namespace Ploeh.Albedo.UnitTests
             var typeElement = typeof(TypeWithField).ToElement();
             Mock.Get(sut).Setup(x => x.Visit(It.Is<FieldInfoElement[]>(
                     p => p.Select(f => f.FieldInfo).SequenceEqual(typeElement.Type.GetFields()))))
+                .Returns(expected);
+            Mock.Get(expected).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(expected);
+
+            // Exercise system
+            var actual = sut.Visit(typeElement);
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void VisitTypeElementRelaiesConstructorElements()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
+            var typeElement = typeof(TypeWithCtor).ToElement();
+            Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(sut);
+            Mock.Get(sut).Setup(x => x.Visit(It.Is<ConstructorInfoElement[]>(
+                    p => p.Select(f => f.ConstructorInfo).SequenceEqual(typeElement.Type.GetConstructors()))))
                 .Returns(expected);
 
             // Exercise system
