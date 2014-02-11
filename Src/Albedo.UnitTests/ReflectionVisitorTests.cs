@@ -351,6 +351,15 @@ namespace Ploeh.Albedo.UnitTests
             Mock.Get(visitor).Verify();
         }
 
+        [Fact]
+        public void VisitNullConstructorInfoElementsThrows()
+        {
+            var sut = new ReflectionVisitor();
+
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((ConstructorInfoElement[])null));
+            Assert.Equal("constructorInfoElements", e.ParamName);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value

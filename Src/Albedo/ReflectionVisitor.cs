@@ -111,6 +111,9 @@ namespace Ploeh.Albedo
 
         public virtual IReflectionVisitor<T> Visit(params ConstructorInfoElement[] constructorInfoElements)
         {
+            if (constructorInfoElements == null)
+                throw new ArgumentNullException("constructorInfoElements");
+
             return null;
         }
 
