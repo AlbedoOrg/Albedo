@@ -103,6 +103,9 @@ namespace Ploeh.Albedo
 
         public virtual IReflectionVisitor<T> Visit(params FieldInfoElement[] fieldInfoElements)
         {
+            if (fieldInfoElements == null)
+                throw new ArgumentNullException("fieldInfoElements");
+
             return null;
         }
 

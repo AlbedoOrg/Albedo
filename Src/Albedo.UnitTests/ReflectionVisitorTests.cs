@@ -318,7 +318,16 @@ namespace Ploeh.Albedo.UnitTests
             // Verify outcome
             Assert.Equal(expected, actual);
         }
-        
+
+        [Fact]
+        public void VisitNullFieldInfoElementsThrows()
+        {
+            var sut = new ReflectionVisitor();
+
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((FieldInfoElement[])null));
+            Assert.Equal("fieldInfoElements", e.ParamName);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
