@@ -64,7 +64,7 @@ namespace Ploeh.Albedo
             return Visit(GetTypeElements(assemblyElement));
         }
 
-        public virtual IReflectionVisitor<T> Visit(TypeElement[] typeElements)
+        public virtual IReflectionVisitor<T> Visit(params TypeElement[] typeElements)
         {
             if (typeElements == null)
                 throw new ArgumentNullException("typeElements");
