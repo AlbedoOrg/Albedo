@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -25,10 +26,9 @@ namespace Ploeh.Albedo.UnitTests
         {
             get
             {
-                return typeof(TypeWithMethod)
-                    .GetMethod("TheOtherMethod")
-                    .GetMethodBody()
-                    .LocalVariables;
+                if (OtherMethod.GetMethodBody().LocalVariables == null)
+                    throw new NotImplementedException();
+                return OtherMethod.GetMethodBody().LocalVariables;
             }
         }
 

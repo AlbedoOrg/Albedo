@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -26,10 +27,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             get
             {
-                return typeof(TypeWithCtor)
-                    .GetConstructor(new[] { typeof(object), typeof(int), typeof(string) })
-                    .GetMethodBody()
-                    .LocalVariables;
+                return OtherCtor.GetMethodBody().LocalVariables;
             }
         }
 
