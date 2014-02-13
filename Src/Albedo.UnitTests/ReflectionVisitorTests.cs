@@ -543,6 +543,49 @@ namespace Ploeh.Albedo.UnitTests
             Mock.Get(visitor).Verify();
         }
 
+        [Fact]
+        public void VisitConstructorInfoElementRelaiesParameterInfoElements()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
+            var constructorInfoElement = TypeWithCtor.OtherCtor.ToElement();
+            var parameterInfoElements = constructorInfoElement.ConstructorInfo
+                .GetParameters().Select(pi => pi.ToElement());
+
+            Mock.Get(sut).Setup(x => x.Visit(It.Is<ParameterInfoElement[]>(
+                    p => p.SequenceEqual(parameterInfoElements))))
+                .Returns(sut);
+            Mock.Get(sut).Setup(x => x.Visit(It.IsAny<LocalVariableInfoElement[]>())).Returns(expected);
+
+            // Exercise system
+            var actual = sut.Visit(constructorInfoElement);
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void VisitConstructorInfoElementRelaiesLocalVariableInfoElements()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
+            var constructorInfoElement = TypeWithCtor.OtherCtor.ToElement();
+            var localVariableTypes = TypeWithCtor.LocalVariablesOfOtherCtor.Select(l => l.LocalType);
+
+            Mock.Get(sut).Setup(x => x.Visit(It.IsAny<ParameterInfoElement[]>())).Returns(sut);
+            Mock.Get(sut).Setup(x => x.Visit(It.Is<LocalVariableInfoElement[]>(
+                   l => l.Select(li => li.LocalVariableInfo.LocalType).SequenceEqual(localVariableTypes))))
+               .Returns(expected);
+
+            // Exercise system
+            var actual = sut.Visit(constructorInfoElement);
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value

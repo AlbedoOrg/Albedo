@@ -190,7 +190,8 @@ namespace Ploeh.Albedo
         public virtual IReflectionVisitor<T> Visit(
             ConstructorInfoElement constructorInfoElement)
         {
-            return this;
+            return Visit(constructorInfoElement.GetParameterInfoElements())
+                .Visit(constructorInfoElement.GetLocalVariableInfoElements());
         }
 
         /// <summary>
@@ -270,7 +271,7 @@ namespace Ploeh.Albedo
             return this;
         }
 
-        public IReflectionVisitor<T> Visit(params ParameterInfoElement[] parameterInfoElements)
+        public virtual IReflectionVisitor<T> Visit(params ParameterInfoElement[] parameterInfoElements)
         {
             if (parameterInfoElements == null)
                 throw new ArgumentNullException("parameterInfoElements");
