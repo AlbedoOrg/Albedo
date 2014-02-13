@@ -17,7 +17,7 @@ namespace Ploeh.Albedo.UnitTests
             Assert.IsAssignableFrom<IReflectionVisitor<T>>(sut);
         }
 
-        [Fact(Skip = "Conflicted")]
+        [Fact]
         public void VisitAssemblyElementReturnsCorrectResult()
         {
             var sut = new ReflectionVisitor();
@@ -83,7 +83,7 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
         }
 
-        [Fact(Skip = "Conflicted")]
+        [Fact]
         public void VisitPropertyInfoElementReturnsCorrectResult()
         {
             var sut = new ReflectionVisitor();
@@ -96,7 +96,7 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Same(expected, actual);
         }
 
-        [Fact(Skip = "Conflicted")]
+        [Fact]
         public void VisitTypeElementReturnsCorrectResult()
         {
             var sut = new ReflectionVisitor();
