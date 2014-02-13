@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -11,6 +12,7 @@ namespace Ploeh.Albedo.UnitTests
                 return typeof (TypeWithProperty).GetProperty("TheProperty");
             }
         }
+
         public static PropertyInfo OtherProperty
         {
             get
@@ -19,7 +21,37 @@ namespace Ploeh.Albedo.UnitTests
             }
         }
 
+        public static PropertyInfo ReadOnlyProperty
+        {
+            get
+            {
+                return typeof(TypeWithProperty).GetProperty("TheReadOnlyProperty");
+            }
+        }
+
+        public static PropertyInfo WriteOnlyProperty
+        {
+            get
+            {
+                return typeof(TypeWithProperty).GetProperty("TheWriteOnlyProperty");
+            }
+        }
+
         public int TheProperty { get; set; }
         public int TheOtherProperty { get; set; }
+        public int TheReadOnlyProperty
+        {
+            get
+            {
+                throw new NotSupportedException();
+            }
+        }
+        public int TheWriteOnlyProperty
+        {
+            set
+            {
+                throw new NotSupportedException();
+            }
+        }
     }
 }
