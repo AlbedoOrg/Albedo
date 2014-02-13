@@ -383,6 +383,38 @@ namespace Ploeh.Albedo.UnitTests
             Mock.Get(visitor).Verify();
         }
 
+        [Fact]
+        public void VisitNullPropertyInfoElementsThrows()
+        {
+            var sut = new ReflectionVisitor();
+
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((PropertyInfoElement[])null));
+            Assert.Equal("propertyInfoElements", e.ParamName);
+        }
+
+        [Fact]
+        public void VisitPropertyInfoElementsRelaiesToEachPropertyInfoElement()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var visitor = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
+
+            var propertyInfoElement1 = TypeWithProperty.Property.ToElement();
+            var propertyInfoElement2 = TypeWithProperty.OtherProperty.ToElement();
+
+            Mock.Get(sut).Setup(x => x.Visit(propertyInfoElement1)).Returns(visitor).Verifiable();
+            Mock.Get(visitor).Setup(x => x.Visit(propertyInfoElement2)).Returns(expected).Verifiable();
+
+            // Exercise system
+            var actual = sut.Visit(new[] { propertyInfoElement1, propertyInfoElement2 });
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+            Mock.Get(sut).Verify();
+            Mock.Get(visitor).Verify();
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
