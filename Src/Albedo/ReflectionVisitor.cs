@@ -280,7 +280,10 @@ namespace Ploeh.Albedo
 
         public virtual IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] localVariableInfoElements)
         {
-            throw new NotImplementedException();
+            if (localVariableInfoElements == null)
+                throw new ArgumentNullException("localVariableInfoElements");
+
+            return localVariableInfoElements.Aggregate((IReflectionVisitor<T>)this, (v, l) => v.Visit(l));
         }
 
         /// <summary>

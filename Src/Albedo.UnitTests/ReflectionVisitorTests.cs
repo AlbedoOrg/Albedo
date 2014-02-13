@@ -511,6 +511,38 @@ namespace Ploeh.Albedo.UnitTests
             Mock.Get(visitor).Verify();
         }
 
+        [Fact]
+        public void VisitNullLoalVariableInfoElementsThrows()
+        {
+            var sut = new ReflectionVisitor();
+
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((LocalVariableInfoElement[])null));
+            Assert.Equal("localVariableInfoElements", e.ParamName);
+        }
+
+        [Fact]
+        public void VisitLocalVariableInfoElementsRelaiesEachLocalVariableInfoElement()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var visitor = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
+
+            var localVariableInfoElement1 = TypeWithLocalVariable.LocalVariable.ToElement();
+            var localVariableInfoElement2 = TypeWithLocalVariable.OtherLocalVariable.ToElement();
+
+            Mock.Get(sut).Setup(x => x.Visit(localVariableInfoElement1)).Returns(visitor).Verifiable();
+            Mock.Get(visitor).Setup(x => x.Visit(localVariableInfoElement2)).Returns(expected).Verifiable();
+
+            // Exercise system
+            var actual = sut.Visit(new[] { localVariableInfoElement1, localVariableInfoElement2 });
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+            Mock.Get(sut).Verify();
+            Mock.Get(visitor).Verify();
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
