@@ -145,7 +145,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitAssemblyRelaiesTypeElements()
+        public void VisitAssemblyRelaiesToTypeElements()
         {
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var expected = new Mock<ReflectionVisitor<T>>().Object;
@@ -179,7 +179,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementsRelaiesEachTypeElement()
+        public void VisitTypeElementsRelaiesToEachTypeElement()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -206,7 +206,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementRelaiesFieldInfoElements()
+        public void VisitTypeElementRelaiesToFieldInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -228,7 +228,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementRelaiesConstructorInfoElements()
+        public void VisitTypeElementRelaiesToConstructorInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -250,7 +250,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementRelaiesPropertyInfoElements()
+        public void VisitTypeElementRelaiesToPropertyInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -272,7 +272,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementRelaiesMethodInfoElements()
+        public void VisitTypeElementRelaiesToMethodInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -298,7 +298,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementRelaiesEventInfoElements()
+        public void VisitTypeElementRelaiesToEventInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -329,7 +329,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitFieldInfoElementsRelaiesEachFieldInfoElement()
+        public void VisitFieldInfoElementsRelaiesToEachFieldInfoElement()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -361,7 +361,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitConstructorInfoElementsRelaiesEachConstructorInfoElement()
+        public void VisitConstructorInfoElementsRelaiesToEachConstructorInfoElement()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
