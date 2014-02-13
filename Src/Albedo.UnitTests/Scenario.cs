@@ -103,8 +103,8 @@ namespace Ploeh.Albedo.UnitTests
         public void ReadFromSeveralPropertiesAndFields()
         {
             var ts = new TimeSpan(2, 4, 3, 8, 9);
-
             var elements = ts.GetType().GetPublicPropertiesAndFields().ToArray();
+
             var actual = elements.Accept(new ValueCollectingVisitor(ts));
 
             var actualValues = actual.Value.ToArray();
