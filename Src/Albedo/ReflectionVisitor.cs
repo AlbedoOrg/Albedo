@@ -272,7 +272,10 @@ namespace Ploeh.Albedo
 
         public IReflectionVisitor<T> Visit(params ParameterInfoElement[] parameterInfoElements)
         {
-            throw new NotImplementedException();
+            if (parameterInfoElements == null)
+                throw new ArgumentNullException("parameterInfoElements");
+
+            return parameterInfoElements.Aggregate((IReflectionVisitor<T>)this, (v, pi) => v.Visit(pi));
         }
 
         public virtual IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] localVariableInfoElements)
