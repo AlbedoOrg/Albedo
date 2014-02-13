@@ -243,7 +243,8 @@ namespace Ploeh.Albedo
         public virtual IReflectionVisitor<T> Visit(
             MethodInfoElement methodInfoElement)
         {
-            return this;
+            return Visit(methodInfoElement.GetParameterInfoElements())
+                .Visit(methodInfoElement.GetLocalVariableInfoElements());
         }
 
         /// <summary>
