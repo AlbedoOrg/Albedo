@@ -290,7 +290,8 @@ namespace Ploeh.Albedo.UnitTests
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(sut);
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(sut);
             Mock.Get(sut).Setup(x => x.Visit(It.Is<MethodInfoElement[]>(
-                    p => p.SequenceEqual(methodInfos.Select(m => m.ToElement())))))
+                    p => p.OrderBy(m => m.MethodInfo.Name).SequenceEqual(
+                        methodInfos.OrderBy(m => m.Name).Select(m => m.ToElement())))))
                 .Returns(expected);
             Mock.Get(expected).Setup(x => x.Visit(It.IsAny<EventInfoElement[]>())).Returns(expected);
 
