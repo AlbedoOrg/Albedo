@@ -198,9 +198,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
-            Mock.Get(visitor1).VerifyAll();
-            Mock.Get(visitor2).VerifyAll();
         }
 
         [Fact]
@@ -370,8 +367,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
-            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -402,8 +397,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
-            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -434,8 +427,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
-            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -466,8 +457,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
-            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -498,8 +487,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
-            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -530,8 +517,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
-            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -562,8 +547,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
-            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -587,7 +570,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
         }
 
         [Fact]
@@ -610,7 +592,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
         }
 
         [Fact]
@@ -634,7 +615,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
         }
 
         [Fact]
@@ -657,7 +637,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
         }
 
         [Fact]
@@ -679,8 +658,6 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).VerifyAll();
-            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
