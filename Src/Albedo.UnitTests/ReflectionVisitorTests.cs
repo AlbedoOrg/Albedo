@@ -415,6 +415,38 @@ namespace Ploeh.Albedo.UnitTests
             Mock.Get(visitor).Verify();
         }
 
+        [Fact]
+        public void VisitNullMethodInfoElementsThrows()
+        {
+            var sut = new ReflectionVisitor();
+
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((MethodInfoElement[])null));
+            Assert.Equal("methodInfoElements", e.ParamName);
+        }
+
+        [Fact]
+        public void VisitMethodInfoElementsRelaiesToEachMethodInfoElement()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var visitor = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var expected = new Mock<ReflectionVisitor<T>>().Object;
+
+            var methodInfoElement1 = TypeWithMethod.Method.ToElement();
+            var methodInfoElement2 = TypeWithMethod.OtherMethod.ToElement();
+
+            Mock.Get(sut).Setup(x => x.Visit(methodInfoElement1)).Returns(visitor).Verifiable();
+            Mock.Get(visitor).Setup(x => x.Visit(methodInfoElement2)).Returns(expected).Verifiable();
+
+            // Exercise system
+            var actual = sut.Visit(new[] { methodInfoElement1, methodInfoElement2 });
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+            Mock.Get(sut).Verify();
+            Mock.Get(visitor).Verify();
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
