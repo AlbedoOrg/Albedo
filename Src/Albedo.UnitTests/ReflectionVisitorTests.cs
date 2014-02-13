@@ -145,7 +145,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitAssemblyRelaiesToTypeElements()
+        public void VisitAssemblyRelaiesTypeElements()
         {
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var expected = new Mock<ReflectionVisitor<T>>().Object;
@@ -179,7 +179,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementsRelaiesToEachTypeElement()
+        public void VisitTypeElementsRelaiesEachTypeElement()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -206,7 +206,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementRelaiesToFieldInfoElements()
+        public void VisitTypeElementRelaiesFieldInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -228,7 +228,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementRelaiesToConstructorInfoElements()
+        public void VisitTypeElementRelaiesConstructorInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -250,7 +250,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementRelaiesToPropertyInfoElements()
+        public void VisitTypeElementRelaiesPropertyInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -272,7 +272,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementRelaiesToMethodInfoElements()
+        public void VisitTypeElementRelaiesMethodInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -298,7 +298,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitTypeElementRelaiesToEventInfoElements()
+        public void VisitTypeElementRelaiesEventInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -329,7 +329,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitFieldInfoElementsRelaiesToEachFieldInfoElement()
+        public void VisitFieldInfoElementsRelaiesEachFieldInfoElement()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -361,7 +361,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitConstructorInfoElementsRelaiesToEachConstructorInfoElement()
+        public void VisitConstructorInfoElementsRelaiesEachConstructorInfoElement()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -393,7 +393,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitPropertyInfoElementsRelaiesToEachPropertyInfoElement()
+        public void VisitPropertyInfoElementsRelaiesEachPropertyInfoElement()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -425,7 +425,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitMethodInfoElementsRelaiesToEachMethodInfoElement()
+        public void VisitMethodInfoElementsRelaiesEachMethodInfoElement()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -457,7 +457,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitEventInfoElementsRelaiesToEachEventInfoElement()
+        public void VisitEventInfoElementsRelaiesEachEventInfoElement()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
