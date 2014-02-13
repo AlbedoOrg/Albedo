@@ -62,6 +62,7 @@
     <Compile Include="TypeWithField.cs" />
     <Compile Include="TypeWithLocalVariable.cs" />
     <Compile Include="TypeWithMethod.cs" />
+    <Compile Include="TypeWithParameter.cs" />
     <Compile Include="TypeWithProperty.cs" />
     <Compile Include="ValueCollectingVisitorTests.cs" />
     <Compile Include="ConcreteElementConversionsTests.cs" />

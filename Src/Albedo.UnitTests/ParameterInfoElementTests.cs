@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Xunit;
 using Xunit.Extensions;
@@ -123,40 +122,6 @@ namespace Ploeh.Albedo.UnitTests
 
             var expected = par.GetHashCode();
             Assert.Equal(expected, actual);
-        }
-
-
-        class TypeWithParameter
-        {
-            public static ParameterInfo Parameter
-            {
-                get
-                {
-                    return typeof(TypeWithParameter)
-                        .GetMethod("TheMethod")
-                        .GetParameters()
-                        .First();
-                }
-            }
-
-            public static ParameterInfo OtherParameter
-            {
-                get
-                {
-                    return typeof(TypeWithParameter)
-                        .GetMethod("TheOtherMethod")
-                        .GetParameters()
-                        .First();
-                }
-            }
-
-            public void TheMethod(int param1)
-            {
-            }
-
-            public void TheOtherMethod(int param1)
-            {
-            }
         }
     }
 }
