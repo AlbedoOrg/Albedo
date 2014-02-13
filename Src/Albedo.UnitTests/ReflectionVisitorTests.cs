@@ -189,18 +189,18 @@ namespace Ploeh.Albedo.UnitTests
             var typeElement2 = typeof(int).ToElement();
             var typeElement3 = typeof(string).ToElement();
 
-            Mock.Get(sut).Setup(x => x.Visit(typeElement1)).Returns(visitor1).Verifiable();
-            Mock.Get(visitor1).Setup(x => x.Visit(typeElement2)).Returns(visitor2).Verifiable();
-            Mock.Get(visitor2).Setup(x => x.Visit(typeElement3)).Returns(expected).Verifiable();
+            Mock.Get(sut).Setup(x => x.Visit(typeElement1)).Returns(visitor1);
+            Mock.Get(visitor1).Setup(x => x.Visit(typeElement2)).Returns(visitor2);
+            Mock.Get(visitor2).Setup(x => x.Visit(typeElement3)).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(new[] { typeElement1, typeElement2, typeElement3});
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).Verify();
-            Mock.Get(visitor1).Verify();
-            Mock.Get(visitor2).Verify();
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(visitor1).VerifyAll();
+            Mock.Get(visitor2).VerifyAll();
         }
 
         [Fact]
@@ -222,6 +222,8 @@ namespace Ploeh.Albedo.UnitTests
             var actual = sut.Visit(typeElement);
 
             // Verify outcome
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(expected).VerifyAll();
             Assert.Equal(expected, actual);
         }
 
@@ -244,6 +246,8 @@ namespace Ploeh.Albedo.UnitTests
             var actual = sut.Visit(typeElement);
 
             // Verify outcome
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(expected).VerifyAll();
             Assert.Equal(expected, actual);
         }
 
@@ -266,6 +270,8 @@ namespace Ploeh.Albedo.UnitTests
             var actual = sut.Visit(typeElement);
 
             // Verify outcome
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(expected).VerifyAll();
             Assert.Equal(expected, actual);
         }
 
@@ -292,6 +298,8 @@ namespace Ploeh.Albedo.UnitTests
             var actual = sut.Visit(typeElement);
 
             // Verify outcome
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(expected).VerifyAll();
             Assert.Equal(expected, actual);
         }
 
@@ -314,6 +322,7 @@ namespace Ploeh.Albedo.UnitTests
             var actual = sut.Visit(typeElement);
 
             // Verify outcome
+            Mock.Get(sut).VerifyAll();
             Assert.Equal(expected, actual);
         }
 
@@ -337,16 +346,16 @@ namespace Ploeh.Albedo.UnitTests
             var fieldInfoElement1 = TypeWithField.Field.ToElement();
             var fieldInfoElement2 = TypeWithField.OtherField.ToElement();
 
-            Mock.Get(sut).Setup(x => x.Visit(fieldInfoElement1)).Returns(visitor).Verifiable();
-            Mock.Get(visitor).Setup(x => x.Visit(fieldInfoElement2)).Returns(expected).Verifiable();
+            Mock.Get(sut).Setup(x => x.Visit(fieldInfoElement1)).Returns(visitor);
+            Mock.Get(visitor).Setup(x => x.Visit(fieldInfoElement2)).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(new[] { fieldInfoElement1, fieldInfoElement2 });
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).Verify();
-            Mock.Get(visitor).Verify();
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -369,16 +378,16 @@ namespace Ploeh.Albedo.UnitTests
             var constructorInfoElement1 = TypeWithCtor.Ctor.ToElement();
             var constructorInfoElement2 = TypeWithCtor.OtherCtor.ToElement();
 
-            Mock.Get(sut).Setup(x => x.Visit(constructorInfoElement1)).Returns(visitor).Verifiable();
-            Mock.Get(visitor).Setup(x => x.Visit(constructorInfoElement2)).Returns(expected).Verifiable();
+            Mock.Get(sut).Setup(x => x.Visit(constructorInfoElement1)).Returns(visitor);
+            Mock.Get(visitor).Setup(x => x.Visit(constructorInfoElement2)).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(new[] { constructorInfoElement1, constructorInfoElement2 });
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).Verify();
-            Mock.Get(visitor).Verify();
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -401,16 +410,16 @@ namespace Ploeh.Albedo.UnitTests
             var propertyInfoElement1 = TypeWithProperty.Property.ToElement();
             var propertyInfoElement2 = TypeWithProperty.OtherProperty.ToElement();
 
-            Mock.Get(sut).Setup(x => x.Visit(propertyInfoElement1)).Returns(visitor).Verifiable();
-            Mock.Get(visitor).Setup(x => x.Visit(propertyInfoElement2)).Returns(expected).Verifiable();
+            Mock.Get(sut).Setup(x => x.Visit(propertyInfoElement1)).Returns(visitor);
+            Mock.Get(visitor).Setup(x => x.Visit(propertyInfoElement2)).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(new[] { propertyInfoElement1, propertyInfoElement2 });
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).Verify();
-            Mock.Get(visitor).Verify();
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -433,16 +442,16 @@ namespace Ploeh.Albedo.UnitTests
             var methodInfoElement1 = TypeWithMethod.Method.ToElement();
             var methodInfoElement2 = TypeWithMethod.OtherMethod.ToElement();
 
-            Mock.Get(sut).Setup(x => x.Visit(methodInfoElement1)).Returns(visitor).Verifiable();
-            Mock.Get(visitor).Setup(x => x.Visit(methodInfoElement2)).Returns(expected).Verifiable();
+            Mock.Get(sut).Setup(x => x.Visit(methodInfoElement1)).Returns(visitor);
+            Mock.Get(visitor).Setup(x => x.Visit(methodInfoElement2)).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(new[] { methodInfoElement1, methodInfoElement2 });
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).Verify();
-            Mock.Get(visitor).Verify();
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -465,16 +474,16 @@ namespace Ploeh.Albedo.UnitTests
             var eventInfoElement1 = TypeWithEvent.LocalEvent.ToElement();
             var eventInfoElement2 = TypeWithEvent.OtherEvent.ToElement();
 
-            Mock.Get(sut).Setup(x => x.Visit(eventInfoElement1)).Returns(visitor).Verifiable();
-            Mock.Get(visitor).Setup(x => x.Visit(eventInfoElement2)).Returns(expected).Verifiable();
+            Mock.Get(sut).Setup(x => x.Visit(eventInfoElement1)).Returns(visitor);
+            Mock.Get(visitor).Setup(x => x.Visit(eventInfoElement2)).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(new[] { eventInfoElement1, eventInfoElement2 });
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).Verify();
-            Mock.Get(visitor).Verify();
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -497,16 +506,16 @@ namespace Ploeh.Albedo.UnitTests
             var parameterInfoElement1 = TypeWithParameter.Parameter.ToElement();
             var parameterInfoElement2 = TypeWithParameter.OtherParameter.ToElement();
 
-            Mock.Get(sut).Setup(x => x.Visit(parameterInfoElement1)).Returns(visitor).Verifiable();
-            Mock.Get(visitor).Setup(x => x.Visit(parameterInfoElement2)).Returns(expected).Verifiable();
+            Mock.Get(sut).Setup(x => x.Visit(parameterInfoElement1)).Returns(visitor);
+            Mock.Get(visitor).Setup(x => x.Visit(parameterInfoElement2)).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(new[] { parameterInfoElement1, parameterInfoElement2 });
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).Verify();
-            Mock.Get(visitor).Verify();
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -529,16 +538,16 @@ namespace Ploeh.Albedo.UnitTests
             var localVariableInfoElement1 = TypeWithLocalVariable.LocalVariable.ToElement();
             var localVariableInfoElement2 = TypeWithLocalVariable.OtherLocalVariable.ToElement();
 
-            Mock.Get(sut).Setup(x => x.Visit(localVariableInfoElement1)).Returns(visitor).Verifiable();
-            Mock.Get(visitor).Setup(x => x.Visit(localVariableInfoElement2)).Returns(expected).Verifiable();
+            Mock.Get(sut).Setup(x => x.Visit(localVariableInfoElement1)).Returns(visitor);
+            Mock.Get(visitor).Setup(x => x.Visit(localVariableInfoElement2)).Returns(expected);
 
             // Exercise system
             var actual = sut.Visit(new[] { localVariableInfoElement1, localVariableInfoElement2 });
 
             // Verify outcome
             Assert.Equal(expected, actual);
-            Mock.Get(sut).Verify();
-            Mock.Get(visitor).Verify();
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
@@ -561,6 +570,7 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
+            Mock.Get(sut).VerifyAll();
         }
 
         [Fact]
@@ -582,6 +592,7 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
+            Mock.Get(sut).VerifyAll();
         }
 
         [Fact]
@@ -604,6 +615,7 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
+            Mock.Get(sut).VerifyAll();
         }
 
         [Fact]
@@ -625,6 +637,7 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
+            Mock.Get(sut).VerifyAll();
         }
 
         [Fact]
@@ -646,6 +659,8 @@ namespace Ploeh.Albedo.UnitTests
 
             // Verify outcome
             Assert.Equal(expected, actual);
+            Mock.Get(sut).VerifyAll();
+            Mock.Get(visitor).VerifyAll();
         }
 
         [Fact]
