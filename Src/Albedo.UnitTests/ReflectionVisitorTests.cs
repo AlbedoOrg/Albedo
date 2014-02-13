@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using Moq;
 using Xunit;
 
@@ -695,6 +693,42 @@ namespace Ploeh.Albedo.UnitTests
             // Exercise system
             // Verify outcome
             Assert.DoesNotThrow(() => sut.Visit(methodInfoElements));
+        }
+
+        [Fact]
+        public void VisitNullTypeElementThrows()
+        {
+            var sut = new ReflectionVisitor();
+
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((TypeElement)null));
+            Assert.Equal("typeElement", e.ParamName);
+        }
+
+        [Fact]
+        public void VisitNullConstructorInfoElementThrows()
+        {
+            var sut = new ReflectionVisitor();
+
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((ConstructorInfoElement)null));
+            Assert.Equal("constructorInfoElement", e.ParamName);
+        }
+
+        [Fact]
+        public void VisitNullPropertyInfoElementThrows()
+        {
+            var sut = new ReflectionVisitor();
+
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((PropertyInfoElement)null));
+            Assert.Equal("propertyInfoElement", e.ParamName);
+        }
+
+        [Fact]
+        public void VisitNullMethodInfoElementThrows()
+        {
+            var sut = new ReflectionVisitor();
+
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((MethodInfoElement)null));
+            Assert.Equal("methodInfoElement", e.ParamName);
         }
 
         private class ReflectionVisitor : ReflectionVisitor<T>

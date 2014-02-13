@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Ploeh.Albedo
 {
@@ -94,6 +92,9 @@ namespace Ploeh.Albedo
         public virtual IReflectionVisitor<T> Visit(
             TypeElement typeElement)
         {
+            if (typeElement == null)
+                throw new ArgumentNullException("typeElement");
+
             return Visit(typeElement.GetFieldInfoElements())
                 .Visit(typeElement.GetConstructorInfoElements())
                 .Visit(typeElement.GetPropertyInfoElements())
@@ -190,6 +191,9 @@ namespace Ploeh.Albedo
         public virtual IReflectionVisitor<T> Visit(
             ConstructorInfoElement constructorInfoElement)
         {
+            if (constructorInfoElement == null)
+                throw new ArgumentNullException("constructorInfoElement");
+
             return Visit(constructorInfoElement.GetParameterInfoElements())
                 .Visit(constructorInfoElement.GetLocalVariableInfoElements());
         }
@@ -217,6 +221,9 @@ namespace Ploeh.Albedo
         public virtual IReflectionVisitor<T> Visit(
             PropertyInfoElement propertyInfoElement)
         {
+            if (propertyInfoElement == null)
+                throw new ArgumentNullException("propertyInfoElement");
+
             var getMethodInfoElement = propertyInfoElement.GetGetMethodInfoElement();
             var setMethodInfoElement = propertyInfoElement.GetSetMethodInfoElement();
 
@@ -253,6 +260,9 @@ namespace Ploeh.Albedo
         public virtual IReflectionVisitor<T> Visit(
             MethodInfoElement methodInfoElement)
         {
+            if (methodInfoElement == null)
+                throw new ArgumentNullException("methodInfoElement");
+
             return Visit(methodInfoElement.GetParameterInfoElements())
                 .Visit(methodInfoElement.GetLocalVariableInfoElements());
         }
