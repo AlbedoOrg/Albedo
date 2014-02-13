@@ -38,6 +38,15 @@
         /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(AssemblyElement assemblyElement);
 
+        /// <summary>
+        /// Allows <see cref="TypeElement"/> instances to be 'visited'.
+        /// This method is called when the elements 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="typeElements">
+        /// The <see cref="TypeElement"/> instances being visited.
+        /// </param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(params TypeElement[] typeElements);
 
         /// <summary>
@@ -49,10 +58,59 @@
         /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(TypeElement typeElement);
 
+        /// <summary>
+        /// Allows <see cref="FieldInfoElement"/> instances to be 'visited'.
+        /// This method is called when the elements 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="fieldInfoElements">
+        /// The <see cref="FieldInfoElement"/> instances being visited.
+        /// </param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(params FieldInfoElement[] fieldInfoElements);
+
+        /// <summary>
+        /// Allows <see cref="ConstructorInfoElement"/> instances to be 'visited'.
+        /// This method is called when the elements 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="constructorInfoElements">
+        /// The <see cref="ConstructorInfoElement"/> instances being visited.
+        /// </param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(params ConstructorInfoElement[] constructorInfoElements);
+
+        /// <summary>
+        /// Allows <see cref="PropertyInfoElement"/> instances to be 'visited'.
+        /// This method is called when the elements 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="propertyInfoElements">
+        /// The <see cref="PropertyInfoElement"/> instances being visited.
+        /// </param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(params PropertyInfoElement[] propertyInfoElements);
+
+        /// <summary>
+        /// Allows <see cref="MethodInfoElement"/> instances to be 'visited'.
+        /// This method is called when the elements 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="methodInfoElements">
+        /// The <see cref="MethodInfoElement"/> instances being visited.
+        /// </param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(params MethodInfoElement[] methodInfoElements);
+
+        /// <summary>
+        /// Allows <see cref="EventInfoElement"/> instances to be 'visited'.
+        /// This method is called when the elements 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="eventInfoElements">
+        /// The <see cref="EventInfoElement"/> instances being visited.
+        /// </param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(params EventInfoElement[] eventInfoElements);
 
         /// <summary>
@@ -100,7 +158,26 @@
         /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(EventInfoElement eventInfoElement);
 
+        /// <summary>
+        /// Allows <see cref="ParameterInfoElement"/> instances to be 'visited'.
+        /// This method is called when the elements 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="parameterInfoElements">
+        /// The <see cref="ParameterInfoElement"/> instances being visited.
+        /// </param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(params ParameterInfoElement[] parameterInfoElements);
+
+        /// <summary>
+        /// Allows <see cref="LocalVariableInfoElement"/> instances to be 'visited'.
+        /// This method is called when the elements 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="localVariableInfoElements">
+        /// The <see cref="LocalVariableInfoElement"/> instances being visited.
+        /// </param>
+        /// <returns>A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.</returns>
         IReflectionVisitor<T> Visit(params LocalVariableInfoElement[] localVariableInfoElements);
 
         /// <summary>
