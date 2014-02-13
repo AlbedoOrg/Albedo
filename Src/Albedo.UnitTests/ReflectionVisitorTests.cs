@@ -682,7 +682,21 @@ namespace Ploeh.Albedo.UnitTests
             // Verify outcome
             Assert.Equal(expected, actual);
         }
-        
+
+        [Fact]
+        public void VisitMethodElementIfLocalVariablesReturnsNullDoesNotThrows()
+        {
+            // Fixture setup
+            var sut = new ReflectionVisitor();
+
+            // The GetType method of ValueType represents NULL LocalVariables.
+            var methodInfoElements = typeof(int).GetMethod("GetType").ToElement();
+
+            // Exercise system
+            // Verify outcome
+            Assert.DoesNotThrow(() => sut.Visit(methodInfoElements));
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
