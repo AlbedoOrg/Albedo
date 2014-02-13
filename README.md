@@ -105,22 +105,11 @@ Here's a more complicated example that uses the sample `ValueCollectingVisitor` 
 
 ```C#
 var ts = new TimeSpan(2, 4, 3, 8, 9);
-var flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public;
-var elements = ts.GetType()
-    .GetProperties(flags)
-    .Select(pi => new PropertyInfoElement(pi))
-    .Cast<IReflectionElement>()
-    .Concat(ts.GetType()
-        .GetFields(flags)
-        .Select(fi => new FieldInfoElement(fi))
-        .Cast<IReflectionElement>())
-    .ToArray();
-var visitor = new ValueCollectingVisitor(ts);
+var elements = ts.GetType().GetPublicPropertiesAndFields().ToArray();
 
-var actual =
-    new CompositeReflectionElement(elements).Accept(visitor);
+var actual = elements.Accept(new ValueCollectingVisitor(ts));
 
-var actualValues = actual.Value.Cast<object>().ToArray();
+var actualValues = actual.Value.ToArray();
 Assert.Equal(elements.Length, actualValues.Length);
 Assert.Equal(1, actualValues.Count(ts.Days.Equals));
 Assert.Equal(1, actualValues.Count(ts.Hours.Equals));
