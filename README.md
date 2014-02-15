@@ -157,21 +157,11 @@ If you want to assign a value to all fields and properties, you can do it like t
 
 ```C#
 var t = new ClassWithWritablePropertiesAndFields<int>();
-var elements = t.GetType()
-    .GetProperties()
-    .Select(pi => new PropertyInfoElement(pi))
-    .Cast<IReflectionElement>()
-    .Concat(t.GetType()
-        .GetFields()
-        .Select(fi => new FieldInfoElement(fi))
-        .Cast<IReflectionElement>())
-    .ToArray();
-var visitor = new ValueWritingVisitor(t);
+var elements = t.GetType().GetPublicPropertiesAndFields().ToArray();
 
-var actual =
-    new CompositeReflectionElement(elements).Accept(visitor);
+var actual = elements.Accept(new ValueWritingVisitor(t));
 actual.Value(42);
-
+            
 Assert.Equal(42, t.Field1);
 Assert.Equal(42, t.Field2);
 Assert.Equal(42, t.Property1);
