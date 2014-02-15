@@ -136,7 +136,8 @@ namespace Ploeh.Albedo.UnitTests
             var t = new ClassWithWritablePropertiesAndFields<int>();
             var elements = t.GetType().GetPublicPropertiesAndFields().ToArray();
 
-            elements.Accept(new ValueWritingVisitor(t)).Value(42);
+            var actual = elements.Accept(new ValueWritingVisitor(t));
+            actual.Value(42);
             
             Assert.Equal(42, t.Field1);
             Assert.Equal(42, t.Field2);
