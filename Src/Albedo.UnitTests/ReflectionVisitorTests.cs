@@ -137,7 +137,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullAssemblyElementThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((AssemblyElement)null));
             Assert.Equal("assemblyElement", e.ParamName);
         }
@@ -162,7 +161,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullTypeElementsThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((TypeElement[])null));
             Assert.Equal("typeElements", e.ParamName);
         }
@@ -171,9 +169,7 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitEmptyTypeElementsReturnSUTItself()
         {
             var sut = new ReflectionVisitor();
-
             var actual = sut.Visit(new TypeElement[0]);
-
             Assert.Equal(sut, actual);
         }
 
@@ -348,7 +344,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullFieldInfoElementsThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((FieldInfoElement[])null));
             Assert.Equal("fieldInfoElements", e.ParamName);
         }
@@ -378,7 +373,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullConstructorInfoElementsThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((ConstructorInfoElement[])null));
             Assert.Equal("constructorInfoElements", e.ParamName);
         }
@@ -408,7 +402,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullPropertyInfoElementsThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((PropertyInfoElement[])null));
             Assert.Equal("propertyInfoElements", e.ParamName);
         }
@@ -438,7 +431,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullMethodInfoElementsThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((MethodInfoElement[])null));
             Assert.Equal("methodInfoElements", e.ParamName);
         }
@@ -468,7 +460,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullEventInfoElementsThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((EventInfoElement[])null));
             Assert.Equal("eventInfoElements", e.ParamName);
         }
@@ -498,7 +489,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullParameterInfoElementsThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((ParameterInfoElement[])null));
             Assert.Equal("parameterInfoElements", e.ParamName);
         }
@@ -528,7 +518,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullLoalVariableInfoElementsThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((LocalVariableInfoElement[])null));
             Assert.Equal("localVariableInfoElements", e.ParamName);
         }
@@ -717,7 +706,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullTypeElementThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((TypeElement)null));
             Assert.Equal("typeElement", e.ParamName);
         }
@@ -726,7 +714,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullConstructorInfoElementThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((ConstructorInfoElement)null));
             Assert.Equal("constructorInfoElement", e.ParamName);
         }
@@ -735,7 +722,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullPropertyInfoElementThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((PropertyInfoElement)null));
             Assert.Equal("propertyInfoElement", e.ParamName);
         }
@@ -744,7 +730,6 @@ namespace Ploeh.Albedo.UnitTests
         public void VisitNullMethodInfoElementThrows()
         {
             var sut = new ReflectionVisitor();
-
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((MethodInfoElement)null));
             Assert.Equal("methodInfoElement", e.ParamName);
         }
