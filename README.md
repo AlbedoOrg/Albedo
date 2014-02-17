@@ -101,7 +101,9 @@ public class ValueCollectingVisitor : ReflectionVisitor<IEnumerable>
 
 Notice that this Visitor only collects information about the values of properties and fields, and not (say) the return value of method calls. (Since this is sample code, it implicitly assumes that `PropertyInfo.GetValue` will succeed, which will not be the case if the property is a write-only property. However, it's trivial to add a check to see if the property can be read.)
 
-Here's a more complicated example that uses the sample `ValueCollectingVisitor` to read all public properties and fields from a `TimeSpan` instance:
+> **Note:** `ValueCollectingVisitor` has turned out to be such a generally useful implementation that it's now available by default in Albedo. Thus, you don't have to implement it yourself, but remains here as an example of how to use Albedo.
+
+Here's a more complicated example that uses the `ValueCollectingVisitor` to read all public properties and fields from a `TimeSpan` instance:
 
 ```C#
 var ts = new TimeSpan(2, 4, 3, 8, 9);
