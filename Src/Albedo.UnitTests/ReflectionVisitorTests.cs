@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Moq;
@@ -147,9 +148,9 @@ namespace Ploeh.Albedo.UnitTests
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var expected = new ReflectionVisitor();
             Assembly assembly = Assembly.GetExecutingAssembly();
-            var typeElements = assembly.GetTypes().Select(t => t.ToElement());
+            var typeElements = assembly.GetTypes().Select(t => t.ToElement()).ToArray();
             Mock.Get(sut).Setup(x => x.Visit(It.Is<TypeElement[]>(
-                    p => !p.Except(typeElements).Any())))
+                    p => AreEquivalent(p, typeElements))))
                 .Returns(expected);
 
             var actual = sut.Visit(assembly.ToElement());
@@ -191,7 +192,7 @@ namespace Ploeh.Albedo.UnitTests
             Mock.Get(visitor2).Setup(x => x.Visit(typeElement3)).Returns(expected);
 
             // Exercise system
-            var actual = sut.Visit(new[] { typeElement1, typeElement2, typeElement3});
+            var actual = sut.Visit(new[] { typeElement1, typeElement2, typeElement3 });
 
             // Verify outcome
             Assert.Equal(expected, actual);
@@ -208,10 +209,10 @@ namespace Ploeh.Albedo.UnitTests
             var visitor4 = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
             var typeElement = typeof(TypeWithField).ToElement();
-            var fieldInfoElements = typeElement.Type.GetFields().Select(f => f.ToElement());
+            var fieldInfoElements = typeElement.Type.GetFields().Select(f => f.ToElement()).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.Is<FieldInfoElement[]>(
-                    p => !p.Except(fieldInfoElements).Any())))
+                    p => AreEquivalent(p, fieldInfoElements))))
                 .Returns(visitor1);
             Mock.Get(visitor1).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(visitor2);
             Mock.Get(visitor2).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(visitor3);
@@ -236,11 +237,11 @@ namespace Ploeh.Albedo.UnitTests
             var visitor4 = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
             var typeElement = typeof(TypeWithCtor).ToElement();
-            var constructorInfoElements = typeElement.Type.GetConstructors().Select(c => c.ToElement());
+            var constructorInfoElements = typeElement.Type.GetConstructors().Select(c => c.ToElement()).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(visitor1);
             Mock.Get(visitor1).Setup(x => x.Visit(It.Is<ConstructorInfoElement[]>(
-                    p => !p.Except(constructorInfoElements).Any())))
+                    p => AreEquivalent(p, constructorInfoElements))))
                 .Returns(visitor2);
             Mock.Get(visitor2).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(visitor3);
             Mock.Get(visitor3).Setup(x => x.Visit(It.IsAny<MethodInfoElement[]>())).Returns(visitor4);
@@ -264,12 +265,12 @@ namespace Ploeh.Albedo.UnitTests
             var visitor4 = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
             var typeElement = typeof(TypeWithProperty).ToElement();
-            var propertyInfoElements = typeElement.Type.GetProperties().Select(pi => pi.ToElement());
+            var propertyInfoElements = typeElement.Type.GetProperties().Select(pi => pi.ToElement()).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(visitor1);
             Mock.Get(visitor1).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(visitor2);
             Mock.Get(visitor2).Setup(x => x.Visit(It.Is<PropertyInfoElement[]>(
-                    p => !p.Except(propertyInfoElements).Any())))
+                    p => AreEquivalent(p, propertyInfoElements))))
                 .Returns(visitor3);
             Mock.Get(visitor3).Setup(x => x.Visit(It.IsAny<MethodInfoElement[]>())).Returns(visitor4);
             Mock.Get(visitor4).Setup(x => x.Visit(It.IsAny<EventInfoElement[]>())).Returns(expected);
@@ -294,14 +295,15 @@ namespace Ploeh.Albedo.UnitTests
             var typeElement = typeof(TypeWithMethod).ToElement();
             var methodInfoElements = typeElement.Type.GetMethods()
                 .Except(typeElement.Type.GetProperties().SelectMany(p => p.GetAccessors()))
-                .Select(m => m.ToElement());
-            Assert.Equal(6, methodInfoElements.Count());
+                .Select(m => m.ToElement())
+                .ToArray();
+            Assert.Equal(6, methodInfoElements.Length);
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(visitor1);
             Mock.Get(visitor1).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(visitor2);
             Mock.Get(visitor2).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(visitor3);
             Mock.Get(visitor3).Setup(x => x.Visit(It.Is<MethodInfoElement[]>(
-                    p => !p.Except(methodInfoElements).Any())))
+                    p => AreEquivalent(p, methodInfoElements))))
                 .Returns(visitor4);
             Mock.Get(visitor4).Setup(x => x.Visit(It.IsAny<EventInfoElement[]>())).Returns(expected);
 
@@ -323,14 +325,14 @@ namespace Ploeh.Albedo.UnitTests
             var visitor4 = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
             var typeElement = typeof(TypeWithEvent).ToElement();
-            var eventInfoElements = typeElement.Type.GetEvents().Select(e => e.ToElement());
+            var eventInfoElements = typeElement.Type.GetEvents().Select(e => e.ToElement()).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(visitor1);
             Mock.Get(visitor1).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(visitor2);
             Mock.Get(visitor2).Setup(x => x.Visit(It.IsAny<PropertyInfoElement[]>())).Returns(visitor3);
             Mock.Get(visitor3).Setup(x => x.Visit(It.IsAny<MethodInfoElement[]>())).Returns(visitor4);
             Mock.Get(visitor4).Setup(x => x.Visit(It.Is<EventInfoElement[]>(
-                    p => !p.Except(eventInfoElements).Any())))
+                    p => AreEquivalent(p, eventInfoElements))))
                 .Returns(expected);
 
             // Exercise system
@@ -552,10 +554,10 @@ namespace Ploeh.Albedo.UnitTests
             var expected = new ReflectionVisitor();
             var constructorInfoElement = TypeWithCtor.OtherCtor.ToElement();
             var parameterInfoElements = constructorInfoElement.ConstructorInfo
-                .GetParameters().Select(pi => pi.ToElement());
+                .GetParameters().Select(pi => pi.ToElement()).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.Is<ParameterInfoElement[]>(
-                    p => !p.Except(parameterInfoElements).Any())))
+                    p => AreEquivalent(p, parameterInfoElements))))
                 .Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(It.IsAny<LocalVariableInfoElement[]>())).Returns(expected);
 
@@ -574,11 +576,11 @@ namespace Ploeh.Albedo.UnitTests
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
             var constructorInfoElement = TypeWithCtor.OtherCtor.ToElement();
-            var localVariableTypes = TypeWithCtor.LocalVariablesOfOtherCtor.Select(l => l.LocalType);
+            var localVariableTypes = TypeWithCtor.LocalVariablesOfOtherCtor.Select(l => l.LocalType).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<ParameterInfoElement[]>())).Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(It.Is<LocalVariableInfoElement[]>(
-                   l => !l.Select(li => li.LocalVariableInfo.LocalType).Except(localVariableTypes).Any())))
+                   l => AreEquivalent(l.Select(li => li.LocalVariableInfo.LocalType).ToArray(), localVariableTypes))))
                .Returns(expected);
 
             // Exercise system
@@ -597,10 +599,10 @@ namespace Ploeh.Albedo.UnitTests
             var expected = new ReflectionVisitor();
             var methodInfoElement = TypeWithMethod.OtherMethod.ToElement();
             var parameterInfoElements = methodInfoElement.MethodInfo
-                .GetParameters().Select(pi => pi.ToElement());
+                .GetParameters().Select(pi => pi.ToElement()).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.Is<ParameterInfoElement[]>(
-                    p => !p.Except(parameterInfoElements).Any())))
+                    p => AreEquivalent(p, parameterInfoElements))))
                 .Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(It.IsAny<LocalVariableInfoElement[]>())).Returns(expected);
 
@@ -619,11 +621,11 @@ namespace Ploeh.Albedo.UnitTests
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
             var methodInfoElement = TypeWithMethod.OtherMethod.ToElement();
-            var localVariableTypes = TypeWithMethod.LocalVariablesOfOtherMethod.Select(l => l.LocalType);
+            var localVariableTypes = TypeWithMethod.LocalVariablesOfOtherMethod.Select(l => l.LocalType).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<ParameterInfoElement[]>())).Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(It.Is<LocalVariableInfoElement[]>(
-                   l => !l.Select(li => li.LocalVariableInfo.LocalType).Except(localVariableTypes).Any())))
+                   l => AreEquivalent(l.Select(li => li.LocalVariableInfo.LocalType).ToArray(), localVariableTypes))))
                .Returns(expected);
 
             // Exercise system
@@ -734,6 +736,13 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal("methodInfoElement", e.ParamName);
         }
 
+        private static bool AreEquivalent<TItem>(
+            ICollection<TItem> expected,
+            ICollection<TItem> actual)
+        {
+            return !expected.Except(actual).Any() && actual.Count == expected.Count;
+        }
+
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
@@ -817,13 +826,13 @@ namespace Ploeh.Albedo.UnitTests
 
             private event EventHandler AnonymousEvent = (s, e) => { };
 
-            private string AnonymousMethodWithLocalVariable() 
+            private string AnonymousMethodWithLocalVariable()
             {
                 string value = "foo";
                 return value;
             }
 
-            private void AnonymousMethodWithParameter(object o) 
+            private void AnonymousMethodWithParameter(object o)
             {
             }
         }
