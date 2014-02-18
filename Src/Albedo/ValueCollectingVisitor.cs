@@ -47,31 +47,7 @@ namespace Ploeh.Albedo
         {
             get { return this.target; }
         }
-
-        /// <summary>
-        /// Allows an <see cref="AssemblyElement"/> to be visited. 
-        /// This method is called when the element accepts this visitor
-        /// instance.
-        /// </summary>
-        /// <param name="assemblyElement">
-        /// The <see cref="AssemblyElement"/> being visited.
-        /// </param>
-        /// <returns>
-        /// A <see cref="IReflectionVisitor{T}" /> instance which can be used
-        /// to continue the visiting process with potentially updated
-        /// observations.
-        /// </returns>
-        /// <remarks>
-        /// <para>
-        /// This implementation simply returns this <see cref="ValueCollectingVisitor"/> instance
-        /// to suppress relaying <see cref="TypeElement"/> instances.
-        /// </para>
-        /// </remarks>
-        public override IReflectionVisitor<IEnumerable<object>> Visit(AssemblyElement assemblyElement)
-        {
-            return this;
-        }
-
+        
         /// <summary>
         /// Allows an <see cref="TypeElement"/> to be visited. This method is
         /// called when the element accepts this visitor instance.
