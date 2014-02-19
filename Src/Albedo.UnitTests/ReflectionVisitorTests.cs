@@ -209,7 +209,9 @@ namespace Ploeh.Albedo.UnitTests
             var visitor4 = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
             var typeElement = typeof(TypeWithFields).ToElement();
-            var fieldInfoElements = typeElement.Type.GetFields().Select(f => f.ToElement()).ToArray();
+            var fieldInfoElements = typeElement.Type.GetFields(GetDefaultBindingFlags())
+                .Select(f => f.ToElement()).ToArray();
+            Assert.Equal(4, fieldInfoElements.Length);
 
             Mock.Get(sut).Setup(x => x.Visit(It.Is<FieldInfoElement[]>(
                     p => AreEquivalent(p, fieldInfoElements))))
@@ -741,6 +743,11 @@ namespace Ploeh.Albedo.UnitTests
             ICollection<TItem> actual)
         {
             return !expected.Except(actual).Any() && actual.Count == expected.Count;
+        }
+
+        private static BindingFlags GetDefaultBindingFlags()
+        {
+            return BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
         }
 
         private class ReflectionVisitor : ReflectionVisitor<T>

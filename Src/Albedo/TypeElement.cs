@@ -11,6 +11,10 @@ namespace Ploeh.Albedo
     /// </summary>
     public class TypeElement : IReflectionElement
     {
+        private const BindingFlags bindingFlags = 
+            BindingFlags.Instance | BindingFlags.Static |
+            BindingFlags.Public | BindingFlags.NonPublic;
+
         /// <summary>
         /// Gets the <see cref="System.Type"/> instance this element represents.
         /// </summary>
@@ -96,7 +100,7 @@ namespace Ploeh.Albedo
 
         internal FieldInfoElement[] GetFieldInfoElements()
         {
-            return this.Type.GetFields().Select(f => f.ToElement()).ToArray();
+            return this.Type.GetFields(TypeElement.bindingFlags).Select(f => f.ToElement()).ToArray();
         }
 
         internal ConstructorInfoElement[] GetConstructorInfoElements()

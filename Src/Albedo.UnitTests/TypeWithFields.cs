@@ -22,5 +22,8 @@ namespace Ploeh.Albedo.UnitTests
 
         public int TheField = 0;
         public int TheOtherField = 1;
+
+        public static int StaticField = 2;
+        private int privateField = 3;
     }
 }
