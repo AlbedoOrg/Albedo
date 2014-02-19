@@ -503,8 +503,8 @@ namespace Ploeh.Albedo.UnitTests
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
 
-            var parameterInfoElement1 = TypeWithParameter.Parameter.ToElement();
-            var parameterInfoElement2 = TypeWithParameter.OtherParameter.ToElement();
+            var parameterInfoElement1 = TypeWithParameters.Parameter.ToElement();
+            var parameterInfoElement2 = TypeWithParameters.OtherParameter.ToElement();
 
             Mock.Get(sut).Setup(x => x.Visit(parameterInfoElement1)).Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(parameterInfoElement2)).Returns(expected);

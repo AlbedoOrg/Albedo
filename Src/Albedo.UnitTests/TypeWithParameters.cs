@@ -3,13 +3,13 @@ using System.Reflection;
 
 namespace Ploeh.Albedo.UnitTests
 {
-    internal class TypeWithParameter
+    internal class TypeWithParameters
     {
         public static ParameterInfo Parameter
         {
             get
             {
-                return typeof(TypeWithParameter)
+                return typeof(TypeWithParameters)
                     .GetMethod("TheMethod")
                     .GetParameters()
                     .First();
@@ -20,7 +20,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             get
             {
-                return typeof(TypeWithParameter)
+                return typeof(TypeWithParameters)
                     .GetMethod("TheOtherMethod")
                     .GetParameters()
                     .First();
