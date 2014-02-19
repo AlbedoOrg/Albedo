@@ -115,8 +115,8 @@ namespace Ploeh.Albedo
 
         internal MethodInfoElement[] GetMethodInfoElements()
         {
-            return this.Type.GetMethods()
-                .Except(this.GetProperties().SelectMany(p => p.GetAccessors()))
+            return this.Type.GetMethods(TypeElement.bindingFlags)
+                .Except(this.GetProperties().SelectMany(p => p.GetAccessors(true)))
                 .Select(m => m.ToElement())
                 .ToArray();
         }

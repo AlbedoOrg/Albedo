@@ -32,6 +32,8 @@ namespace Ploeh.Albedo.UnitTests
             }
         }
 
+        private object PrivatePropertyAccessorsToBeExcepted { get; set; }
+
         public void TheMethod()
         {
         }
@@ -43,6 +45,10 @@ namespace Ploeh.Albedo.UnitTests
             int local1 = 1;
             string local2 = "2";
             local2 = local1 + local2;
+        }
+
+        private void ThePrivateMethod()
+        {
         }
     }
 }
