@@ -3,13 +3,13 @@ using System.Reflection;
 
 namespace Ploeh.Albedo.UnitTests
 {
-    internal class TypeWithEvent
+    internal class TypeWithEvents
     {
         public static EventInfo LocalEvent
         {
             get
             {
-                return typeof (TypeWithEvent).GetEvent("TheEvent");
+                return typeof (TypeWithEvents).GetEvent("TheEvent");
             }
         }
 
@@ -17,7 +17,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             get
             {
-                return typeof(TypeWithEvent).GetEvent("TheOtherEvent");
+                return typeof(TypeWithEvents).GetEvent("TheOtherEvent");
             }
         }
 

@@ -14,7 +14,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             // Exercise system
-            var sut = new EventInfoElement(TypeWithEvent.LocalEvent);
+            var sut = new EventInfoElement(TypeWithEvents.LocalEvent);
             // Verify outcome
             Assert.IsAssignableFrom<IReflectionElement>(sut);
             // Teardown
@@ -24,7 +24,7 @@ namespace Ploeh.Albedo.UnitTests
         public void EventInfoIsCorrect()
         {
             // Fixture setup
-            var expected = TypeWithEvent.LocalEvent;
+            var expected = TypeWithEvents.LocalEvent;
             var sut = new EventInfoElement(expected);
             // Exercise system
             EventInfo actual = sut.EventInfo;
@@ -48,7 +48,7 @@ namespace Ploeh.Albedo.UnitTests
         public void AcceptNullVisitorThrows()
         {
             // Fixture setup
-            var sut = new EventInfoElement(TypeWithEvent.LocalEvent);
+            var sut = new EventInfoElement(TypeWithEvents.LocalEvent);
             // Exercise system
             // Verify outcome
             Assert.Throws<ArgumentNullException>(() =>
@@ -61,7 +61,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             var expected = new DelegatingReflectionVisitor<int>();
-            var sut = new EventInfoElement(TypeWithEvent.LocalEvent);
+            var sut = new EventInfoElement(TypeWithEvents.LocalEvent);
             var visitor = new DelegatingReflectionVisitor<int>
             {
                 OnVisitEventInfoElement = e =>
@@ -78,7 +78,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var ei = TypeWithEvent.LocalEvent;
+            var ei = TypeWithEvents.LocalEvent;
             var sut = new EventInfoElement(ei);
             var other = new EventInfoElement(ei);
 
@@ -96,7 +96,7 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(UriPartial.Query)]
         public void SutDoesNotEqualAnonymousObject(object other)
         {
-            var sut = new EventInfoElement(TypeWithEvent.LocalEvent);
+            var sut = new EventInfoElement(TypeWithEvents.LocalEvent);
             var actual = sut.Equals(other);
             Assert.False(actual);
         }
@@ -104,7 +104,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutDoesNotEqualDifferentInstanceOfSameType()
         {
-            var sut = new EventInfoElement(TypeWithEvent.LocalEvent);
+            var sut = new EventInfoElement(TypeWithEvents.LocalEvent);
             var otherEvent = typeof(Assembly).GetEvent("ModuleResolve");
             var other = new EventInfoElement(otherEvent);
 
@@ -116,7 +116,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void GetHashCodeReturnsCorrectResult()
         {
-            var ei = TypeWithEvent.LocalEvent;
+            var ei = TypeWithEvents.LocalEvent;
             var sut = new EventInfoElement(ei);
 
             var actual = sut.GetHashCode();
