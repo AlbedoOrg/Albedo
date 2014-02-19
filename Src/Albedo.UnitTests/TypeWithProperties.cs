@@ -3,13 +3,13 @@ using System.Reflection;
 
 namespace Ploeh.Albedo.UnitTests
 {
-    internal class TypeWithProperty
+    internal class TypeWithProperties
     {
         public static PropertyInfo Property
         {
             get
             {
-                return typeof (TypeWithProperty).GetProperty("TheProperty");
+                return typeof (TypeWithProperties).GetProperty("TheProperty");
             }
         }
 
@@ -17,7 +17,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             get
             {
-                return typeof(TypeWithProperty).GetProperty("TheOtherProperty");
+                return typeof(TypeWithProperties).GetProperty("TheOtherProperty");
             }
         }
 
@@ -25,7 +25,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             get
             {
-                return typeof(TypeWithProperty).GetProperty("TheReadOnlyProperty");
+                return typeof(TypeWithProperties).GetProperty("TheReadOnlyProperty");
             }
         }
 
@@ -33,7 +33,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             get
             {
-                return typeof(TypeWithProperty).GetProperty("TheWriteOnlyProperty");
+                return typeof(TypeWithProperties).GetProperty("TheWriteOnlyProperty");
             }
         }
 

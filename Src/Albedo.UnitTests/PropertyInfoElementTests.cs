@@ -14,7 +14,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             // Exercise system
-            var sut = new PropertyInfoElement(TypeWithProperty.Property);
+            var sut = new PropertyInfoElement(TypeWithProperties.Property);
             // Verify outcome
             Assert.IsAssignableFrom<IReflectionElement>(sut);
             // Teardown
@@ -24,7 +24,7 @@ namespace Ploeh.Albedo.UnitTests
         public void PropertyInfoIsCorrect()
         {
             // Fixture setup
-            var expected = TypeWithProperty.Property;
+            var expected = TypeWithProperties.Property;
             var sut = new PropertyInfoElement(expected);
             // Exercise system
             PropertyInfo actual = sut.PropertyInfo;
@@ -48,7 +48,7 @@ namespace Ploeh.Albedo.UnitTests
         public void AcceptNullVisitorThrows()
         {
             // Fixture setup
-            var sut = new PropertyInfoElement(TypeWithProperty.Property);
+            var sut = new PropertyInfoElement(TypeWithProperties.Property);
             // Exercise system
             // Verify outcome
             Assert.Throws<ArgumentNullException>(() =>
@@ -61,7 +61,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             var expected = new DelegatingReflectionVisitor<int>();
-            var sut = new PropertyInfoElement(TypeWithProperty.Property);
+            var sut = new PropertyInfoElement(TypeWithProperties.Property);
             var visitor = new DelegatingReflectionVisitor<int>
             {
                 OnVisitPropertyInfoElement = e =>
@@ -78,7 +78,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var pi = TypeWithProperty.Property;
+            var pi = TypeWithProperties.Property;
             var sut = new PropertyInfoElement(pi);
             var other = new PropertyInfoElement(pi);
 
@@ -96,7 +96,7 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(UriPartial.Query)]
         public void SutDoesNotEqualAnonymousObject(object other)
         {
-            var sut = new PropertyInfoElement(TypeWithProperty.Property);
+            var sut = new PropertyInfoElement(TypeWithProperties.Property);
             var actual = sut.Equals(other);
             Assert.False(actual);
         }
@@ -104,8 +104,8 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutDoesNotEqualDifferentInstanceOfSameType()
         {
-            var sut = new PropertyInfoElement(TypeWithProperty.Property);
-            var otherProperty = TypeWithProperty.OtherProperty;
+            var sut = new PropertyInfoElement(TypeWithProperties.Property);
+            var otherProperty = TypeWithProperties.OtherProperty;
             var other = new PropertyInfoElement(otherProperty);
 
             var actual = sut.Equals(other);
@@ -116,7 +116,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void GetHashCodeReturnsCorrectResult()
         {
-            var pi = TypeWithProperty.Property;
+            var pi = TypeWithProperties.Property;
             var sut = new PropertyInfoElement(pi);
 
             var actual = sut.GetHashCode();

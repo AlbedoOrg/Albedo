@@ -264,7 +264,7 @@ namespace Ploeh.Albedo.UnitTests
             var visitor3 = new Mock<ReflectionVisitor<T>>().Object;
             var visitor4 = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
-            var typeElement = typeof(TypeWithProperty).ToElement();
+            var typeElement = typeof(TypeWithProperties).ToElement();
             var propertyInfoElements = typeElement.Type.GetProperties().Select(pi => pi.ToElement()).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(visitor1);
@@ -416,8 +416,8 @@ namespace Ploeh.Albedo.UnitTests
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
 
-            var propertyInfoElement1 = TypeWithProperty.Property.ToElement();
-            var propertyInfoElement2 = TypeWithProperty.OtherProperty.ToElement();
+            var propertyInfoElement1 = TypeWithProperties.Property.ToElement();
+            var propertyInfoElement2 = TypeWithProperties.OtherProperty.ToElement();
 
             Mock.Get(sut).Setup(x => x.Visit(propertyInfoElement1)).Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(propertyInfoElement2)).Returns(expected);
@@ -642,7 +642,7 @@ namespace Ploeh.Albedo.UnitTests
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
-            var propertyInfoElement = TypeWithProperty.OtherProperty.ToElement();
+            var propertyInfoElement = TypeWithProperties.OtherProperty.ToElement();
             var getMethodInfoElement = propertyInfoElement.PropertyInfo.GetGetMethod().ToElement();
             var setMethodInfoElement = propertyInfoElement.PropertyInfo.GetSetMethod().ToElement();
 
@@ -662,7 +662,7 @@ namespace Ploeh.Albedo.UnitTests
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var expected = new ReflectionVisitor();
-            var readOnlyPropertyInfoElement = TypeWithProperty.ReadOnlyProperty.ToElement();
+            var readOnlyPropertyInfoElement = TypeWithProperties.ReadOnlyProperty.ToElement();
             var getMethodInfoElement = readOnlyPropertyInfoElement.PropertyInfo.GetGetMethod().ToElement();
             Mock.Get(sut).Setup(x => x.Visit(getMethodInfoElement)).Returns(expected);
 
@@ -679,7 +679,7 @@ namespace Ploeh.Albedo.UnitTests
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var expected = new ReflectionVisitor();
-            var writeOnlyPropertyInfoElement = TypeWithProperty.WriteOnlyProperty.ToElement();
+            var writeOnlyPropertyInfoElement = TypeWithProperties.WriteOnlyProperty.ToElement();
             var setMethodInfoElement = writeOnlyPropertyInfoElement.PropertyInfo.GetSetMethod().ToElement();
             Mock.Get(sut).Setup(x => x.Visit(setMethodInfoElement)).Returns(expected);
 

@@ -63,7 +63,7 @@
     <Compile Include="TypeWithLocalVariables.cs" />
     <Compile Include="TypeWithMethods.cs" />
     <Compile Include="TypeWithParameters.cs" />
-    <Compile Include="TypeWithProperty.cs" />
+    <Compile Include="TypeWithProperties.cs" />
     <Compile Include="ValueCollectingVisitorTests.cs" />
     <Compile Include="ConcreteElementConversionsTests.cs" />
     <Compile Include="ReflectionElementEnvyTests.cs" />
