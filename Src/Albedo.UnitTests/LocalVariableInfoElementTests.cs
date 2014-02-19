@@ -14,7 +14,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             // Exercise system
-            var sut = new LocalVariableInfoElement(TypeWithLocalVariable.LocalVariable);
+            var sut = new LocalVariableInfoElement(TypeWithLocalVariables.LocalVariable);
             // Verify outcome
             Assert.IsAssignableFrom<IReflectionElement>(sut);
             // Teardown
@@ -24,7 +24,7 @@ namespace Ploeh.Albedo.UnitTests
         public void LocalVariableInfoIsCorrect()
         {
             // Fixture setup
-            var expected = TypeWithLocalVariable.LocalVariable;
+            var expected = TypeWithLocalVariables.LocalVariable;
             var sut = new LocalVariableInfoElement(expected);
             // Exercise system
             LocalVariableInfo actual = sut.LocalVariableInfo;
@@ -48,7 +48,7 @@ namespace Ploeh.Albedo.UnitTests
         public void AcceptNullVisitorThrows()
         {
             // Fixture setup
-            var sut = new LocalVariableInfoElement(TypeWithLocalVariable.LocalVariable);
+            var sut = new LocalVariableInfoElement(TypeWithLocalVariables.LocalVariable);
             // Exercise system
             // Verify outcome
             Assert.Throws<ArgumentNullException>(() =>
@@ -61,7 +61,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             var expected = new DelegatingReflectionVisitor<int>();
-            var sut = new LocalVariableInfoElement(TypeWithLocalVariable.LocalVariable);
+            var sut = new LocalVariableInfoElement(TypeWithLocalVariables.LocalVariable);
             var visitor = new DelegatingReflectionVisitor<int>
             {
                 OnVisitLocalVariableInfoElement = e =>
@@ -78,7 +78,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var lvi = TypeWithLocalVariable.LocalVariable;
+            var lvi = TypeWithLocalVariables.LocalVariable;
             var sut = new LocalVariableInfoElement(lvi);
             var other = new LocalVariableInfoElement(lvi);
 
@@ -96,7 +96,7 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(UriPartial.Query)]
         public void SutDoesNotEqualAnonymousObject(object other)
         {
-            var sut = new LocalVariableInfoElement(TypeWithLocalVariable.LocalVariable);
+            var sut = new LocalVariableInfoElement(TypeWithLocalVariables.LocalVariable);
             var actual = sut.Equals(other);
             Assert.False(actual);
         }
@@ -104,8 +104,8 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutDoesNotEqualDifferentInstanceOfSameType()
         {
-            var sut = new LocalVariableInfoElement(TypeWithLocalVariable.LocalVariable);
-            var otherLocalVariable = TypeWithLocalVariable.OtherLocalVariable;
+            var sut = new LocalVariableInfoElement(TypeWithLocalVariables.LocalVariable);
+            var otherLocalVariable = TypeWithLocalVariables.OtherLocalVariable;
             var other = new LocalVariableInfoElement(otherLocalVariable);
 
             var actual = sut.Equals(other);
@@ -116,7 +116,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void GetHashCodeReturnsCorrectResult()
         {
-            var lvi = TypeWithLocalVariable.LocalVariable;
+            var lvi = TypeWithLocalVariables.LocalVariable;
             var sut = new LocalVariableInfoElement(lvi);
 
             var actual = sut.GetHashCode();

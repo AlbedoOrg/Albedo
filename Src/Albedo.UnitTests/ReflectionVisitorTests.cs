@@ -532,8 +532,8 @@ namespace Ploeh.Albedo.UnitTests
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
 
-            var localVariableInfoElement1 = TypeWithLocalVariable.LocalVariable.ToElement();
-            var localVariableInfoElement2 = TypeWithLocalVariable.OtherLocalVariable.ToElement();
+            var localVariableInfoElement1 = TypeWithLocalVariables.LocalVariable.ToElement();
+            var localVariableInfoElement2 = TypeWithLocalVariables.OtherLocalVariable.ToElement();
 
             Mock.Get(sut).Setup(x => x.Visit(localVariableInfoElement1)).Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(localVariableInfoElement2)).Returns(expected);

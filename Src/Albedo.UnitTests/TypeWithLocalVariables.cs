@@ -2,13 +2,13 @@
 
 namespace Ploeh.Albedo.UnitTests
 {
-    internal class TypeWithLocalVariable
+    internal class TypeWithLocalVariables
     {
         public static LocalVariableInfo LocalVariable
         {
             get
             {
-                return typeof(TypeWithLocalVariable)
+                return typeof(TypeWithLocalVariables)
                     .GetMethod("TheMethod")
                     .GetMethodBody()
                     .LocalVariables[0];
@@ -19,7 +19,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             get
             {
-                return typeof(TypeWithLocalVariable)
+                return typeof(TypeWithLocalVariables)
                     .GetMethod("TheOtherMethod")
                     .GetMethodBody()
                     .LocalVariables[0];
