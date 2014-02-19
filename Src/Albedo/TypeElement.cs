@@ -110,13 +110,13 @@ namespace Ploeh.Albedo
 
         internal PropertyInfoElement[] GetPropertyInfoElements()
         {
-            return this.GetProperties().Select(c => c.ToElement()).ToArray();
+            return this.Type.GetProperties(TypeElement.bindingFlags).Select(c => c.ToElement()).ToArray();
         }
 
         internal MethodInfoElement[] GetMethodInfoElements()
         {
             return this.Type.GetMethods(TypeElement.bindingFlags)
-                .Except(this.GetProperties().SelectMany(p => p.GetAccessors(true)))
+                .Except(this.Type.GetProperties(TypeElement.bindingFlags).SelectMany(p => p.GetAccessors(true)))
                 .Select(m => m.ToElement())
                 .ToArray();
         }
@@ -124,11 +124,6 @@ namespace Ploeh.Albedo
         internal EventInfoElement[] GetEventInfoElements()
         {
             return this.Type.GetEvents(TypeElement.bindingFlags).Select(e => e.ToElement()).ToArray();
-        }
-
-        private PropertyInfo[] GetProperties()
-        {
-            return this.Type.GetProperties(TypeElement.bindingFlags);
         }
     }
 }
