@@ -292,7 +292,7 @@ namespace Ploeh.Albedo.UnitTests
             var visitor3 = new Mock<ReflectionVisitor<T>>().Object;
             var visitor4 = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
-            var typeElement = typeof(TypeWithMethod).ToElement();
+            var typeElement = typeof(TypeWithMethods).ToElement();
             var methodInfoElements = typeElement.Type.GetMethods()
                 .Except(typeElement.Type.GetProperties().SelectMany(p => p.GetAccessors()))
                 .Select(m => m.ToElement())
@@ -445,8 +445,8 @@ namespace Ploeh.Albedo.UnitTests
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
 
-            var methodInfoElement1 = TypeWithMethod.Method.ToElement();
-            var methodInfoElement2 = TypeWithMethod.OtherMethod.ToElement();
+            var methodInfoElement1 = TypeWithMethods.Method.ToElement();
+            var methodInfoElement2 = TypeWithMethods.OtherMethod.ToElement();
 
             Mock.Get(sut).Setup(x => x.Visit(methodInfoElement1)).Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(methodInfoElement2)).Returns(expected);
@@ -597,7 +597,7 @@ namespace Ploeh.Albedo.UnitTests
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
-            var methodInfoElement = TypeWithMethod.OtherMethod.ToElement();
+            var methodInfoElement = TypeWithMethods.OtherMethod.ToElement();
             var parameterInfoElements = methodInfoElement.MethodInfo
                 .GetParameters().Select(pi => pi.ToElement()).ToArray();
 
@@ -620,8 +620,8 @@ namespace Ploeh.Albedo.UnitTests
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
-            var methodInfoElement = TypeWithMethod.OtherMethod.ToElement();
-            var localVariableTypes = TypeWithMethod.LocalVariablesOfOtherMethod.Select(l => l.LocalType).ToArray();
+            var methodInfoElement = TypeWithMethods.OtherMethod.ToElement();
+            var localVariableTypes = TypeWithMethods.LocalVariablesOfOtherMethod.Select(l => l.LocalType).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<ParameterInfoElement[]>())).Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(It.Is<LocalVariableInfoElement[]>(

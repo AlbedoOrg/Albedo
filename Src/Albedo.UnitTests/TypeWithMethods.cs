@@ -4,13 +4,13 @@ using System.Reflection;
 
 namespace Ploeh.Albedo.UnitTests
 {
-    internal class TypeWithMethod
+    internal class TypeWithMethods
     {
         public static MethodInfo Method
         {
             get
             {
-                return typeof(TypeWithMethod).GetMethod("TheMethod");
+                return typeof(TypeWithMethods).GetMethod("TheMethod");
             }
         }
 
@@ -18,7 +18,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             get
             {
-                return typeof(TypeWithMethod).GetMethod("TheOtherMethod");
+                return typeof(TypeWithMethods).GetMethod("TheOtherMethod");
             }
         }
 
