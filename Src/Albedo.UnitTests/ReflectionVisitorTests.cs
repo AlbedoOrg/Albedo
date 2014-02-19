@@ -208,7 +208,7 @@ namespace Ploeh.Albedo.UnitTests
             var visitor3 = new Mock<ReflectionVisitor<T>>().Object;
             var visitor4 = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
-            var typeElement = typeof(TypeWithField).ToElement();
+            var typeElement = typeof(TypeWithFields).ToElement();
             var fieldInfoElements = typeElement.Type.GetFields().Select(f => f.ToElement()).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.Is<FieldInfoElement[]>(
@@ -358,8 +358,8 @@ namespace Ploeh.Albedo.UnitTests
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
 
-            var fieldInfoElement1 = TypeWithField.Field.ToElement();
-            var fieldInfoElement2 = TypeWithField.OtherField.ToElement();
+            var fieldInfoElement1 = TypeWithFields.Field.ToElement();
+            var fieldInfoElement2 = TypeWithFields.OtherField.ToElement();
 
             Mock.Get(sut).Setup(x => x.Visit(fieldInfoElement1)).Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(fieldInfoElement2)).Returns(expected);

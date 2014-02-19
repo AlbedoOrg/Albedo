@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="TypeWithCtors.cs" />
     <Compile Include="TypeWithEvents.cs" />
-    <Compile Include="TypeWithField.cs" />
+    <Compile Include="TypeWithFields.cs" />
     <Compile Include="TypeWithLocalVariable.cs" />
     <Compile Include="TypeWithMethod.cs" />
     <Compile Include="TypeWithParameter.cs" />

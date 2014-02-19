@@ -2,13 +2,13 @@ using System.Reflection;
 
 namespace Ploeh.Albedo.UnitTests
 {
-    internal class TypeWithField
+    internal class TypeWithFields
     {
         public static FieldInfo Field
         {
             get
             {
-                return typeof(TypeWithField).GetField("TheField");
+                return typeof(TypeWithFields).GetField("TheField");
             }
         }
 
@@ -16,7 +16,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             get
             {
-                return typeof(TypeWithField).GetField("TheOtherField");
+                return typeof(TypeWithFields).GetField("TheOtherField");
             }
         }
 
