@@ -32,5 +32,11 @@ namespace Ploeh.Albedo.UnitTests
             add { throw new NotImplementedException(); }
             remove { throw new NotImplementedException(); }
         }
+
+        private event EventHandler ThePrivateEvent
+        {
+            add { throw new NotImplementedException(); }
+            remove { throw new NotImplementedException(); }
+        }
     }
 }

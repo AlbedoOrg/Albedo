@@ -123,7 +123,7 @@ namespace Ploeh.Albedo
 
         internal EventInfoElement[] GetEventInfoElements()
         {
-            return this.Type.GetEvents().Select(e => e.ToElement()).ToArray();
+            return this.Type.GetEvents(TypeElement.bindingFlags).Select(e => e.ToElement()).ToArray();
         }
 
         private PropertyInfo[] GetProperties()
