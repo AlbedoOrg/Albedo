@@ -53,5 +53,6 @@ namespace Ploeh.Albedo.UnitTests
                 throw new NotSupportedException();
             }
         }
+        private int ThePrivateProperty { get; set; }
     }
 }

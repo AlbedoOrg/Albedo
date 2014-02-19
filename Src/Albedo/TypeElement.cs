@@ -128,7 +128,7 @@ namespace Ploeh.Albedo
 
         private PropertyInfo[] GetProperties()
         {
-            return this.Type.GetProperties();
+            return this.Type.GetProperties(TypeElement.bindingFlags);
         }
     }
 }

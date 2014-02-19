@@ -269,7 +269,9 @@ namespace Ploeh.Albedo.UnitTests
             var visitor4 = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
             var typeElement = typeof(TypeWithProperties).ToElement();
-            var propertyInfoElements = typeElement.Type.GetProperties().Select(pi => pi.ToElement()).ToArray();
+            var propertyInfoElements = typeElement.Type.GetProperties(GetDefaultBindingFlags())
+                .Select(pi => pi.ToElement()).ToArray();
+            Assert.Equal(9, propertyInfoElements.Length);
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(visitor1);
             Mock.Get(visitor1).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(visitor2);
