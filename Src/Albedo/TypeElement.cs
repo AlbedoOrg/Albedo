@@ -105,7 +105,7 @@ namespace Ploeh.Albedo
 
         internal ConstructorInfoElement[] GetConstructorInfoElements()
         {
-            return this.Type.GetConstructors().Select(c => c.ToElement()).ToArray();
+            return this.Type.GetConstructors(TypeElement.bindingFlags).Select(c => c.ToElement()).ToArray();
         }
 
         internal PropertyInfoElement[] GetPropertyInfoElements()

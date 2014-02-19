@@ -43,5 +43,9 @@ namespace Ploeh.Albedo.UnitTests
             string local2 = "2";
             local2 = local1 + local2;
         }
+
+        private TypeWithCtors(object privateCtorArgument)
+        {
+        }
     }
 }
