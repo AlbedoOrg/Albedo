@@ -57,7 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TypeWithCtor.cs" />
+    <Compile Include="TypeWithCtors.cs" />
     <Compile Include="TypeWithEvent.cs" />
     <Compile Include="TypeWithField.cs" />
     <Compile Include="TypeWithLocalVariable.cs" />

@@ -236,7 +236,7 @@ namespace Ploeh.Albedo.UnitTests
             var visitor3 = new Mock<ReflectionVisitor<T>>().Object;
             var visitor4 = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
-            var typeElement = typeof(TypeWithCtor).ToElement();
+            var typeElement = typeof(TypeWithCtors).ToElement();
             var constructorInfoElements = typeElement.Type.GetConstructors().Select(c => c.ToElement()).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(visitor1);
@@ -387,8 +387,8 @@ namespace Ploeh.Albedo.UnitTests
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
 
-            var constructorInfoElement1 = TypeWithCtor.Ctor.ToElement();
-            var constructorInfoElement2 = TypeWithCtor.OtherCtor.ToElement();
+            var constructorInfoElement1 = TypeWithCtors.Ctor.ToElement();
+            var constructorInfoElement2 = TypeWithCtors.OtherCtor.ToElement();
 
             Mock.Get(sut).Setup(x => x.Visit(constructorInfoElement1)).Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(constructorInfoElement2)).Returns(expected);
@@ -552,7 +552,7 @@ namespace Ploeh.Albedo.UnitTests
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
-            var constructorInfoElement = TypeWithCtor.OtherCtor.ToElement();
+            var constructorInfoElement = TypeWithCtors.OtherCtor.ToElement();
             var parameterInfoElements = constructorInfoElement.ConstructorInfo
                 .GetParameters().Select(pi => pi.ToElement()).ToArray();
 
@@ -575,8 +575,8 @@ namespace Ploeh.Albedo.UnitTests
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
             var visitor = new Mock<ReflectionVisitor<T>>().Object;
             var expected = new ReflectionVisitor();
-            var constructorInfoElement = TypeWithCtor.OtherCtor.ToElement();
-            var localVariableTypes = TypeWithCtor.LocalVariablesOfOtherCtor.Select(l => l.LocalType).ToArray();
+            var constructorInfoElement = TypeWithCtors.OtherCtor.ToElement();
+            var localVariableTypes = TypeWithCtors.LocalVariablesOfOtherCtor.Select(l => l.LocalType).ToArray();
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<ParameterInfoElement[]>())).Returns(visitor);
             Mock.Get(visitor).Setup(x => x.Visit(It.Is<LocalVariableInfoElement[]>(

@@ -14,7 +14,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             // Exercise system
-            var sut = new ConstructorInfoElement(TypeWithCtor.Ctor);
+            var sut = new ConstructorInfoElement(TypeWithCtors.Ctor);
             // Verify outcome
             Assert.IsAssignableFrom<IReflectionElement>(sut);
             // Teardown
@@ -24,7 +24,7 @@ namespace Ploeh.Albedo.UnitTests
         public void ConstructorInfoIsCorrect()
         {
             // Fixture setup
-            var expected = TypeWithCtor.Ctor;
+            var expected = TypeWithCtors.Ctor;
             var sut = new ConstructorInfoElement(expected);
             // Exercise system
             ConstructorInfo actual = sut.ConstructorInfo;
@@ -48,7 +48,7 @@ namespace Ploeh.Albedo.UnitTests
         public void AcceptNullVisitorThrows()
         {
             // Fixture setup
-            var sut = new ConstructorInfoElement(TypeWithCtor.Ctor);
+            var sut = new ConstructorInfoElement(TypeWithCtors.Ctor);
             // Exercise system
             // Verify outcome
             Assert.Throws<ArgumentNullException>(() =>
@@ -61,7 +61,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             var expected = new DelegatingReflectionVisitor<int>();
-            var sut = new ConstructorInfoElement(TypeWithCtor.Ctor);
+            var sut = new ConstructorInfoElement(TypeWithCtors.Ctor);
             var visitor = new DelegatingReflectionVisitor<int>
             {
                 OnVisitConstructorInfoElement = e =>
@@ -78,7 +78,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var ci = TypeWithCtor.Ctor;
+            var ci = TypeWithCtors.Ctor;
             var sut = new ConstructorInfoElement(ci);
             var other = new ConstructorInfoElement(ci);
 
@@ -96,7 +96,7 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(UriPartial.Query)]
         public void SutDoesNotEqualAnonymousObject(object other)
         {
-            var sut = new ConstructorInfoElement(TypeWithCtor.Ctor);
+            var sut = new ConstructorInfoElement(TypeWithCtors.Ctor);
             var actual = sut.Equals(other);
             Assert.False(actual);
         }
@@ -104,7 +104,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutDoesNotEqualDifferentInstanceOfSameType()
         {
-            var sut = new ConstructorInfoElement(TypeWithCtor.Ctor);
+            var sut = new ConstructorInfoElement(TypeWithCtors.Ctor);
             var otherCtor = this.GetType().GetConstructor(Type.EmptyTypes);
             var other = new ConstructorInfoElement(otherCtor);
 
@@ -116,7 +116,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void GetHashCodeReturnsCorrectResult()
         {
-            var ci = TypeWithCtor.Ctor;
+            var ci = TypeWithCtors.Ctor;
             var sut = new ConstructorInfoElement(ci);
 
             var actual = sut.GetHashCode();

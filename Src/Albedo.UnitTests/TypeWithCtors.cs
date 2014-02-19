@@ -5,13 +5,13 @@ using System.Reflection;
 
 namespace Ploeh.Albedo.UnitTests
 {
-    internal class TypeWithCtor
+    internal class TypeWithCtors
     {
         public static ConstructorInfo Ctor
         {
             get
             {
-                return typeof(TypeWithCtor).GetConstructors().Single(c => c.GetParameters().Length == 0);
+                return typeof(TypeWithCtors).GetConstructors().Single(c => c.GetParameters().Length == 0);
             }
         }
 
@@ -19,7 +19,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             get
             {
-                return typeof(TypeWithCtor).GetConstructors().Single(c => c.GetParameters().Length == 3);
+                return typeof(TypeWithCtors).GetConstructors().Single(c => c.GetParameters().Length == 3);
             }
         }
 
@@ -31,11 +31,11 @@ namespace Ploeh.Albedo.UnitTests
             }
         }
 
-        public TypeWithCtor()
+        public TypeWithCtors()
         {
         }
 
-        public TypeWithCtor(object arg1, int arg2, string arg3)
+        public TypeWithCtors(object arg1, int arg2, string arg3)
         {
             // This is required to prevent the compiler from
             // warning and optimising away the local variable.
