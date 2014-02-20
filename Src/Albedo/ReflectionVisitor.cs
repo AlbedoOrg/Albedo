@@ -34,7 +34,7 @@ namespace Ploeh.Albedo
         /// </summary>
         public abstract T Value { get; }
 
-        public IReflectionVisitor<T> Visit(AssemblyElement[] assemblyElements)
+        public IReflectionVisitor<T> Visit(params AssemblyElement[] assemblyElements)
         {
             throw new NotImplementedException();
         }
