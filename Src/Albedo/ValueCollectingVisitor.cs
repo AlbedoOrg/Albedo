@@ -12,7 +12,7 @@ namespace Ploeh.Albedo
     public class ValueCollectingVisitor : ReflectionVisitor<IEnumerable<object>>
     {
         private readonly object target;
-        private readonly object[] values;
+        private IEnumerable<object> values;
 
         /// <summary>
         /// Constructs a new instance of the <see cref="EventInfoElement"/> which represents
@@ -63,10 +63,8 @@ namespace Ploeh.Albedo
             FieldInfoElement fieldInfoElement)
         {
             if (fieldInfoElement == null) throw new ArgumentNullException("fieldInfoElement");
-            var value = fieldInfoElement.FieldInfo.GetValue(this.target);
-            return new ValueCollectingVisitor(
-                this.target,
-                this.values.Concat(new[] {value}).ToArray());
+            this.values = values.Concat(GetLazyValue(fieldInfoElement));
+            return this;
         }
 
         /// <summary>
@@ -85,10 +83,18 @@ namespace Ploeh.Albedo
             PropertyInfoElement propertyInfoElement)
         {
             if (propertyInfoElement == null) throw new ArgumentNullException("propertyInfoElement");
-            var value = propertyInfoElement.PropertyInfo.GetValue(this.target, null);
-            return new ValueCollectingVisitor(
-                this.target,
-                this.values.Concat(new[] {value}).ToArray());
+            this.values = values.Concat(GetLazyValue(propertyInfoElement));
+            return this;
+        }
+
+        private IEnumerable<object> GetLazyValue(FieldInfoElement fieldInfoElement)
+        {
+            yield return fieldInfoElement.FieldInfo.GetValue(this.target);
+        }
+
+        private IEnumerable<object> GetLazyValue(PropertyInfoElement propertyInfoElement)
+        {
+            yield return propertyInfoElement.PropertyInfo.GetValue(this.target, null);
         }
     }
 }

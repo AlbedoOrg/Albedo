@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 
 namespace Ploeh.Albedo
@@ -89,6 +90,11 @@ namespace Ploeh.Albedo
         {
             return string.Format(
                 CultureInfo.CurrentCulture, "[[{0}]] ({1})", this.Assembly, "assembly");
+        }
+
+        internal TypeElement[] GetTypeElements()
+        {
+            return this.Assembly.GetTypes().Select(t => t.ToElement()).ToArray();
         }
     }
 }
