@@ -47,6 +47,11 @@ namespace Ploeh.Albedo.UnitTests
         public Func<LocalVariableInfoElement[], IReflectionVisitor<T>> OnVisitLocalVariableInfoElements { get; set; }
         public Func<EventInfoElement[], IReflectionVisitor<T>> OnVisitEventInfoElements { get; set; }
 
+        public IReflectionVisitor<T> Visit(AssemblyElement[] assemblyElements)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual IReflectionVisitor<T> Visit(AssemblyElement assemblyElement)
         {
             return OnVisitAssemblyElement(assemblyElement);

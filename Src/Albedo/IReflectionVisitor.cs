@@ -29,6 +29,8 @@
         /// </summary>
         T Value { get; }
 
+        IReflectionVisitor<T> Visit(AssemblyElement[] assemblyElements);
+
         /// <summary>
         /// Allows an <see cref="AssemblyElement"/> to be 'visited'. This method is called when the
         /// element 'accepts' this visitor instance.
