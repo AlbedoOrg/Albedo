@@ -36,7 +36,10 @@ namespace Ploeh.Albedo
 
         public IReflectionVisitor<T> Visit(params AssemblyElement[] assemblyElements)
         {
-            throw new NotImplementedException();
+            if (assemblyElements == null)
+                throw new ArgumentNullException("assemblyElements");
+
+            return assemblyElements.Aggregate((IReflectionVisitor<T>)this, (v, a) => v.Visit(a));
         }
 
         /// <summary>

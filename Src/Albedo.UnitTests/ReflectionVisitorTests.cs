@@ -745,6 +745,35 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal("methodInfoElement", e.ParamName);
         }
 
+        [Fact]
+        public void VisitNullAssemblyElementsThrows()
+        {
+            var sut = new ReflectionVisitor();
+            var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((AssemblyElement[])null));
+            Assert.Equal("assemblyElements", e.ParamName);
+        }
+
+        [Fact]
+        public void VisitAssemblyElementsRelaiesEachAssemblyElement()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var visitor = new Mock<ReflectionVisitor<T>>().Object;
+            var expected = new ReflectionVisitor();
+
+            var assemblyElement1 = typeof(ReflectionVisitor<>).Assembly.ToElement();
+            var assemblyElement2 = typeof(ReflectionVisitorTests<>).Assembly.ToElement();
+
+            Mock.Get(sut).Setup(x => x.Visit(assemblyElement1)).Returns(visitor);
+            Mock.Get(visitor).Setup(x => x.Visit(assemblyElement2)).Returns(expected);
+
+            // Exercise system
+            var actual = sut.Visit(new[] { assemblyElement1, assemblyElement2 });
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+        }
+
         private static bool AreEquivalent<TItem>(
             ICollection<TItem> expected,
             ICollection<TItem> actual)
