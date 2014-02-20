@@ -34,6 +34,11 @@ namespace Ploeh.Albedo
         /// </summary>
         public abstract T Value { get; }
 
+        public IReflectionVisitor<T> Visit(AssemblyElement[] assemblyElements)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Allows an <see cref="AssemblyElement"/> to be visited. 
         /// This method is called when the element accepts this visitor
