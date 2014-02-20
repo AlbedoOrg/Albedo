@@ -18,6 +18,7 @@ namespace Ploeh.Albedo.UnitTests
             this.OnVisitLocalVariableInfoElement = e => this;
             this.OnVisitEventInfoElement = e => this;
 
+            this.OnVisitAssemblyElements = e => this;
             this.OnVisitConstructorInfoElements = e => this;
             this.OnVisitFieldInfoElements = e => this;
             this.OnVisitMethodInfoElements = e => this;
@@ -38,6 +39,7 @@ namespace Ploeh.Albedo.UnitTests
         public Func<LocalVariableInfoElement, IReflectionVisitor<T>> OnVisitLocalVariableInfoElement { get; set; }
         public Func<EventInfoElement, IReflectionVisitor<T>> OnVisitEventInfoElement { get; set; }
 
+        public Func<AssemblyElement[], IReflectionVisitor<T>> OnVisitAssemblyElements { get; set; }
         public Func<ConstructorInfoElement[], IReflectionVisitor<T>> OnVisitConstructorInfoElements { get; set; }
         public Func<FieldInfoElement[], IReflectionVisitor<T>> OnVisitFieldInfoElements { get; set; }
         public Func<MethodInfoElement[], IReflectionVisitor<T>> OnVisitMethodInfoElements { get; set; }
@@ -49,7 +51,7 @@ namespace Ploeh.Albedo.UnitTests
 
         public IReflectionVisitor<T> Visit(AssemblyElement[] assemblyElements)
         {
-            throw new NotImplementedException();
+            return OnVisitAssemblyElements(assemblyElements);
         }
 
         public virtual IReflectionVisitor<T> Visit(AssemblyElement assemblyElement)
