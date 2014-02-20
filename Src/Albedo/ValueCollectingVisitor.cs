@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Ploeh.Albedo
 {
@@ -13,7 +12,7 @@ namespace Ploeh.Albedo
     public class ValueCollectingVisitor : ReflectionVisitor<IEnumerable<object>>
     {
         private readonly object target;
-        private readonly object[] values;
+        private IEnumerable<object> values;
 
         /// <summary>
         /// Constructs a new instance of the <see cref="EventInfoElement"/> which represents
@@ -47,29 +46,6 @@ namespace Ploeh.Albedo
         {
             get { return this.target; }
         }
-        
-        /// <summary>
-        /// Allows an <see cref="TypeElement"/> to be visited. This method is
-        /// called when the element accepts this visitor instance.
-        /// </summary>
-        /// <param name="typeElement">
-        /// The <see cref="TypeElement"/> being visited.
-        /// </param>
-        /// <returns>
-        /// A <see cref="IReflectionVisitor{T}" /> instance which can be used
-        /// to continue the visiting process with potentially updated
-        /// observations.
-        /// </returns>
-        /// <remarks>
-        /// <para>
-        /// This implementation simply returns this <see cref="ValueCollectingVisitor"/> instance
-        /// to suppress relaying semantic child elements.
-        /// </para>
-        /// </remarks>
-        public override IReflectionVisitor<IEnumerable<object>> Visit(TypeElement typeElement)
-        {
-            return this;
-        }
 
         /// <summary>
         /// Visits the <see cref="FieldInfoElement"/> and collects the value for this
@@ -87,10 +63,8 @@ namespace Ploeh.Albedo
             FieldInfoElement fieldInfoElement)
         {
             if (fieldInfoElement == null) throw new ArgumentNullException("fieldInfoElement");
-            var value = fieldInfoElement.FieldInfo.GetValue(this.target);
-            return new ValueCollectingVisitor(
-                this.target,
-                this.values.Concat(new[] {value}).ToArray());
+            this.values = values.Concat(GetLazyValue(fieldInfoElement));
+            return this;
         }
 
         /// <summary>
@@ -109,10 +83,18 @@ namespace Ploeh.Albedo
             PropertyInfoElement propertyInfoElement)
         {
             if (propertyInfoElement == null) throw new ArgumentNullException("propertyInfoElement");
-            var value = propertyInfoElement.PropertyInfo.GetValue(this.target, null);
-            return new ValueCollectingVisitor(
-                this.target,
-                this.values.Concat(new[] {value}).ToArray());
+            this.values = values.Concat(GetLazyValue(propertyInfoElement));
+            return this;
+        }
+
+        private IEnumerable<object> GetLazyValue(FieldInfoElement fieldInfoElement)
+        {
+            yield return fieldInfoElement.FieldInfo.GetValue(this.target);
+        }
+
+        private IEnumerable<object> GetLazyValue(PropertyInfoElement propertyInfoElement)
+        {
+            yield return propertyInfoElement.PropertyInfo.GetValue(this.target, null);
         }
     }
 }
