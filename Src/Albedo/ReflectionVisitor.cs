@@ -52,7 +52,7 @@ namespace Ploeh.Albedo
         /// but since the method is virtual, child classes can override it.
         /// </para>
         /// </remarks>
-        public IReflectionVisitor<T> Visit(params AssemblyElement[] assemblyElements)
+        public virtual IReflectionVisitor<T> Visit(params AssemblyElement[] assemblyElements)
         {
             if (assemblyElements == null)
                 throw new ArgumentNullException("assemblyElements");
