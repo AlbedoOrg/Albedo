@@ -34,6 +34,24 @@ namespace Ploeh.Albedo
         /// </summary>
         public abstract T Value { get; }
 
+        /// <summary>
+        /// Allows an <see cref="AssemblyElement"/> instances to be 'visited'.
+        /// This method is called when the element 'accepts' this visitor instance.
+        /// </summary>
+        /// <param name="assemblyElements">
+        /// The <see cref="AssemblyElement"/> instances being visited.
+        /// </param>
+        /// <returns>
+        /// A (potentially) new <see cref="IReflectionVisitor{T}"/> instance which can be
+        /// used to continue the visiting process with potentially updated observations.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// This implementation relaies each <see cref="AssemblyElement"/> instance
+        /// to <see cref="Visit(AssemblyElement)"/>,
+        /// but since the method is virtual, child classes can override it.
+        /// </para>
+        /// </remarks>
         public IReflectionVisitor<T> Visit(params AssemblyElement[] assemblyElements)
         {
             if (assemblyElements == null)
