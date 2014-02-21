@@ -24,6 +24,8 @@ namespace Ploeh.Albedo.UnitTests
         public int TheOtherField = 1;
 
         public static int StaticField = 2;
+#pragma warning disable 414
         private int privateField = 3;
+#pragma warning restore 414
     }
 }
