@@ -45,13 +45,21 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Theory]
-        [ClassData(typeof (AllElementsExceptPropertyAndField))]
+        [ClassData(typeof (AllElementsExceptPropertyAndFieldAndAssembly))]
         public void DoesNotVisitElementsOtherThanPropertyAndField(
             IReflectionElement element)
         {
             var sut = new ValueCollectingVisitor(new object());
             var acceptResult = element.Accept(sut);
             Assert.Equal(sut, acceptResult);
+        }
+
+        [Fact]
+        public void VisitAssemblyThrows()
+        {
+            var sut = new ValueCollectingVisitor(new object());
+            Assert.Throws<NotSupportedException>(
+                () => sut.Visit(this.GetType().Assembly.ToElement()));
         }
 
         [Fact]
@@ -171,18 +179,17 @@ namespace Ploeh.Albedo.UnitTests
             public int Property3 { get { return 3; } }
         }
 
-        class AllElementsExceptPropertyAndField : IEnumerable<object[]>
+        class AllElementsExceptPropertyAndFieldAndAssembly : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()
             {
                 yield return new object[] {new NullReflectionElement()};
-                yield return new object[] {new AssemblyElement(typeof (AssemblyElement).Assembly)};
                 yield return new object[] {new ConstructorInfoElement(GetType().GetConstructors()[0])};
                 yield return new object[] {new EventInfoElement(typeof (AppDomain).GetEvents()[0])};
                 yield return new object[] {new LocalVariableInfoElement(TypeWithLocalVariable.LocalVariable)};
                 yield return new object[] {new MethodInfoElement(typeof (MethodInfoElement).GetMethods()[0])};
                 yield return new object[] {new ParameterInfoElement(TypeWithParameter.Parameter)};
-                yield return new object[] {new TypeElement(typeof (TypeElement))};
+                yield return new object[] {new TypeElement(typeof (object))};
                 yield return new object[] {new ParameterInfoElement(TypeWithParameter.Parameter)};
             }
 
