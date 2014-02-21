@@ -14,7 +14,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             // Exercise system
-            var sut = new FieldInfoElement(TypeWithField.Field);
+            var sut = new FieldInfoElement(TypeWithFields.Field);
             // Verify outcome
             Assert.IsAssignableFrom<IReflectionElement>(sut);
             // Teardown
@@ -24,7 +24,7 @@ namespace Ploeh.Albedo.UnitTests
         public void FieldInfoIsCorrect()
         {
             // Fixture setup
-            var expected = TypeWithField.Field;
+            var expected = TypeWithFields.Field;
             var sut = new FieldInfoElement(expected);
             // Exercise system
             FieldInfo actual = sut.FieldInfo;
@@ -48,7 +48,7 @@ namespace Ploeh.Albedo.UnitTests
         public void AcceptNullVisitorThrows()
         {
             // Fixture setup
-            var sut = new FieldInfoElement(TypeWithField.Field);
+            var sut = new FieldInfoElement(TypeWithFields.Field);
             // Exercise system
             // Verify outcome
             Assert.Throws<ArgumentNullException>(() =>
@@ -61,7 +61,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             var expected = new DelegatingReflectionVisitor<int>();
-            var sut = new FieldInfoElement(TypeWithField.Field);
+            var sut = new FieldInfoElement(TypeWithFields.Field);
             var visitor = new DelegatingReflectionVisitor<int>
             {
                 OnVisitFieldInfoElement = e =>
@@ -78,7 +78,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var fi = TypeWithField.Field;
+            var fi = TypeWithFields.Field;
             var sut = new FieldInfoElement(fi);
             var other = new FieldInfoElement(fi);
 
@@ -96,7 +96,7 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(UriPartial.Query)]
         public void SutDoesNotEqualAnonymousObject(object other)
         {
-            var sut = new FieldInfoElement(TypeWithField.Field);
+            var sut = new FieldInfoElement(TypeWithFields.Field);
             var actual = sut.Equals(other);
             Assert.False(actual);
         }
@@ -104,7 +104,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutDoesNotEqualDifferentInstanceOfSameType()
         {
-            var sut = new FieldInfoElement(TypeWithField.Field);
+            var sut = new FieldInfoElement(TypeWithFields.Field);
             var otherField = typeof(InterfaceMapping).GetField("InterfaceType");
             var other = new FieldInfoElement(otherField);
 
@@ -116,27 +116,13 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void GetHashCodeReturnsCorrectResult()
         {
-            var fi = TypeWithField.Field;
+            var fi = TypeWithFields.Field;
             var sut = new FieldInfoElement(fi);
 
             var actual = sut.GetHashCode();
 
             var expected = fi.GetHashCode();
             Assert.Equal(expected, actual);
-        }
-
-
-        class TypeWithField
-        {
-            public static FieldInfo Field
-            {
-                get
-                {
-                    return typeof(TypeWithField).GetFields()[0];
-                }
-            }
-
-            public int TheField = 0;
         }
     }
 }

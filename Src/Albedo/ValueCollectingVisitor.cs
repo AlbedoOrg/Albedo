@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Ploeh.Albedo
 {
@@ -45,6 +46,25 @@ namespace Ploeh.Albedo
         public object Target
         {
             get { return this.target; }
+        }
+
+        /// <summary>Visits the specified assembly element.</summary>
+        /// <param name="assemblyElement">The assembly element.</param>
+        /// <returns>Always throws.</returns>
+        /// <exception cref="System.NotSupportedException">
+        /// Collecting values from an entire assembly is not supported.
+        /// ValueCollectingVisitor collect values from a single object (the
+        /// 'target'), and the values collected must correspond to fields or 
+        /// properties on that object. Attempting to collect values from an
+        /// entire Assembly is meaningless, because an Assembly normally 
+        /// defines more than a single type. In the rare case where you have an
+        /// assembly with only a single type, use the Visit(TypeElement)
+        /// overload instead.
+        /// </exception>
+        public override IReflectionVisitor<IEnumerable<object>> Visit(
+            AssemblyElement assemblyElement)
+        {
+            throw new NotSupportedException("Collecting values from an entire assembly is not supported. ValueCollectingVisitor collect values from a single object (the 'target'), and the values collected must correspond to fields or properties on that object. Attempting to collect values from an entire Assembly is meaningless, because an Assembly normally defines more than a single type. In the rare case where you have an assembly with only a single type, use the Visit(TypeElement) overload instead.");
         }
 
         /// <summary>

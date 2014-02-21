@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Xunit;
 using Xunit.Extensions;
@@ -14,7 +13,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             // Exercise system
-            var sut = new ParameterInfoElement(TypeWithParameter.Parameter);
+            var sut = new ParameterInfoElement(TypeWithParameters.Parameter);
             // Verify outcome
             Assert.IsAssignableFrom<IReflectionElement>(sut);
             // Teardown
@@ -24,7 +23,7 @@ namespace Ploeh.Albedo.UnitTests
         public void ParameterInfoIsCorrect()
         {
             // Fixture setup
-            var expected = TypeWithParameter.Parameter;
+            var expected = TypeWithParameters.Parameter;
             var sut = new ParameterInfoElement(expected);
             // Exercise system
             ParameterInfo actual = sut.ParameterInfo;
@@ -48,7 +47,7 @@ namespace Ploeh.Albedo.UnitTests
         public void AcceptNullVisitorThrows()
         {
             // Fixture setup
-            var sut = new ParameterInfoElement(TypeWithParameter.Parameter);
+            var sut = new ParameterInfoElement(TypeWithParameters.Parameter);
             // Exercise system
             // Verify outcome
             Assert.Throws<ArgumentNullException>(() =>
@@ -61,7 +60,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             var expected = new DelegatingReflectionVisitor<int>();
-            var sut = new ParameterInfoElement(TypeWithParameter.Parameter);
+            var sut = new ParameterInfoElement(TypeWithParameters.Parameter);
             var visitor = new DelegatingReflectionVisitor<int>
             {
                 OnVisitParameterInfoElement = e =>
@@ -78,7 +77,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var par = TypeWithParameter.Parameter;
+            var par = TypeWithParameters.Parameter;
             var sut = new ParameterInfoElement(par);
             var other = new ParameterInfoElement(par);
 
@@ -96,7 +95,7 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(UriPartial.Query)]
         public void SutDoesNotEqualAnonymousObject(object other)
         {
-            var sut = new ParameterInfoElement(TypeWithParameter.Parameter);
+            var sut = new ParameterInfoElement(TypeWithParameters.Parameter);
             var actual = sut.Equals(other);
             Assert.False(actual);
         }
@@ -104,8 +103,8 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutDoesNotEqualDifferentInstanceOfSameType()
         {
-            var sut = new ParameterInfoElement(TypeWithParameter.Parameter);
-            var otherParameter = TypeWithParameter.OtherParameter;
+            var sut = new ParameterInfoElement(TypeWithParameters.Parameter);
+            var otherParameter = TypeWithParameters.OtherParameter;
             var other = new ParameterInfoElement(otherParameter);
 
             var actual = sut.Equals(other);
@@ -116,47 +115,13 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void GetHashCodeReturnsCorrectResult()
         {
-            var par = TypeWithParameter.Parameter;
+            var par = TypeWithParameters.Parameter;
             var sut = new ParameterInfoElement(par);
 
             var actual = sut.GetHashCode();
 
             var expected = par.GetHashCode();
             Assert.Equal(expected, actual);
-        }
-
-
-        class TypeWithParameter
-        {
-            public static ParameterInfo Parameter
-            {
-                get
-                {
-                    return typeof(TypeWithParameter)
-                        .GetMethod("TheMethod")
-                        .GetParameters()
-                        .First();
-                }
-            }
-
-            public static ParameterInfo OtherParameter
-            {
-                get
-                {
-                    return typeof(TypeWithParameter)
-                        .GetMethod("TheOtherMethod")
-                        .GetParameters()
-                        .First();
-                }
-            }
-
-            public void TheMethod(int param1)
-            {
-            }
-
-            public void TheOtherMethod(int param1)
-            {
-            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             // Exercise system
-            var sut = new MethodInfoElement(TypeWithMethod.Method);
+            var sut = new MethodInfoElement(TypeWithMethods.Method);
             // Verify outcome
             Assert.IsAssignableFrom<IReflectionElement>(sut);
             // Teardown
@@ -24,7 +24,7 @@ namespace Ploeh.Albedo.UnitTests
         public void MethodInfoIsCorrect()
         {
             // Fixture setup
-            var expected = TypeWithMethod.Method;
+            var expected = TypeWithMethods.Method;
             var sut = new MethodInfoElement(expected);
             // Exercise system
             MethodInfo actual = sut.MethodInfo;
@@ -48,7 +48,7 @@ namespace Ploeh.Albedo.UnitTests
         public void AcceptNullVisitorThrows()
         {
             // Fixture setup
-            var sut = new MethodInfoElement(TypeWithMethod.Method);
+            var sut = new MethodInfoElement(TypeWithMethods.Method);
             // Exercise system
             // Verify outcome
             Assert.Throws<ArgumentNullException>(() =>
@@ -61,7 +61,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             // Fixture setup
             var expected = new DelegatingReflectionVisitor<int>();
-            var sut = new MethodInfoElement(TypeWithMethod.Method);
+            var sut = new MethodInfoElement(TypeWithMethods.Method);
             var visitor = new DelegatingReflectionVisitor<int>
             {
                 OnVisitMethodInfoElement = e =>
@@ -78,7 +78,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutEqualsOtherIdenticalInstance()
         {
-            var mi = TypeWithMethod.Method;
+            var mi = TypeWithMethods.Method;
             var sut = new MethodInfoElement(mi);
             var other = new MethodInfoElement(mi);
 
@@ -96,7 +96,7 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(UriPartial.Query)]
         public void SutDoesNotEqualAnonymousObject(object other)
         {
-            var sut = new MethodInfoElement(TypeWithMethod.Method);
+            var sut = new MethodInfoElement(TypeWithMethods.Method);
             var actual = sut.Equals(other);
             Assert.False(actual);
         }
@@ -104,7 +104,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SutDoesNotEqualDifferentInstanceOfSameType()
         {
-            var sut = new MethodInfoElement(TypeWithMethod.Method);
+            var sut = new MethodInfoElement(TypeWithMethods.Method);
             var otherMethod = this.GetType().GetMethods()[0];
             var other = new MethodInfoElement(otherMethod);
 
@@ -119,29 +119,13 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(typeof(MethodInfoElement))]
         public void GetHashCodeReturnsCorrectResult(Type t)
         {
-            var mi = TypeWithMethod.Method;
+            var mi = TypeWithMethods.Method;
             var sut = new MethodInfoElement(mi);
 
             var actual = sut.GetHashCode();
 
             var expected = mi.GetHashCode();
             Assert.Equal(expected, actual);
-        }
-
-
-        class TypeWithMethod
-        {
-            public static MethodInfo Method
-            {
-                get
-                {
-                    return typeof(TypeWithMethod).GetMethods()[0];
-                }
-            }
-
-            public void TheMethod()
-            {
-            }
         }
     }
 }

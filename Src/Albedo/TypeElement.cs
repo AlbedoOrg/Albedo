@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 
 namespace Ploeh.Albedo
 {
@@ -10,6 +11,10 @@ namespace Ploeh.Albedo
     /// </summary>
     public class TypeElement : IReflectionElement
     {
+        private const BindingFlags bindingFlags = 
+            BindingFlags.Instance | BindingFlags.Static |
+            BindingFlags.Public | BindingFlags.NonPublic;
+
         /// <summary>
         /// Gets the <see cref="System.Type"/> instance this element represents.
         /// </summary>
@@ -91,6 +96,34 @@ namespace Ploeh.Albedo
         {
             return string.Format(
                 CultureInfo.CurrentCulture, "[[{0}]] ({1})", this.Type, "type");
+        }
+
+        internal FieldInfoElement[] GetFieldInfoElements()
+        {
+            return this.Type.GetFields(TypeElement.bindingFlags).Select(f => f.ToElement()).ToArray();
+        }
+
+        internal ConstructorInfoElement[] GetConstructorInfoElements()
+        {
+            return this.Type.GetConstructors(TypeElement.bindingFlags).Select(c => c.ToElement()).ToArray();
+        }
+
+        internal PropertyInfoElement[] GetPropertyInfoElements()
+        {
+            return this.Type.GetProperties(TypeElement.bindingFlags).Select(c => c.ToElement()).ToArray();
+        }
+
+        internal MethodInfoElement[] GetMethodInfoElements()
+        {
+            return this.Type.GetMethods(TypeElement.bindingFlags)
+                .Except(this.Type.GetProperties(TypeElement.bindingFlags).SelectMany(p => p.GetAccessors(true)))
+                .Select(m => m.ToElement())
+                .ToArray();
+        }
+
+        internal EventInfoElement[] GetEventInfoElements()
+        {
+            return this.Type.GetEvents(TypeElement.bindingFlags).Select(e => e.ToElement()).ToArray();
         }
     }
 }
