@@ -82,7 +82,9 @@ namespace Ploeh.Albedo
         public override IReflectionVisitor<IEnumerable<object>> Visit(
             FieldInfoElement fieldInfoElement)
         {
-            if (fieldInfoElement == null) throw new ArgumentNullException("fieldInfoElement");
+            if (fieldInfoElement == null)
+                throw new ArgumentNullException("fieldInfoElement");
+
             var value = fieldInfoElement.FieldInfo.GetValue(this.target);
             return new ValueCollectingVisitor(
                 this.target,
@@ -104,8 +106,11 @@ namespace Ploeh.Albedo
         public override IReflectionVisitor<IEnumerable<object>> Visit(
             PropertyInfoElement propertyInfoElement)
         {
-            if (propertyInfoElement == null) throw new ArgumentNullException("propertyInfoElement");
-            var value = propertyInfoElement.PropertyInfo.GetValue(this.target, null);
+            if (propertyInfoElement == null) 
+                throw new ArgumentNullException("propertyInfoElement");
+
+            var value =
+                propertyInfoElement.PropertyInfo.GetValue(this.target, null);
             return new ValueCollectingVisitor(
                 this.target,
                 this.values.Concat(new[] {value}).ToArray());
