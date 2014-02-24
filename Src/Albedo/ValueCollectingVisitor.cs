@@ -108,7 +108,7 @@ namespace Ploeh.Albedo
         {
             if (propertyInfoElement == null)
                 throw new ArgumentNullException("propertyInfoElement");
-            if (!propertyInfoElement.PropertyInfo.DeclaringType.IsInstanceOfType(this.target))
+            if (this.IsIncompatibleWith(propertyInfoElement))
                 throw new ArgumentException(
                     string.Format(
                         "Property '{0}' defined on type '{1}' is not a property on the target object, which is of type '{2}'.",
@@ -122,6 +122,14 @@ namespace Ploeh.Albedo
             return new ValueCollectingVisitor(
                 this.target,
                 this.values.Concat(new[] { value }).ToArray());
+        }
+
+        private bool IsIncompatibleWith(PropertyInfoElement propertyInfoElement)
+        {
+            return !propertyInfoElement
+                .PropertyInfo
+                .DeclaringType
+                .IsInstanceOfType(this.target);
         }
     }
 }
