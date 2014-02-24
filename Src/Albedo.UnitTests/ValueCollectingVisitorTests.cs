@@ -21,7 +21,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void ValueIsInitiallyCorrect()
         {
-            var expectedValues = new[] {new object(), new object()};
+            var expectedValues = new[] { new object(), new object() };
             var sut = new ValueCollectingVisitor(new object(), expectedValues);
             Assert.Equal(expectedValues, sut.Value);
         }
@@ -45,7 +45,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Theory]
-        [ClassData(typeof (AllElementsExceptPropertyAndFieldAndAssembly))]
+        [ClassData(typeof(AllElementsExceptPropertyAndFieldAndAssembly))]
         public void DoesNotVisitElementsOtherThanPropertyAndField(
             IReflectionElement element)
         {
@@ -68,7 +68,7 @@ namespace Ploeh.Albedo.UnitTests
             // Arrange
             var reflect = new Fields<TypeWithPublicIntValues>();
             var target = new TypeWithPublicIntValues();
-            var expected = new object[] {target.Field2};
+            var expected = new object[] { target.Field2 };
             var sut = new ValueCollectingVisitor(target);
             var field = reflect.Select(x => x.Field2).ToElement();
 
@@ -85,7 +85,7 @@ namespace Ploeh.Albedo.UnitTests
             // Arrange
             var reflect = new Properties<TypeWithPublicIntValues>();
             var target = new TypeWithPublicIntValues();
-            var expected = new object[] {target.Property2};
+            var expected = new object[] { target.Property2 };
             var sut = new ValueCollectingVisitor(target);
             var property = reflect.Select(x => x.Property2).ToElement();
 
@@ -101,7 +101,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             var sut = new ValueCollectingVisitor(new object());
             var e = Assert.Throws<ArgumentNullException>(() =>
-                sut.Visit((FieldInfoElement) null));
+                sut.Visit((FieldInfoElement)null));
 
             Assert.Equal("fieldInfoElement", e.ParamName);
         }
@@ -111,7 +111,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             var sut = new ValueCollectingVisitor(new object());
             var e = Assert.Throws<ArgumentNullException>(() =>
-                sut.Visit((PropertyInfoElement) null));
+                sut.Visit((PropertyInfoElement)null));
 
             Assert.Equal("propertyInfoElement", e.ParamName);
         }
@@ -120,17 +120,17 @@ namespace Ploeh.Albedo.UnitTests
         public void AcceptFieldElementsWithInitialValuesProducesTheCorrectValues()
         {
             // Arrange
-            var initialVisitorValues = new object[] {9, 8, 7};
+            var initialVisitorValues = new object[] { 9, 8, 7 };
             var target = new TypeWithPublicIntValues();
 
             var expected = initialVisitorValues
-                .Concat(new object[] {target.Field1, target.Field2, target.Field3});
+                .Concat(new object[] { target.Field1, target.Field2, target.Field3 });
 
             var reflect = new Fields<TypeWithPublicIntValues>();
             var field1 = reflect.Select(x => x.Field1);
             var field2 = reflect.Select(x => x.Field2);
             var field3 = reflect.Select(x => x.Field3);
-            var fieldElements = new[] {field1, field2, field3}
+            var fieldElements = new[] { field1, field2, field3 }
                 .Select(e => e.ToElement()).Cast<IReflectionElement>();
 
             var sut = new ValueCollectingVisitor(target, initialVisitorValues);
@@ -146,17 +146,17 @@ namespace Ploeh.Albedo.UnitTests
         public void AcceptPropertyElementsWithInitialValuesProducesTheCorrectValues()
         {
             // Arrange
-            var initialVisitorValues = new object[] {9, 8, 7};
+            var initialVisitorValues = new object[] { 9, 8, 7 };
             var target = new TypeWithPublicIntValues();
 
             var expected = initialVisitorValues
-                .Concat(new object[] {target.Property1, target.Property2, target.Property3});
+                .Concat(new object[] { target.Property1, target.Property2, target.Property3 });
 
             var reflect = new Properties<TypeWithPublicIntValues>();
             var property1 = reflect.Select(x => x.Property1);
             var property2 = reflect.Select(x => x.Property2);
             var property3 = reflect.Select(x => x.Property3);
-            var propertyElements = new[] {property1, property2, property3}
+            var propertyElements = new[] { property1, property2, property3 }
                 .Select(e => e.ToElement()).Cast<IReflectionElement>();
 
             var sut = new ValueCollectingVisitor(target, initialVisitorValues);
@@ -179,6 +179,17 @@ namespace Ploeh.Albedo.UnitTests
                 () => sut.Visit(field.ToElement()));
         }
 
+        [Fact]
+        public void VisitIncompatiblePropertyThrows()
+        {
+            var property = from p in new Properties<TypeWithProperties>()
+                           select p.TheProperty;
+            var sut = new ValueCollectingVisitor(new Version());
+
+            Assert.Throws<ArgumentException>(
+                () => sut.Visit(property.ToElement()));
+        }
+
         class TypeWithPublicIntValues
         {
             public int Field1 = 1;
@@ -194,14 +205,14 @@ namespace Ploeh.Albedo.UnitTests
         {
             public IEnumerator<object[]> GetEnumerator()
             {
-                yield return new object[] {new NullReflectionElement()};
-                yield return new object[] {new ConstructorInfoElement(GetType().GetConstructors()[0])};
-                yield return new object[] {new EventInfoElement(typeof (AppDomain).GetEvents()[0])};
-                yield return new object[] {new LocalVariableInfoElement(TypeWithLocalVariable.LocalVariable)};
-                yield return new object[] {new MethodInfoElement(typeof (MethodInfoElement).GetMethods()[0])};
-                yield return new object[] {new ParameterInfoElement(TypeWithParameter.Parameter)};
-                yield return new object[] {new TypeElement(typeof (object))};
-                yield return new object[] {new ParameterInfoElement(TypeWithParameter.Parameter)};
+                yield return new object[] { new NullReflectionElement() };
+                yield return new object[] { new ConstructorInfoElement(GetType().GetConstructors()[0]) };
+                yield return new object[] { new EventInfoElement(typeof(AppDomain).GetEvents()[0]) };
+                yield return new object[] { new LocalVariableInfoElement(TypeWithLocalVariable.LocalVariable) };
+                yield return new object[] { new MethodInfoElement(typeof(MethodInfoElement).GetMethods()[0]) };
+                yield return new object[] { new ParameterInfoElement(TypeWithParameter.Parameter) };
+                yield return new object[] { new TypeElement(typeof(object)) };
+                yield return new object[] { new ParameterInfoElement(TypeWithParameter.Parameter) };
             }
 
             IEnumerator IEnumerable.GetEnumerator()
@@ -216,7 +227,7 @@ namespace Ploeh.Albedo.UnitTests
             {
                 get
                 {
-                    return typeof (TypeWithLocalVariable)
+                    return typeof(TypeWithLocalVariable)
                         .GetMethod("TheMethod")
                         .GetMethodBody()
                         .LocalVariables[0];
@@ -239,7 +250,7 @@ namespace Ploeh.Albedo.UnitTests
             {
                 get
                 {
-                    return typeof (TypeWithParameter)
+                    return typeof(TypeWithParameter)
                         .GetMethod("TheMethod")
                         .GetParameters()
                         .First();

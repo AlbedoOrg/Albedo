@@ -88,7 +88,7 @@ namespace Ploeh.Albedo
             var value = fieldInfoElement.FieldInfo.GetValue(this.target);
             return new ValueCollectingVisitor(
                 this.target,
-                this.values.Concat(new[] {value}).ToArray());
+                this.values.Concat(new[] { value }).ToArray());
         }
 
         /// <summary>
@@ -106,14 +106,22 @@ namespace Ploeh.Albedo
         public override IReflectionVisitor<IEnumerable<object>> Visit(
             PropertyInfoElement propertyInfoElement)
         {
-            if (propertyInfoElement == null) 
+            if (propertyInfoElement == null)
                 throw new ArgumentNullException("propertyInfoElement");
+            if (!propertyInfoElement.PropertyInfo.DeclaringType.IsInstanceOfType(this.target))
+                throw new ArgumentException(
+                    string.Format(
+                        "Property '{0}' defined on type '{1}' is not a property on the target object, which is of type '{2}'.",
+                        propertyInfoElement.PropertyInfo.Name,
+                        propertyInfoElement.PropertyInfo.DeclaringType,
+                        this.target.GetType()),
+                    "propertyInfoElement");
 
             var value =
                 propertyInfoElement.PropertyInfo.GetValue(this.target, null);
             return new ValueCollectingVisitor(
                 this.target,
-                this.values.Concat(new[] {value}).ToArray());
+                this.values.Concat(new[] { value }).ToArray());
         }
     }
 }
