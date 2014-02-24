@@ -168,6 +168,17 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal(expected, result.Value);
         }
 
+        [Fact]
+        public void VisitIncompatibleFieldThrows()
+        {
+            var field = from f in new Fields<TypeWithFields>()
+                        select f.TheField;
+            var sut = new ValueCollectingVisitor(new Version());
+
+            Assert.Throws<ArgumentException>(
+                () => sut.Visit(field.ToElement()));
+        }
+
         class TypeWithPublicIntValues
         {
             public int Field1 = 1;
