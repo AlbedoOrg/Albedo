@@ -110,11 +110,7 @@ namespace Ploeh.Albedo
                 throw new ArgumentNullException("propertyInfoElement");
             if (this.IsIncompatibleWith(propertyInfoElement))
                 throw new ArgumentException(
-                    string.Format(
-                        "Property '{0}' defined on type '{1}' is not a property on the target object, which is of type '{2}'.",
-                        propertyInfoElement.PropertyInfo.Name,
-                        propertyInfoElement.PropertyInfo.DeclaringType,
-                        this.target.GetType()),
+                    this.CreateIncompatibilityMessageFor(propertyInfoElement),
                     "propertyInfoElement");
 
             var value =
@@ -130,6 +126,16 @@ namespace Ploeh.Albedo
                 .PropertyInfo
                 .DeclaringType
                 .IsInstanceOfType(this.target);
+        }
+
+        private string CreateIncompatibilityMessageFor(
+            PropertyInfoElement propertyInfoElement)
+        {
+            return string.Format(
+                "Property '{0}' defined on type '{1}' is not a property on the target object, which is of type '{2}'.",
+                propertyInfoElement.PropertyInfo.Name,
+                propertyInfoElement.PropertyInfo.DeclaringType,
+                this.target.GetType());
         }
     }
 }
