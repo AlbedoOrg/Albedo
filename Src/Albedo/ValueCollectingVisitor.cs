@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
@@ -132,6 +133,7 @@ namespace Ploeh.Albedo
             PropertyInfoElement propertyInfoElement)
         {
             return string.Format(
+                CultureInfo.CurrentCulture,
                 "Property '{0}' defined on type '{1}' is not a property on the target object, which is of type '{2}'.",
                 propertyInfoElement.PropertyInfo.Name,
                 propertyInfoElement.PropertyInfo.DeclaringType,
