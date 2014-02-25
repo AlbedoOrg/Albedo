@@ -62,6 +62,8 @@ namespace Ploeh.Albedo
         /// assembly with only a single type, use the Visit(TypeElement)
         /// overload instead.
         /// </exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ValueCollectingVisitor", Justification = "Workaround for a bug in CA: https://connect.microsoft.com/VisualStudio/feedback/details/521030/")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "TypeElement", Justification = "Workaround for a bug in CA: https://connect.microsoft.com/VisualStudio/feedback/details/521030/")]
         public override IReflectionVisitor<IEnumerable<object>> Visit(
             AssemblyElement assemblyElement)
         {
