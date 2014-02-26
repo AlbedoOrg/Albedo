@@ -47,7 +47,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies each <see cref="AssemblyElement"/> instance
+        /// This implementation relays each <see cref="AssemblyElement"/> instance
         /// to <see cref="Visit(AssemblyElement)"/>,
         /// but since the method is virtual, child classes can override it.
         /// </para>
@@ -75,7 +75,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies <see cref="TypeElement"/> instances
+        /// This implementation relays <see cref="TypeElement"/> instances
         /// from <see cref="Assembly.GetTypes()"/>, to <see cref="Visit(TypeElement[])"/>,
         /// but since the method is virtual, child classes can override it.
         /// </para>
@@ -102,7 +102,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies each <see cref="TypeElement"/> instance
+        /// This implementation relays each <see cref="TypeElement"/> instance
         /// to <see cref="Visit(TypeElement)"/>,
         /// but since the method is virtual, child classes can override it.
         /// </para>
@@ -129,7 +129,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies <see cref="FieldInfoElement"/>, <see cref="ConstructorInfoElement"/>,
+        /// This implementation relays <see cref="FieldInfoElement"/>, <see cref="ConstructorInfoElement"/>,
         /// <see cref="PropertyInfoElement"/>, <see cref="MethodInfoElement"/>, and 
         /// <see cref="EventInfoElement"/> instances to corresponding Visit method.
         /// These semantic child elements are constructed from the <see cref="TypeElement"/> parameter,
@@ -162,7 +162,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies each <see cref="FieldInfoElement"/> instance
+        /// This implementation relays each <see cref="FieldInfoElement"/> instance
         /// to <see cref="Visit(FieldInfoElement)"/>,
         /// but since the method is virtual, child classes can override it.
         /// </para>
@@ -188,7 +188,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies each <see cref="ConstructorInfoElement"/> instance
+        /// This implementation relays each <see cref="ConstructorInfoElement"/> instance
         /// to <see cref="Visit(ConstructorInfoElement)"/>,
         /// but since the method is virtual, child classes can override it.
         /// </para>
@@ -214,7 +214,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies each <see cref="PropertyInfoElement"/> instance
+        /// This implementation relays each <see cref="PropertyInfoElement"/> instance
         /// to <see cref="Visit(PropertyInfoElement)"/>,
         /// but since the method is virtual, child classes can override it.
         /// </para>
@@ -240,7 +240,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies each <see cref="MethodInfoElement"/> instance
+        /// This implementation relays each <see cref="MethodInfoElement"/> instance
         /// to <see cref="Visit(MethodInfoElement)"/>,
         /// but since the method is virtual, child classes can override it.
         /// </para>
@@ -266,7 +266,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies each <see cref="EventInfoElement"/> instance
+        /// This implementation relays each <see cref="EventInfoElement"/> instance
         /// to <see cref="Visit(EventInfoElement)"/>,
         /// but since the method is virtual, child classes can override it.
         /// </para>
@@ -320,7 +320,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies the <see cref="ParameterInfoElement"/>
+        /// This implementation relays the <see cref="ParameterInfoElement"/>
         /// and <see cref="LocalVariableInfoElement"/> instances
         /// from the <see cref="ConstructorInfoElement"/> parameter
         /// to <see cref="Visit(ParameterInfoElement[])"/> and <see cref="Visit(LocalVariableInfoElement[])"/> ,
@@ -352,7 +352,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies the two <see cref="MethodInfoElement"/> instances
+        /// This implementation relays the two <see cref="MethodInfoElement"/> instances
         /// from the getter and setter of the <see cref="PropertyInfoElement"/> parameter,
         /// to <see cref="Visit(MethodInfoElement)"/>,
         /// but since the method is virtual, child classes can override it.
@@ -392,7 +392,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies the <see cref="ParameterInfoElement"/>
+        /// This implementation relays the <see cref="ParameterInfoElement"/>
         /// and <see cref="LocalVariableInfoElement"/> instances
         /// from the <see cref="MethodInfoElement"/> parameter
         /// to <see cref="Visit(ParameterInfoElement[])"/> and <see cref="Visit(LocalVariableInfoElement[])"/> ,
@@ -447,7 +447,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies each <see cref="ParameterInfoElement"/> instance
+        /// This implementation relays each <see cref="ParameterInfoElement"/> instance
         /// to <see cref="Visit(ParameterInfoElement)"/>,
         /// but since the method is virtual, child classes can override it.
         /// </para>
@@ -473,7 +473,7 @@ namespace Ploeh.Albedo
         /// </returns>
         /// <remarks>
         /// <para>
-        /// This implementation relaies each <see cref="LocalVariableInfoElement"/> instance
+        /// This implementation relays each <see cref="LocalVariableInfoElement"/> instance
         /// to <see cref="Visit(LocalVariableInfoElement)"/>,
         /// but since the method is virtual, child classes can override it.
         /// </para>
