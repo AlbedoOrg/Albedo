@@ -51,16 +51,16 @@ namespace Ploeh.Albedo
         /// This example demonstrates how to use <see cref="Constructors" />
         /// with LINQ method syntax. The <strong>Select</strong>
         /// method returns a <see cref="ConstructorInfo" /> instance
-        /// representing the <see cref=".ctor(char[])" /> constructor of
-        /// <see cref="string" />.
+        /// representing the <see cref="String(Char[])" /> constructor of
+        /// <see cref="String" />.
         /// <code>
         /// ConstructorInfo ci = new Constructors().Select(() => new string(new char[0]));
         /// </code>
         /// This example demonstrates how to use <see cref="Constructors" />
         /// with LINQ query syntax. The <strong>Select</strong>
         /// method returns a <see cref="ConstructorInfo" /> instance
-        /// representing the <see cref=".ctor(char[])" /> constructor of
-        /// <see cref="string" />.
+        /// representing the <see cref="String(Char[])" /> constructor of
+        /// <see cref="String" />.
         /// <code>
         /// ConstructorInfo ci = from v in new Constructors()
         ///                      select new string(new char[0]);
@@ -68,6 +68,7 @@ namespace Ploeh.Albedo
         /// </example>
         /// <seealso cref="Constructors" />
         /// <seealso cref="Select{T}(Expression{Func{object,T}})" />
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed to keep consistency with the others.")]
         public ConstructorInfo Select<T>(Expression<Func<T>> constructorSelector)
         {
             return SelectImpl(constructorSelector);
@@ -98,16 +99,16 @@ namespace Ploeh.Albedo
         /// This example demonstrates how to use <see cref="Constructors" />
         /// with LINQ method syntax. The <strong>Select</strong>
         /// method returns a <see cref="ConstructorInfo" /> instance
-        /// representing the <see cref=".ctor(char[])" /> constructor of
-        /// <see cref="string" />.
+        /// representing the <see cref="String(Char[])" /> constructor of
+        /// <see cref="String" />.
         /// <code>
         /// ConstructorInfo ci = new Constructors().Select(() => new string(new char[0]));
         /// </code>
         /// This example demonstrates how to use <see cref="Constructors" />
         /// with LINQ query syntax. The <strong>Select</strong>
         /// method returns a <see cref="ConstructorInfo" /> instance
-        /// representing the <see cref=".ctor(char[])" /> constructor of
-        /// <see cref="string" />.
+        /// representing the <see cref="String(Char[])" /> constructor of
+        /// <see cref="String" />.
         /// <code>
         /// ConstructorInfo ci = from v in new Constructors()
         ///                      select new string(new char[0]);
@@ -115,6 +116,7 @@ namespace Ploeh.Albedo
         /// </example>
         /// <seealso cref="Constructors" />
         /// <seealso cref="Select{T}(Expression{Func{T}})" />
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for supproting LINQ query syntax.")]
         public ConstructorInfo Select<T>(Expression<Func<object, T>> constructorSelector)
         {
             return SelectImpl(constructorSelector);
