@@ -71,7 +71,7 @@ namespace Ploeh.Albedo
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed to keep consistency with the others.")]
         public ConstructorInfo Select<T>(Expression<Func<T>> constructorSelector)
         {
-            return SelectImpl(constructorSelector);
+            return Constructors.SelectImpl(constructorSelector);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Ploeh.Albedo
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for supproting LINQ query syntax.")]
         public ConstructorInfo Select<T>(Expression<Func<object, T>> constructorSelector)
         {
-            return SelectImpl(constructorSelector);
+            return Constructors.SelectImpl(constructorSelector);
         }
 
         private static ConstructorInfo SelectImpl<TFunc>(Expression<TFunc> constructorSelector)
