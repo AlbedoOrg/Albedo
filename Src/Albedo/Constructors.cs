@@ -28,7 +28,8 @@ namespace Ploeh.Albedo
             {
                 throw new ArgumentException(
                     "The expression's body must be a NewExpression. " +
-                    "The code block supplied should construct an new instance.\nExample: () => new Foo().",
+                    "The code block supplied should construct an new instance.\n" +
+                    "Example: () => new Foo().",
                     "constructorSelector");
             }
 
