@@ -12,7 +12,7 @@
         <BuildOutput Include="Src\Albedo\bin\Release\Ploeh.Albedo.XML" />
     </ItemGroup>
     <ItemGroup>
-        <NuSpecFiles Include="NuGet\*.nuspec" />
+        <NuSpecFiles Include="NuGetSpecs\*.nuspec" />
     </ItemGroup>
     <PropertyGroup>
         <ReleaseFolder>Release</ReleaseFolder>
