@@ -24,5 +24,24 @@ namespace Ploeh.Albedo
 
             return newExpression.Constructor;
         }
+
+        public ConstructorInfo Select<T>(Expression<Func<object, T>> constructorSelector)
+        {
+            if (constructorSelector == null)
+            {
+                throw new ArgumentNullException("constructorSelector");
+            }
+
+            var newExpression = constructorSelector.Body as NewExpression;
+            if (newExpression == null)
+            {
+                throw new ArgumentException(
+                    "The expression's body must be a NewExpression. " +
+                    "The code block supplied should construct an new instance.\nExample: () => new Foo().",
+                    "constructorSelector");
+            }
+
+            return newExpression.Constructor;
+        }
     }
 }
