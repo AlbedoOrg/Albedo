@@ -103,6 +103,7 @@
     <Compile Include="PropertiesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenario.cs" />
+    <Compile Include="SelectToStringIssue\Repro.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
