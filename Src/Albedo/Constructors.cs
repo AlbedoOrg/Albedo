@@ -14,7 +14,7 @@ namespace Ploeh.Albedo
     /// <see cref="Type.GetConstructor(Type[])" />) to obtain a
     /// <see cref="ConstructorInfo" /> instance, the problem is that it relies
     /// on identifying the constructor by parameter types. This isn't
-    /// refactoring-safe, so if you change the paremter types, your Reflection
+    /// refactoring-safe, so if you change a constructor, your Reflection
     /// code may break. <strong>Constructors</strong> provides a
     /// strongly-typed alternative, utilizing LINQ expressions.
     /// </para>
