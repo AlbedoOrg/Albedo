@@ -102,9 +102,9 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SelectMethodReturnsCorrectMethod()
         {
-            var sut = new Methods<ClassWithMethodsOverridingEquals>();
+            var sut = new Methods<ClassOverridingToString>();
             var expected =
-                typeof(ClassWithMethodsOverridingEquals).GetMethod("ToString");
+                typeof(ClassOverridingToString).GetMethod("ToString");
 
             var actual = sut.Select(x => x.ToString());
 
@@ -123,7 +123,7 @@ namespace Ploeh.Albedo.UnitTests
             }
         }
 
-        private class ClassWithMethodsOverridingEquals
+        private class ClassOverridingToString
         {
             public override string ToString()
             {
