@@ -26,8 +26,9 @@ namespace Ploeh.Albedo
     /// </para>
     /// </remarks>
     /// <seealso cref="Select(Expression{Action{T}})" />
-    /// <seealso cref="Properties{T}" />
     /// <seealso cref="Fields{T}" />
+    /// <seealso cref="Constructors" />
+    /// <seealso cref="Properties{T}" />
     public class Methods<T>
     {
         /// <summary>

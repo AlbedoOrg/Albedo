@@ -24,8 +24,9 @@ namespace Ploeh.Albedo
     /// </para>
     /// </remarks>
     /// <seealso cref="Select{TField}(Expression{Func{T, TField}})" />
-    /// <seealso cref="Methods{T}" />
+    /// <seealso cref="Constructors"/>
     /// <seealso cref="Properties{T}" />
+    /// <seealso cref="Methods{T}" />
     public class Fields<T>
     {
         /// <summary>
