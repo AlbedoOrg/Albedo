@@ -46,12 +46,12 @@ namespace Ploeh.Albedo
         /// <para>
         /// The Select method provides a strongly-typed, refactoring-safe way
         /// to get a <see cref="MethodInfo" /> instance. It supports both
-        /// normal method invocation syntax, as well as LINQ syntax.
+        /// LINQ method syntax, as well as LINQ query syntax.
         /// </para>
         /// </remarks>
         /// <example>
         /// This example demonstrates how to use <see cref="Methods{T}" />
-        /// with normal method invocation syntax. The <strong>Select</strong>
+        /// with LINQ method syntax. The <strong>Select</strong>
         /// method returns a <see cref="MethodInfo" /> instance representing
         /// the <see cref="Version.ToString()" /> method of
         /// <see cref="Version" />.
@@ -59,7 +59,7 @@ namespace Ploeh.Albedo
         /// MethodInfo mi = new Methods&lt;Version&gt;().Select(v => v.ToString());
         /// </code>
         /// This example demonstrates how to use <see cref="Methods{T}" />
-        /// with LINQ syntax. The <strong>Select</strong>
+        /// with LINQ query syntax. The <strong>Select</strong>
         /// method returns a <strong>MethodInfo</strong> instance
         /// representing the <strong>ToString()</strong> method of
         /// <strong>Version</strong>.
@@ -107,12 +107,12 @@ namespace Ploeh.Albedo
         /// <para>
         /// The Select method provides a strongly-typed, refactoring-safe way
         /// to get a <see cref="MethodInfo" /> instance. It supports both
-        /// normal method invocation syntax, as well as LINQ syntax.
+        /// LINQ method syntax, as well as LINQ query syntax.
         /// </para>
         /// </remarks>
         /// <example>
         /// This example demonstrates how to use <see cref="Methods{T}" />
-        /// with normal method invocation syntax. The <strong>Select</strong>
+        /// with LINQ method syntax. The <strong>Select</strong>
         /// method returns a <see cref="MethodInfo" /> instance representing
         /// the <see cref="Version.ToString()" /> method of
         /// <see cref="Version" />.
@@ -120,7 +120,7 @@ namespace Ploeh.Albedo
         /// MethodInfo mi = new Methods&lt;Version&gt;().Select(v => v.ToString());
         /// </code>
         /// This example demonstrates how to use <see cref="Methods{T}" />
-        /// with LINQ syntax. The <strong>Select</strong>
+        /// with LINQ query syntax. The <strong>Select</strong>
         /// method returns a <strong>MethodInfo</strong> instance
         /// representing the <strong>ToString()</strong> method of
         /// <strong>Version</strong>.
