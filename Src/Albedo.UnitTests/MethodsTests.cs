@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace Ploeh.Albedo.UnitTests
 {
-    public class MethodsTests
+    public abstract class MethodsTests<T>
     {
         [Fact]
         public void SelectParameterLessReturnsCorrectMethod()
@@ -88,6 +88,20 @@ namespace Ploeh.Albedo.UnitTests
                 () => sut.Select(nonMethodCallExpression));
         }
 
+        [Fact]
+        public void SelectParameterLessGenericReturnsCorrectMethod()
+        {
+            var sut = new Methods<ClassWithMethods>();
+
+            MethodInfo actual = sut.Select(x => x.OmitParametersGeneric<T>());
+
+            var expected = 
+                typeof(ClassWithMethods)
+                    .GetMethod("OmitParametersGeneric")
+                    .MakeGenericMethod(typeof(T));
+            Assert.Equal(expected, actual);
+        }
+
         private class ClassWithMethods
         {
             public void OmitParameters()
@@ -98,6 +112,14 @@ namespace Ploeh.Albedo.UnitTests
             {
                 return new object();
             }
+
+            public void OmitParametersGeneric<U>()
+            {
+            }
         }
     }
+
+    public class MethodTestsOfInt : MethodsTests<int> { }
+    public class MethodTestsOfByte : MethodsTests<byte> { }
+    public class MethodTestsOfFloat : MethodsTests<float> { }
 }
