@@ -102,6 +102,20 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void QueryParameterLessGenericMethodUsingLinqSyntax()
+        {
+            var sut = new Methods<ClassWithMethods>();
+
+            var actual = from x in sut select x.OmitParametersGeneric<T>();
+
+            var expected =
+                typeof(ClassWithMethods)
+                    .GetMethod("OmitParametersGeneric")
+                    .MakeGenericMethod(typeof(T));
+            Assert.Equal(expected, actual);
+        }
+
         private class ClassWithMethods
         {
             public void OmitParameters()
