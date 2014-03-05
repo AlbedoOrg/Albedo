@@ -88,6 +88,29 @@ namespace Ploeh.Albedo.UnitTests
                 () => sut.Select(nonMethodCallExpression));
         }
 
+        [Fact]
+        public void SelectMethodDeclaredOnBaseReturnsCorrectMethod()
+        {
+            var sut = new Methods<ClassWithMethods>();
+            var expected = typeof(ClassWithMethods).GetMethod("ToString");
+
+            var actual = sut.Select(x => x.ToString());
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SelectMethodReturnsCorrectMethod()
+        {
+            var sut = new Methods<ClassWithMethodsOverridingEquals>();
+            var expected =
+                typeof(ClassWithMethodsOverridingEquals).GetMethod("ToString");
+
+            var actual = sut.Select(x => x.ToString());
+
+            Assert.Equal(expected, actual);
+        }
+
         private class ClassWithMethods
         {
             public void OmitParameters()
@@ -97,6 +120,14 @@ namespace Ploeh.Albedo.UnitTests
             public object OmitParametersWithReturnValue()
             {
                 return new object();
+            }
+        }
+
+        private class ClassWithMethodsOverridingEquals
+        {
+            public override string ToString()
+            {
+                return "foo";
             }
         }
     }
