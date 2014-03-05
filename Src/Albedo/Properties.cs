@@ -27,6 +27,7 @@ namespace Ploeh.Albedo
     /// </remarks>
     /// <seealso cref="Select{TProperty}(Expression{Func{T, TProperty}})" />
     /// <seealso cref="Fields{T}" />
+    /// <seealso cref="Constructors" />
     /// <seealso cref="Methods{T}" />
     public class Properties<T>
     {
@@ -48,12 +49,12 @@ namespace Ploeh.Albedo
         /// <para>
         /// The Select method provides a strongly-typed, refactoring-safe way
         /// to get a <see cref="PropertyInfo" /> instance. It supports both
-        /// normal method invocation syntax, as well as LINQ syntax.
+        /// LINQ method syntax, as well as LINQ query syntax.
         /// </para>
         /// </remarks>
         /// <example>
         /// This example demonstrates how to use <see cref="Properties{T}" />
-        /// with normal method invocation syntax. The <strong>Select</strong>
+        /// with LINQ method syntax. The <strong>Select</strong>
         /// method returns a <see cref="PropertyInfo" /> instance representing
         /// the <see cref="Version.Major" /> property of
         /// <see cref="Version" />.
@@ -61,7 +62,7 @@ namespace Ploeh.Albedo
         /// PropertyInfo pi = new Properties&lt;Version&gt;().Select(v => v.Major);
         /// </code>
         /// This example demonstrates how to use <see cref="Properties{T}" />
-        /// with LINQ syntax. The <strong>Select</strong>
+        /// with LINQ query syntax. The <strong>Select</strong>
         /// method returns a <strong>PropertyInfo</strong> instance
         /// representing the <strong>Major</strong> property of
         /// <strong>Version</strong>.
