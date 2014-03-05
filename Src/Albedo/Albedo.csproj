@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="AssemblyElement.cs" />
     <Compile Include="ConcreteElementConversions.cs" />
+    <Compile Include="Constructors.cs" />
     <Compile Include="ReflectionElementEnvy.cs" />
     <Compile Include="Refraction\CompositeReflectionElementRefraction.cs" />
     <Compile Include="Refraction\AssemblyElementRefraction.cs" />

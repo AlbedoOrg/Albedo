@@ -24,8 +24,9 @@ namespace Ploeh.Albedo
     /// </para>
     /// </remarks>
     /// <seealso cref="Select{TField}(Expression{Func{T, TField}})" />
-    /// <seealso cref="Methods{T}" />
+    /// <seealso cref="Constructors"/>
     /// <seealso cref="Properties{T}" />
+    /// <seealso cref="Methods{T}" />
     public class Fields<T>
     {
         /// <summary>
@@ -43,13 +44,13 @@ namespace Ploeh.Albedo
         /// <remarks>
         /// <para>
         /// The Select method provides a strongly-typed, refactoring-safe way
-        /// to get a <see cref="FieldInfo" /> instance. It supports both normal
-        /// method invocation syntax, as well as LINQ syntax.
+        /// to get a <see cref="FieldInfo" /> instance. It supports both
+        /// LINQ method syntax, as well as LINQ query syntax.
         /// </para>
         /// </remarks>
         /// <example>
         /// This example demonstrates how to use <see cref="Fields{T}" /> with
-        /// normal method invocation syntax. <strong>ClassWithFields</strong>
+        /// LINQ method syntax. <strong>ClassWithFields</strong>
         /// is a custom class with a public field called <strong>Text</strong>.
         /// The <strong>Select</strong> method returns a
         /// <strong>FieldInfo</strong> instance representing the
@@ -58,7 +59,7 @@ namespace Ploeh.Albedo
         /// FieldInfo fi = new Fields&lt;ClassWithFields&gt;().Select(v => v.Text);
         /// </code>
         /// This example demonstrates how to use <see cref="Fields{T}" /> with
-        /// LINQ syntax. <strong>ClassWithFields</strong> is a custom class
+        /// LINQ query syntax. <strong>ClassWithFields</strong> is a custom class
         /// with a public field called <strong>Text</strong>. The
         /// <strong>Select</strong> method returns a <strong>FieldInfo</strong>
         /// instance representing the <strong>Text</strong> field.
