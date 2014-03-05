@@ -89,7 +89,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void SelectParameterLessGenericReturnsCorrectMethod()
+        public void SelectParameterLessGenericMethodReturnsCorrectMethod()
         {
             var sut = new Methods<ClassWithMethods>();
 
@@ -103,7 +103,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void SelectParameterLessGenericWithReturnValueReturnsCorrectMethod()
+        public void SelectParameterLessGenericMethodWithReturnValueReturnsCorrectMethod()
         {
             var sut = new Methods<ClassWithMethods>();
 
@@ -147,7 +147,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void SelectParameterLessGenericInGenericClassReturnsCorrectMethod()
+        public void SelectParameterLessGenericMethodInGenericClassReturnsCorrectMethod()
         {
             var sut = new Methods<ClassWithMethods<T>>();
 
@@ -161,7 +161,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void SelectParameterLessGenericInGenericClassWithReturnValueReturnsCorrectMethod()
+        public void SelectParameterLessGenericMethodInGenericClassWithReturnValueReturnsCorrectMethod()
         {
             var sut = new Methods<ClassWithMethods<T>>();
 
