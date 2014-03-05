@@ -103,6 +103,21 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
+        public void SelectParameterLessGenericWithReturnValueReturnsCorrectMethod()
+        {
+            var sut = new Methods<ClassWithMethods>();
+
+            MethodInfo actual = sut.Select(x => 
+                x.OmitParametersGenericWithReturnValue<T>());
+
+            var expected = 
+                typeof(ClassWithMethods)
+                    .GetMethod("OmitParametersGenericWithReturnValue")
+                    .MakeGenericMethod(typeof(T));
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void QueryParameterLessGenericMethodUsingLinqSyntax()
         {
             var sut = new Methods<ClassWithMethods>();
@@ -157,6 +172,11 @@ namespace Ploeh.Albedo.UnitTests
 
             public void OmitParametersGeneric<U>()
             {
+            }
+
+            public object OmitParametersGenericWithReturnValue<U>()
+            {
+                return default(U);
             }
         }
 
