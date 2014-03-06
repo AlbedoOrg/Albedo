@@ -161,6 +161,20 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
+        public void QueryNonParameterLessGenericMethodUsingLinqSyntax()
+        {
+            var sut = new Methods<ClassWithMethods>();
+            var dummy = default(T);
+            MethodInfo actual = sut.Select(x => x.IncludeParameters<T>(dummy));
+
+            var expected =
+                typeof(ClassWithMethods)
+                    .GetMethod("IncludeParameters")
+                    .MakeGenericMethod(typeof(T));
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public void SelectParameterLessGenericMethodInGenericClassReturnsCorrectMethod()
         {
             var sut = new Methods<ClassWithMethods<T>>();
