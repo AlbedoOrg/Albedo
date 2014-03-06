@@ -89,7 +89,13 @@ namespace Ploeh.Albedo
             if (methodCallExp == null)
                 throw new ArgumentException("The expression's body must be a MethodCallExpression. The code block supplied should invoke a method.\nExample: x => x.Foo().", "methodSelector");
 
-            return methodCallExp.Method;
+            var method = methodCallExp.Method;
+            if (method.ReflectedType == typeof(T))
+                return method;
+
+            return methodCallExp.Object.Type.GetMethod(
+                method.Name,
+                method.GetParameters().Select(x => x.ParameterType).ToArray());
         }
 
         /// <summary>
@@ -150,7 +156,13 @@ namespace Ploeh.Albedo
             if (methodCallExp == null)
                 throw new ArgumentException("The expression's body must be a MethodCallExpression. The code block supplied should invoke a method.\nExample: x => x.Foo().", "methodSelector");
 
-            return methodCallExp.Method;
+            var method = methodCallExp.Method;
+            if (method.ReflectedType == typeof(T))
+                return method;
+
+            return methodCallExp.Object.Type.GetMethod(
+                method.Name,
+                method.GetParameters().Select(x => x.ParameterType).ToArray());
         }
     }
 }
