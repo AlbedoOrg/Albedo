@@ -95,7 +95,7 @@ namespace Ploeh.Albedo
             if (pi == null)
                 throw new ArgumentException("The expression's body must identify a property, not a field or other member.", "propertySelector");
 
-            return typeof(T).GetProperty(pi.Name);
+            return pi.ReflectedType == typeof(T) ? pi : typeof(T).GetProperty(pi.Name);
         }
     }
 }
