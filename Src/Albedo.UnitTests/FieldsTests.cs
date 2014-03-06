@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Xunit;
-using Ploeh.Albedo;
 using System.Reflection;
 
 namespace Ploeh.Albedo.UnitTests
@@ -56,9 +52,24 @@ namespace Ploeh.Albedo.UnitTests
                 () => sut.Select(x => x.ReadOnlyText));
         }
 
+        [Fact]
+        public void SelectFieldDeclaredOnBaseReturnsCorrectField()
+        {
+            var sut = new Fields<SubClassWithFields>();
+            var expected = typeof(SubClassWithFields).GetField("ReadOnlyText");
+
+            var actual = sut.Select(x => x.ReadOnlyText);
+
+            Assert.Equal(expected, actual);
+        }
+
         private class ClassWithFields
         {
             public readonly string ReadOnlyText = string.Empty;
+        }
+
+        private class SubClassWithFields : ClassWithFields
+        {
         }
 
         private class ClassWithProperties
