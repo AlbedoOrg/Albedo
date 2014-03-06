@@ -165,7 +165,8 @@ namespace Ploeh.Albedo.UnitTests
         {
             var sut = new Methods<ClassWithMethods>();
             var dummy = default(T);
-            MethodInfo actual = sut.Select(x => x.IncludeParameters<T>(dummy));
+
+            var actual = from x in sut select x.IncludeParameters<T>(dummy);
 
             var expected =
                 typeof(ClassWithMethods)
