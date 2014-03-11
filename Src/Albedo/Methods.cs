@@ -137,7 +137,8 @@ namespace Ploeh.Albedo
             return SelectImpl(methodSelector);
         }
 
-        private static MethodInfo SelectImpl<TFunc>(Expression<TFunc> methodSelector)
+        private static MethodInfo SelectImpl<TFunc>(
+            Expression<TFunc> methodSelector)
         {
             if (methodSelector == null)
             {
@@ -156,9 +157,9 @@ namespace Ploeh.Albedo
                 return method;
             }
 
-            return method.IsGenericMethod 
-                ? SelectGenericMethod(method) 
-                : SelectNonGenericMethod(method);
+            return method.IsGenericMethod
+                ? Methods<T>.SelectGenericMethod(method)
+                : Methods<T>.SelectNonGenericMethod(method);
         }
 
         private static MethodInfo SelectGenericMethod(MethodInfo method)
