@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using Xunit;
-using Ploeh.Albedo;
 using System.Reflection;
 
 namespace Ploeh.Albedo.UnitTests
