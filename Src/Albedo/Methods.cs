@@ -157,11 +157,11 @@ namespace Ploeh.Albedo
             }
 
             return method.IsGenericMethod 
-                ? SelectGeneircMethod(method) 
+                ? SelectGenericMethod(method) 
                 : SelectNonGenericMethod(method);
         }
 
-        private static MethodInfo SelectGeneircMethod(MethodInfo method)
+        private static MethodInfo SelectGenericMethod(MethodInfo method)
         {
             return typeof(T).GetMethod(
                 method.Name,
