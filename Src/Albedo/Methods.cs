@@ -163,17 +163,19 @@ namespace Ploeh.Albedo
 
         private static MethodInfo SelectGenericMethod(MethodInfo method)
         {
-            return typeof(T).GetMethod(
-                method.Name,
-                method.GetGenericMethodDefinition().GetParameters().Select(x => x.ParameterType).ToArray())
-            .MakeGenericMethod(method.GetGenericArguments());
+            var parameterTypes = method.GetGenericMethodDefinition()
+                .GetParameters().Select(x => x.ParameterType).ToArray();
+
+            return typeof(T).GetMethod(method.Name, parameterTypes)
+                .MakeGenericMethod(method.GetGenericArguments());
         }
 
         private static MethodInfo SelectNonGenericMethod(MethodInfo method)
         {
-            return typeof(T).GetMethod(
-                method.Name,
-                method.GetParameters().Select(x => x.ParameterType).ToArray());
+            var parameterTypes = method.GetParameters()
+                .Select(x => x.ParameterType).ToArray();
+
+            return typeof(T).GetMethod(method.Name, parameterTypes);
         }
     }
 }
