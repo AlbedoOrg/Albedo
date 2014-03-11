@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using Xunit;
-using Ploeh.Albedo;
 using System.Reflection;
 
 namespace Ploeh.Albedo.UnitTests
@@ -287,6 +284,44 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void SelectParameterizedGenericMethodDeclaredOnBaseClassReturnsCorrectMethod()
+        {
+            var sut = new Methods<SubClassWithMethods<T>>();
+            var expected = typeof(SubClassWithMethods<T>).GetMethods()
+                .Single(m => m.Name == "IncludeMoreParameters"
+                    && m.GetParameters().Length == 4)
+                .MakeGenericMethod(typeof(string));
+            Assert.False(expected.ContainsGenericParameters, "closed generic method form.");
+
+            var actual = sut.Select(x => x.IncludeMoreParameters<string>(
+                default(int),
+                default(T),
+                default(object),
+                default(string)));
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SelectParameterizedGenericMethodWithReturnValueDeclaredOnBaseClassReturnsCorrectMethod()
+        {
+            var sut = new Methods<SubClassWithMethods<T>>();
+            var expected = typeof(SubClassWithMethods<T>).GetMethods()
+                .Single(m => m.Name == "IncludeMoreParametersWithReturnValue"
+                    && m.GetParameters().Length == 4)
+                .MakeGenericMethod(typeof(string));
+            Assert.False(expected.ContainsGenericParameters, "closed generic method form.");
+
+            var actual = sut.Select(x => x.IncludeMoreParametersWithReturnValue<string>(
+                default(object),
+                default(string),
+                default(int),
+                default(T)));
+
+            Assert.Equal(expected, actual);
+        }
+
         private class ClassWithMethods
         {
             public void OmitParameters()
@@ -326,6 +361,28 @@ namespace Ploeh.Albedo.UnitTests
             public void IncludeParameters<U>(U item)
             {
             }
+
+            public void IncludeMoreParameters<U>(int item1, V item2, object item3, U item4)
+            {
+            }
+
+            public void IncludeMoreParameters<U>(int item1, V item2, object item3)
+            {
+            }
+
+            public object IncludeMoreParametersWithReturnValue<U>(object item1, U item2, int item3, V item4)
+            {
+                return default(object);
+            }
+
+            public object IncludeMoreParametersWithReturnValue<U>(object item1, U item2, int item3)
+            {
+                return default(object);
+            }
+        }
+
+        private class SubClassWithMethods<V> : ClassWithMethods<V>
+        {
         }
 
         private class ClassOverridingToString

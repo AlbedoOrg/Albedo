@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
 namespace Ploeh.Albedo
 {
@@ -82,20 +80,7 @@ namespace Ploeh.Albedo
         public MethodInfo Select(
             Expression<Action<T>> methodSelector)
         {
-            if (methodSelector == null)
-                throw new ArgumentNullException("methodSelector");
-
-            var methodCallExp = methodSelector.Body as MethodCallExpression;
-            if (methodCallExp == null)
-                throw new ArgumentException("The expression's body must be a MethodCallExpression. The code block supplied should invoke a method.\nExample: x => x.Foo().", "methodSelector");
-
-            var method = methodCallExp.Method;
-            if (method.ReflectedType == typeof(T))
-                return method;
-
-            return methodCallExp.Object.Type.GetMethod(
-                method.Name,
-                method.GetParameters().Select(x => x.ParameterType).ToArray());
+            return SelectImpl(methodSelector);
         }
 
         /// <summary>
@@ -149,20 +134,49 @@ namespace Ploeh.Albedo
         public MethodInfo Select<TResult>(
             Expression<Func<T, TResult>> methodSelector)
         {
+            return SelectImpl(methodSelector);
+        }
+
+        private static MethodInfo SelectImpl<TFunc>(
+            Expression<TFunc> methodSelector)
+        {
             if (methodSelector == null)
+            {
                 throw new ArgumentNullException("methodSelector");
+            }
 
             var methodCallExp = methodSelector.Body as MethodCallExpression;
             if (methodCallExp == null)
+            {
                 throw new ArgumentException("The expression's body must be a MethodCallExpression. The code block supplied should invoke a method.\nExample: x => x.Foo().", "methodSelector");
+            }
 
             var method = methodCallExp.Method;
             if (method.ReflectedType == typeof(T))
+            {
                 return method;
+            }
 
-            return methodCallExp.Object.Type.GetMethod(
-                method.Name,
-                method.GetParameters().Select(x => x.ParameterType).ToArray());
+            return method.IsGenericMethod
+                ? Methods<T>.SelectGenericMethod(method)
+                : Methods<T>.SelectNonGenericMethod(method);
+        }
+
+        private static MethodInfo SelectGenericMethod(MethodInfo method)
+        {
+            var parameterTypes = method.GetGenericMethodDefinition()
+                .GetParameters().Select(x => x.ParameterType).ToArray();
+
+            return typeof(T).GetMethod(method.Name, parameterTypes)
+                .MakeGenericMethod(method.GetGenericArguments());
+        }
+
+        private static MethodInfo SelectNonGenericMethod(MethodInfo method)
+        {
+            var parameterTypes = method.GetParameters()
+                .Select(x => x.ParameterType).ToArray();
+
+            return typeof(T).GetMethod(method.Name, parameterTypes);
         }
     }
 }
