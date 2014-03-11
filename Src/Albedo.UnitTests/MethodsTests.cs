@@ -296,6 +296,20 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void SelectParameterizedGenericMethodWithReturnValueDeclaredOnBaseClassReturnsCorrectMethod()
+        {
+            var sut = new Methods<SubClassWithMethods<T>>();
+            var expected = typeof(SubClassWithMethods<T>).GetMethod("IncludeMoreParametersWithReturnValue")
+                .MakeGenericMethod(typeof(string));
+            Assert.False(expected.ContainsGenericParameters, "closed generic method form.");
+
+            var actual = sut.Select(
+                x => x.IncludeMoreParametersWithReturnValue<string>(null, null, 0, default(T)));
+
+            Assert.Equal(expected, actual);
+        }
+
         private class ClassWithMethods
         {
             public void OmitParameters()
@@ -338,6 +352,11 @@ namespace Ploeh.Albedo.UnitTests
 
             public void IncludeMoreParameters<U>(int item1, V item2, object item3, U item4)
             {
+            }
+
+            public object IncludeMoreParametersWithReturnValue<U>(object item1, U item2, int item3, V item4)
+            {
+                return null;
             }
         }
 
