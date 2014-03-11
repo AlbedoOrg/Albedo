@@ -291,7 +291,11 @@ namespace Ploeh.Albedo.UnitTests
                 .MakeGenericMethod(typeof(string));
             Assert.False(expected.ContainsGenericParameters, "closed generic method form.");
 
-            var actual = sut.Select(x => x.IncludeMoreParameters<string>(0, default(T), null, null));
+            var actual = sut.Select(x => x.IncludeMoreParameters<string>(
+                default(int),
+                default(T),
+                default(object),
+                default(string)));
 
             Assert.Equal(expected, actual);
         }
@@ -304,8 +308,11 @@ namespace Ploeh.Albedo.UnitTests
                 .MakeGenericMethod(typeof(string));
             Assert.False(expected.ContainsGenericParameters, "closed generic method form.");
 
-            var actual = sut.Select(
-                x => x.IncludeMoreParametersWithReturnValue<string>(null, null, 0, default(T)));
+            var actual = sut.Select(x => x.IncludeMoreParametersWithReturnValue<string>(
+                default(object),
+                default(string),
+                default(int),
+                default(T)));
 
             Assert.Equal(expected, actual);
         }
@@ -356,7 +363,7 @@ namespace Ploeh.Albedo.UnitTests
 
             public object IncludeMoreParametersWithReturnValue<U>(object item1, U item2, int item3, V item4)
             {
-                return null;
+                return default(object);
             }
         }
 
