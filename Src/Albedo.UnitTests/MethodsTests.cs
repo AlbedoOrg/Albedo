@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using Xunit;
 using System.Reflection;
@@ -287,7 +288,9 @@ namespace Ploeh.Albedo.UnitTests
         public void SelectParameterizedGenericMethodDeclaredOnBaseClassReturnsCorrectMethod()
         {
             var sut = new Methods<SubClassWithMethods<T>>();
-            var expected = typeof(SubClassWithMethods<T>).GetMethod("IncludeMoreParameters")
+            var expected = typeof(SubClassWithMethods<T>).GetMethods()
+                .Single(m => m.Name == "IncludeMoreParameters"
+                    && m.GetParameters().Length == 4)
                 .MakeGenericMethod(typeof(string));
             Assert.False(expected.ContainsGenericParameters, "closed generic method form.");
 
@@ -304,7 +307,9 @@ namespace Ploeh.Albedo.UnitTests
         public void SelectParameterizedGenericMethodWithReturnValueDeclaredOnBaseClassReturnsCorrectMethod()
         {
             var sut = new Methods<SubClassWithMethods<T>>();
-            var expected = typeof(SubClassWithMethods<T>).GetMethod("IncludeMoreParametersWithReturnValue")
+            var expected = typeof(SubClassWithMethods<T>).GetMethods()
+                .Single(m => m.Name == "IncludeMoreParametersWithReturnValue"
+                    && m.GetParameters().Length == 4)
                 .MakeGenericMethod(typeof(string));
             Assert.False(expected.ContainsGenericParameters, "closed generic method form.");
 
@@ -361,7 +366,16 @@ namespace Ploeh.Albedo.UnitTests
             {
             }
 
+            public void IncludeMoreParameters<U>(int item1, V item2, object item3)
+            {
+            }
+
             public object IncludeMoreParametersWithReturnValue<U>(object item1, U item2, int item3, V item4)
+            {
+                return default(object);
+            }
+
+            public object IncludeMoreParametersWithReturnValue<U>(object item1, U item2, int item3)
             {
                 return default(object);
             }
