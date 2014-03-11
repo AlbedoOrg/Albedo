@@ -91,6 +91,14 @@ namespace Ploeh.Albedo
             if (method.ReflectedType == typeof(T))
                 return method;
 
+            if (method.IsGenericMethod)
+            {
+                return methodCallExp.Object.Type.GetMethod(
+                    method.Name,
+                    method.GetGenericMethodDefinition().GetParameters().Select(x => x.ParameterType).ToArray())
+                .MakeGenericMethod(method.GetGenericArguments());
+            }
+            
             return methodCallExp.Object.Type.GetMethod(
                 method.Name,
                 method.GetParameters().Select(x => x.ParameterType).ToArray());
