@@ -12,7 +12,7 @@ namespace Ploeh.Albedo.UnitTests
         public void SelectParameterLessReturnsCorrectMethod()
         {
             var sut = new Methods<ClassWithMethods>();
-            
+
             MethodInfo actual = sut.Select(x => x.OmitParameters());
 
             var expected = typeof(ClassWithMethods).GetMethod("OmitParameters");
@@ -92,7 +92,7 @@ namespace Ploeh.Albedo.UnitTests
 
             MethodInfo actual = sut.Select(x => x.OmitParametersGeneric<T>());
 
-            var expected = 
+            var expected =
                 typeof(ClassWithMethods)
                     .GetMethod("OmitParametersGeneric")
                     .MakeGenericMethod(typeof(T));
@@ -104,10 +104,10 @@ namespace Ploeh.Albedo.UnitTests
         {
             var sut = new Methods<ClassWithMethods>();
 
-            MethodInfo actual = sut.Select(x => 
+            MethodInfo actual = sut.Select(x =>
                 x.OmitParametersGenericWithReturnValue<T>());
 
-            var expected = 
+            var expected =
                 typeof(ClassWithMethods)
                     .GetMethod("OmitParametersGenericWithReturnValue")
                     .MakeGenericMethod(typeof(T));
@@ -322,6 +322,111 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void SelectStaticParameterLessReturnsCorrectMethod()
+        {
+            var actual = Methods.Select(() => ClassWithStaticMethods.StaticOmitParameters());
+
+            var expected = typeof(ClassWithStaticMethods).GetMethod("StaticOmitParameters");
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SelectStaticParameterLessWithReturnValueReturnsCorrectMethod()
+        {
+            MethodInfo actual = Methods.Select(() => ClassWithStaticMethods.StaticOmitParametersWithReturnValue());
+
+            var expected = typeof(ClassWithStaticMethods).GetMethod("StaticOmitParametersWithReturnValue");
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SelectStaticParameterLessGenericMethodReturnsCorrectMethod()
+        {
+            MethodInfo actual = Methods.Select(() => ClassWithStaticMethods.StaticOmitParametersGeneric<T>());
+
+            var expected =
+                typeof(ClassWithStaticMethods)
+                    .GetMethod("StaticOmitParametersGeneric")
+                    .MakeGenericMethod(typeof(T));
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SelectStaticParameterLessGenericMethodWithReturnValueReturnsCorrectMethod()
+        {
+            MethodInfo actual = Methods.Select(() => ClassWithStaticMethods.StaticOmitParametersGenericWithReturnValue<T>());
+
+            var expected =
+                typeof(ClassWithStaticMethods)
+                    .GetMethod("StaticOmitParametersGenericWithReturnValue")
+                    .MakeGenericMethod(typeof(T));
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SelectStaticNonParameterLessGenericMethodReturnsCorrectMethod()
+        {
+            var dummy = default(T);
+
+            MethodInfo actual = Methods.Select(() => ClassWithStaticMethods.IncludeParameters<T>(dummy));
+
+            var expected =
+                typeof(ClassWithStaticMethods)
+                    .GetMethod("IncludeParameters")
+                    .MakeGenericMethod(typeof(T));
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SelectNewObjectThrows()
+        {
+            Assert.Throws<ArgumentException>(() => Methods.Select(() => new object()));
+        }
+
+        [Fact]
+        public void SelectCallThrows()
+        {
+            Assert.Throws<ArgumentException>(() => Methods.Select(() => this.SelectCallThrows()));
+        }
+
+        [Fact]
+        public void SelectInheritedStaticMethodReturnsCorrectMethod()
+        {
+            var expected = typeof(ClassWithStaticMethods).GetMethod("StaticNonVoidMethod");
+
+            var actual = Methods.Select(() => SubClassWithStaticMethods.StaticNonVoidMethod());
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SelectOverriddenStaticMethodReturnsCorrectMethod()
+        {
+            var expected = typeof(SubClassWithStaticMethods).GetMethod("MethodToOverride");
+
+            var actual = Methods.Select(() => SubClassWithStaticMethods.MethodToOverride());
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SelectStaticWithParameterReturnsCorrectMethod()
+        {
+            var expected = typeof(Math).GetMethod("Abs", new [] { typeof(int) });
+
+            const int dummy = 5;
+            var actual = Methods.Select(() => Math.Abs(dummy));
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void SelectNullForStaticMethodsThrows()
+        {
+            Assert.Throws<ArgumentNullException>(() => Methods.Select(null));
+        }
+
         private class ClassWithMethods
         {
             public void OmitParameters()
@@ -390,6 +495,47 @@ namespace Ploeh.Albedo.UnitTests
             public override string ToString()
             {
                 return "foo";
+            }
+        }
+
+        private class ClassWithStaticMethods
+        {
+            public static object StaticNonVoidMethod()
+            {
+                return default(object);
+            }
+
+            public static void StaticOmitParameters()
+            {
+            }
+
+            public static void StaticOmitParametersGeneric<U>()
+            {
+            }
+
+            public static object StaticOmitParametersWithReturnValue()
+            {
+                return new object();
+            }
+
+            public static object StaticOmitParametersGenericWithReturnValue<U>()
+            {
+                return new object();
+            }
+
+            public static void IncludeParameters<U>(U item)
+            {
+            }
+
+            public static void MethodToOverride()
+            {
+            }
+        }
+
+        private class SubClassWithStaticMethods : ClassWithStaticMethods
+        {
+            public new static void MethodToOverride()
+            {
             }
         }
     }

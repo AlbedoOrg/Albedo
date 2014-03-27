@@ -179,4 +179,80 @@ namespace Ploeh.Albedo
             return typeof(T).GetMethod(method.Name, parameterTypes);
         }
     }
+
+    /// <summary>
+    /// Provides strongly-typed, refactoring-safe access to
+    /// <see cref="MethodInfo" /> instances.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This class provides similar services to <see cref="Methods{T}" />, but
+    /// for static fields.
+    /// </para>
+    /// </remarks>
+    public static class Methods
+    {
+        /// <summary>
+        /// Selects a <see cref="MethodInfo" /> instance based on a
+        /// strongly-typed, refactoring-safe LINQ expression.
+        /// </summary>
+        /// <param name="methodSelector">
+        /// A LINQ expression that identifies the desired method.
+        /// </param>
+        /// <returns>
+        /// A <see cref="MethodInfo" /> instance representing the method
+        /// identified by <paramref name="methodSelector" />.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// The Select method provides a strongly-typed, refactoring-safe way
+        /// to get a <see cref="MethodInfo" /> instance. It supports both
+        /// LINQ method syntax.
+        /// </para>
+        /// </remarks>
+        /// <example>
+        /// This example demonstrates how to use <see cref="Methods" />
+        /// with LINQ method syntax. The <strong>Select</strong>
+        /// method returns a <see cref="MethodInfo" /> instance representing
+        /// the <see cref="Math.Abs(int)" /> method of
+        /// <see cref="Math" />.
+        /// <code>
+        /// int dummy = 5;
+        /// MethodInfo mi = new Methods.Select(() => Math.Abs(dummy));
+        /// </code>
+        /// </example>
+        /// <exception cref="System.ArgumentNullException">
+        /// <paramref name="methodSelector" /> is null.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">
+        /// The expression's body isn't a <see cref="MethodCallExpression"/> or
+        /// it doesn't identify a static method. The code block supplied should
+        /// identify a static method.
+        /// Example: () => Bar.Foo().
+        /// where Foo is static method.
+        /// </exception>
+        /// <seealso cref="Methods{T}" />
+        public static MethodInfo Select(Expression<Action> methodSelector)
+        {
+            if (methodSelector == null)
+            {
+                throw new ArgumentNullException("methodSelector");
+            }
+
+            var methodCallExp = methodSelector.Body as MethodCallExpression;
+            if (methodCallExp == null)
+            {
+                throw new ArgumentException("The expression's body must be a MethodCallExpression. The code block supplied should invoke a method.\nExample: x => x.Foo().", "methodSelector");
+            }
+
+            if (methodCallExp.Object != null)
+            {
+                throw new ArgumentException("Only static calls are allowed. The code block supplied should invoke a static method.\nExample: () => BarStaticClass.Foo()." +
+                    " For non static methods see Methods<T>.", "methodSelector");
+            }
+
+            var method = methodCallExp.Method;
+            return method;
+        }
+    }
 }
