@@ -95,5 +95,13 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Throws<ArgumentNullException>(
                 () => sut.Select<object>(null));
         }
+
+        [Fact]
+        public void SelectStaticNonMemberExpressionThrows()
+        {
+            var sut = new Fields();
+            Assert.Throws<ArgumentException>(
+                () => sut.Select(() => new object().ToString()));
+        }
     }
 }
