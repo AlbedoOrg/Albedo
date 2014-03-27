@@ -94,4 +94,14 @@ namespace Ploeh.Albedo
             return fi.ReflectedType == typeof(T) ? fi : typeof(T).GetField(fi.Name);
         }
     }
+
+    public class Fields
+    {
+        public FieldInfo Select<TField>(Expression<Func<TField>> fieldSelector)
+        {
+            var memberExp = (MemberExpression)fieldSelector.Body;
+            var fi = (FieldInfo)memberExp.Member;
+            return fi;
+        }
+    }
 }

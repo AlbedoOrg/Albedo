@@ -76,5 +76,16 @@ namespace Ploeh.Albedo.UnitTests
         {
             public string ReadOnlyText { get; private set; }
         }
+
+        [Fact]
+        public void SelectStaticFieldReturnsCorrectField()
+        {
+            var sut = new Fields();
+
+            FieldInfo actual = sut.Select(() => Uri.SchemeDelimiter);
+
+            var expected = typeof(Uri).GetField("SchemeDelimiter");
+            Assert.Equal(expected, actual);
+        }
     }
 }
