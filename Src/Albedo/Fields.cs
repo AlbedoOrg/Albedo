@@ -27,6 +27,7 @@ namespace Ploeh.Albedo
     /// <seealso cref="Constructors"/>
     /// <seealso cref="Properties{T}" />
     /// <seealso cref="Methods{T}" />
+    /// <seealso cref="Fields" />
     public class Fields<T>
     {
         /// <summary>
@@ -95,8 +96,38 @@ namespace Ploeh.Albedo
         }
     }
 
+    /// <summary>
+    /// Provides strongly-typed, refactoring-safe access to
+    /// <see cref="FieldInfo" /> instances.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This class provides similar services to <see cref="Fields{T}" />, but
+    /// for static fields.
+    /// </para>
+    /// </remarks>
     public class Fields
     {
+        /// <summary>
+        /// Selects a <see cref="FieldInfo" /> instance based on a
+        /// strongly-typed, refactoring-safe LINQ expression.
+        /// </summary>
+        /// <typeparam name="TField">The type of the desired field.</typeparam>
+        /// <param name="fieldSelector">
+        /// A LINQ expression that identifies the desired field.
+        /// </param>
+        /// <returns>
+        /// A <see cref="FieldInfo" /> instance representing the field
+        /// identified by <paramref name="fieldSelector" />.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// <paramref name="fieldSelector" /> is <see langword="null" />.
+        /// </exception>
+        /// <exception cref="System.ArgumentException">
+        /// The expression's body must be a MemberExpression. The code block supplied should identify a field.\nExample: () => Foo.Bar.;fieldSelector
+        /// or
+        /// The expression's body must identify a field, not a property or other member.;fieldSelector
+        /// </exception>
         public FieldInfo Select<TField>(Expression<Func<TField>> fieldSelector)
         {
             if (fieldSelector == null)
