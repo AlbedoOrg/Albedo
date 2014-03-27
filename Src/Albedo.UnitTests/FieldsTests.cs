@@ -80,9 +80,7 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SelectStaticFieldReturnsCorrectField()
         {
-            var sut = new Fields();
-
-            FieldInfo actual = sut.Select(() => Uri.SchemeDelimiter);
+            FieldInfo actual = Fields.Select(() => Uri.SchemeDelimiter);
 
             var expected = typeof(Uri).GetField("SchemeDelimiter");
             Assert.Equal(expected, actual);
@@ -91,25 +89,22 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SelectStaticNullThrows()
         {
-            var sut = new Fields();
             Assert.Throws<ArgumentNullException>(
-                () => sut.Select<object>(null));
+                () => Fields.Select<object>(null));
         }
 
         [Fact]
         public void SelectStaticNonMemberExpressionThrows()
         {
-            var sut = new Fields();
             Assert.Throws<ArgumentException>(
-                () => sut.Select(() => new object().ToString()));
+                () => Fields.Select(() => new object().ToString()));
         }
 
         [Fact]
         public void SelectStaticPropertyThrows()
         {
-            var sut = new Fields();
             Assert.Throws<ArgumentException>(
-                () => sut.Select(() => TypeWithProperties.Property));
+                () => Fields.Select(() => TypeWithProperties.Property));
         }
     }
 }
