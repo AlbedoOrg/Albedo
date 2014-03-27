@@ -103,5 +103,13 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Throws<ArgumentException>(
                 () => sut.Select(() => new object().ToString()));
         }
+
+        [Fact]
+        public void SelectStaticPropertyThrows()
+        {
+            var sut = new Fields();
+            Assert.Throws<ArgumentException>(
+                () => sut.Select(() => TypeWithProperties.Property));
+        }
     }
 }

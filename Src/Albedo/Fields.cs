@@ -106,7 +106,10 @@ namespace Ploeh.Albedo
             if (memberExp == null)
                 throw new ArgumentException("The expression's body must be a MemberExpression. The code block supplied should identify a field.\nExample: () => Foo.Bar.", "fieldSelector");
 
-            var fi = (FieldInfo)memberExp.Member;
+            var fi = memberExp.Member as FieldInfo;
+            if (fi == null)
+                throw new ArgumentException("The expression's body must identify a field, not a property or other member.", "fieldSelector");
+
             return fi;
         }
     }
