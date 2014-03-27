@@ -87,5 +87,13 @@ namespace Ploeh.Albedo.UnitTests
             var expected = typeof(Uri).GetField("SchemeDelimiter");
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void SelectStaticNullThrows()
+        {
+            var sut = new Fields();
+            Assert.Throws<ArgumentNullException>(
+                () => sut.Select<object>(null));
+        }
     }
 }

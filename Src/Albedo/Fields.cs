@@ -99,6 +99,9 @@ namespace Ploeh.Albedo
     {
         public FieldInfo Select<TField>(Expression<Func<TField>> fieldSelector)
         {
+            if (fieldSelector == null)
+                throw new ArgumentNullException("fieldSelector");
+
             var memberExp = (MemberExpression)fieldSelector.Body;
             var fi = (FieldInfo)memberExp.Member;
             return fi;
