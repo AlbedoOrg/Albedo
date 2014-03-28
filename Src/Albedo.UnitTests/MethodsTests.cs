@@ -12,7 +12,7 @@ namespace Ploeh.Albedo.UnitTests
         public void SelectParameterLessReturnsCorrectMethod()
         {
             var sut = new Methods<ClassWithMethods>();
-
+            
             MethodInfo actual = sut.Select(x => x.OmitParameters());
 
             var expected = typeof(ClassWithMethods).GetMethod("OmitParameters");
@@ -92,7 +92,7 @@ namespace Ploeh.Albedo.UnitTests
 
             MethodInfo actual = sut.Select(x => x.OmitParametersGeneric<T>());
 
-            var expected =
+            var expected = 
                 typeof(ClassWithMethods)
                     .GetMethod("OmitParametersGeneric")
                     .MakeGenericMethod(typeof(T));
@@ -104,10 +104,10 @@ namespace Ploeh.Albedo.UnitTests
         {
             var sut = new Methods<ClassWithMethods>();
 
-            MethodInfo actual = sut.Select(x =>
+            MethodInfo actual = sut.Select(x => 
                 x.OmitParametersGenericWithReturnValue<T>());
 
-            var expected =
+            var expected = 
                 typeof(ClassWithMethods)
                     .GetMethod("OmitParametersGenericWithReturnValue")
                     .MakeGenericMethod(typeof(T));
