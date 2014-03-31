@@ -206,7 +206,7 @@ namespace Ploeh.Albedo
         /// <remarks>
         /// <para>
         /// The Select method provides a strongly-typed, refactoring-safe way
-        /// to get a <see cref="MethodInfo" /> instance. It supports both
+        /// to get a <see cref="MethodInfo" /> instance. It supports
         /// LINQ method syntax.
         /// </para>
         /// </remarks>
