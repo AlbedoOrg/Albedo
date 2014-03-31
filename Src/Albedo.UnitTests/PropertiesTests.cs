@@ -63,6 +63,38 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
+        public void SelectStaticPropertyReturnsCorrectProperty()
+        {
+            var expected = typeof(ClassWithStaticProperties).GetProperty("StaticProperty");
+
+            var actual = Properties.Select(() => ClassWithStaticProperties.StaticProperty);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void PropertiesSelectNullThrows()
+        {
+            Assert.Throws<ArgumentNullException>(() => Properties.Select<object>(null));
+        }
+
+        [Fact]
+        public void PropertiesSelectStaticFieldThrows()
+        {
+            Assert.Throws<ArgumentException>(() => Properties.Select(() => Uri.SchemeDelimiter));
+        }
+
+        [Fact]
+        public void PropertiesSelectPropertyFromSubClassSelectCorrectProperty()
+        {
+            var expected = typeof(ClassWithStaticProperties).GetProperty("StaticProperty");
+
+            var actual = Properties.Select(() => SubClassWithStaticProperties.StaticProperty);
+
+            Assert.Equal(expected, actual);
+        }
+
         private class ClassWithProperties
         {
             public string ReadOnlyText { get; private set; }
@@ -75,6 +107,15 @@ namespace Ploeh.Albedo.UnitTests
         private class ClassWithFields
         {
             public readonly string ReadOnlyText = "";
+        }
+
+        private class ClassWithStaticProperties
+        {
+            public static object StaticProperty { get; set; } 
+        }
+
+        private class SubClassWithStaticProperties : ClassWithStaticProperties
+        {
         }
     }
 }
