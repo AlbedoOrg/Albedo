@@ -385,12 +385,6 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void SelectCallThrows()
-        {
-            Assert.Throws<ArgumentException>(() => Methods.Select(() => this.SelectCallThrows()));
-        }
-
-        [Fact]
         public void SelectInheritedStaticMethodReturnsCorrectMethod()
         {
             var expected = typeof(ClassWithStaticMethods).GetMethod("StaticNonVoidMethod");

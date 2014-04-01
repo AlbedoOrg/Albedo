@@ -246,14 +246,7 @@ namespace Ploeh.Albedo
                 throw new ArgumentException("The expression's body must be a MethodCallExpression. The code block supplied should invoke a method.\nExample: x => x.Foo().", "methodSelector");
             }
 
-            if (methodCallExp.Object != null)
-            {
-                throw new ArgumentException("Only static calls are allowed. The code block supplied should invoke a static method.\nExample: () => BarStaticClass.Foo()." +
-                    " For non static methods see Methods<T>.", "methodSelector");
-            }
-
-            var method = methodCallExp.Method;
-            return method;
+            return methodCallExp.Method;
         }
     }
 }
