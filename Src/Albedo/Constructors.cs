@@ -16,11 +16,10 @@ namespace Ploeh.Albedo
     /// on identifying the constructor by parameter types. This isn't
     /// refactoring-safe, so if you change a constructor, your Reflection
     /// code may break. <strong>Constructors</strong> provides a
-    /// strongly-typed alternative, utilizing LINQ expressions.
+    /// strongly-typed, refactoring-safe alternative, utilizing LINQ expressions.
     /// </para>
     /// </remarks>
     /// <seealso cref="Select{T}(Expression{Func{T}})" />
-    /// <seealso cref="Select{T}(Expression{Func{object,T}})" />
     /// <seealso cref="Fields{T}" />
     /// <seealso cref="Properties{T}" />
     /// <seealso cref="Methods{T}" />
@@ -43,8 +42,7 @@ namespace Ploeh.Albedo
         /// <remarks>
         /// <para>
         /// The Select method provides a strongly-typed, refactoring-safe way
-        /// to get a <see cref="ConstructorInfo" /> instance. It supports both
-        /// LINQ method syntax, as well as LINQ query syntax.
+        /// to get a <see cref="ConstructorInfo" /> instance.
         /// </para>
         /// </remarks>
         /// <example>
@@ -54,20 +52,10 @@ namespace Ploeh.Albedo
         /// representing the <see cref="String(Char[])" /> constructor of
         /// <see cref="String" />.
         /// <code>
-        /// ConstructorInfo ci = new Constructors().Select(() => new string(new char[0]));
-        /// </code>
-        /// This example demonstrates how to use <see cref="Constructors" />
-        /// with LINQ query syntax. The <strong>Select</strong>
-        /// method returns a <see cref="ConstructorInfo" /> instance
-        /// representing the <see cref="String(Char[])" /> constructor of
-        /// <see cref="String" />.
-        /// <code>
-        /// ConstructorInfo ci = from v in new Constructors()
-        ///                      select new string(new char[0]);
+        /// ConstructorInfo ci = Constructors.Select(() => new string(new char[0]));
         /// </code>
         /// </example>
         /// <seealso cref="Constructors" />
-        /// <seealso cref="Select{T}(Expression{Func{object,T}})" />
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed to keep consistency with the others.")]
         public static ConstructorInfo Select<T>(Expression<Func<T>> constructorSelector)
         {
