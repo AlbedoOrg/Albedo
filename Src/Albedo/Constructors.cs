@@ -23,7 +23,7 @@ namespace Ploeh.Albedo
     /// <seealso cref="Fields{T}" />
     /// <seealso cref="Properties{T}" />
     /// <seealso cref="Methods{T}" />
-    public class Constructors
+    public static class Constructors
     {
         /// <summary>
         /// Selects a <see cref="ConstructorInfo" /> instance based on a
