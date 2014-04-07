@@ -69,7 +69,7 @@ namespace Ploeh.Albedo
         /// <seealso cref="Constructors" />
         /// <seealso cref="Select{T}(Expression{Func{object,T}})" />
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed to keep consistency with the others.")]
-        public static ConstructorInfo StaticSelect<T>(Expression<Func<T>> constructorSelector)
+        public static ConstructorInfo Select<T>(Expression<Func<T>> constructorSelector)
         {
             return Constructors.SelectImpl(constructorSelector);
         }

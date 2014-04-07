@@ -11,7 +11,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             var expected = TypeWithCtors.Ctor;
 
-            var actual = Constructors.StaticSelect(() => new TypeWithCtors());
+            var actual = Constructors.Select(() => new TypeWithCtors());
 
             Assert.Equal(expected, actual);
         }
@@ -20,14 +20,14 @@ namespace Ploeh.Albedo.UnitTests
         public void SelectNullThrows()
         {
             Assert.Throws<ArgumentNullException>(
-                () => Constructors.StaticSelect((Expression<Func<object>>)null));
+                () => Constructors.Select((Expression<Func<object>>)null));
         }
 
         [Fact]
         public void SelectNonConstructorThrows()
         {
             Assert.Throws<ArgumentException>(
-                () => Constructors.StaticSelect(() => 1 + 1));
+                () => Constructors.Select(() => 1 + 1));
         }
     }
 }
