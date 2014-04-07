@@ -228,8 +228,8 @@ namespace Ploeh.Albedo
         /// The expression's body isn't a <see cref="MethodCallExpression"/> or
         /// it doesn't identify a static method. The code block supplied should
         /// identify a static method.
-        /// Example: () => Bar.Foo().
-        /// where Foo is static method.
+        /// Example: () => Foo.Bar().
+        /// where Bar is static method.
         /// </exception>
         /// <seealso cref="Methods{T}" />
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "The expression is strongly typed in order to prevent the caller from passing any sort of expression. It doesn't fully capture everything the caller might throw at it, but it does constrain the caller as well as possible. This enables the developer to get a compile-time exception instead of a run-time exception in most cases where an invalid expression is being supplied.")]
@@ -243,7 +243,7 @@ namespace Ploeh.Albedo
             var methodCallExp = methodSelector.Body as MethodCallExpression;
             if (methodCallExp == null)
             {
-                throw new ArgumentException("The expression's body must be a MethodCallExpression. The code block supplied should invoke a method.\nExample: x => x.Foo().", "methodSelector");
+                throw new ArgumentException("The expression's body must be a MethodCallExpression. The code block supplied should invoke a method.\nExample: () => Foo.Bar().", "methodSelector");
             }
 
             return methodCallExp.Method;
