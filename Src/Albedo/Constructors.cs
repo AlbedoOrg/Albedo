@@ -71,11 +71,6 @@ namespace Ploeh.Albedo
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed to keep consistency with the others.")]
         public static ConstructorInfo Select<T>(Expression<Func<T>> constructorSelector)
         {
-            return Constructors.SelectImpl(constructorSelector);
-        }
-
-        private static ConstructorInfo SelectImpl<TFunc>(Expression<TFunc> constructorSelector)
-        {
             if (constructorSelector == null)
             {
                 throw new ArgumentNullException("constructorSelector");
@@ -86,8 +81,8 @@ namespace Ploeh.Albedo
             {
                 throw new ArgumentException(
                     "The expression's body must be a NewExpression. " +
-                    "The code block supplied should construct an new instance.\n" +
-                    "Example: () => new Foo().",
+                        "The code block supplied should construct an new instance.\n" +
+                        "Example: () => new Foo().",
                     "constructorSelector");
             }
 
