@@ -9,10 +9,9 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SelectReturnsCorrectConstructor()
         {
-            var sut = new Constructors();
             var expected = TypeWithCtors.Ctor;
 
-            var actual = sut.Select(() => new TypeWithCtors());
+            var actual = Constructors.StaticSelect(() => new TypeWithCtors());
 
             Assert.Equal(expected, actual);
         }
@@ -20,15 +19,15 @@ namespace Ploeh.Albedo.UnitTests
         [Fact]
         public void SelectNullThrows()
         {
-            var sut = new Constructors();
-            Assert.Throws<ArgumentNullException>(() => sut.Select((Expression<Func<object>>)null));
+            Assert.Throws<ArgumentNullException>(
+                () => Constructors.StaticSelect((Expression<Func<object>>)null));
         }
 
         [Fact]
         public void SelectNonConstructorThrows()
         {
-            var sut = new Constructors();
-            Assert.Throws<ArgumentException>(() => sut.Select(() => 1 + 1));
+            Assert.Throws<ArgumentException>(
+                () => Constructors.StaticSelect(() => 1 + 1));
         }
 
         [Fact]

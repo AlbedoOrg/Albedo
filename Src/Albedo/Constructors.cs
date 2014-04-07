@@ -67,9 +67,9 @@ namespace Ploeh.Albedo
         /// </code>
         /// </example>
         /// <seealso cref="Constructors" />
-        /// <seealso cref="Select{T}(Expression{Func{object,T}})" />
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed to keep consistency with the others.")]
-        public ConstructorInfo Select<T>(Expression<Func<T>> constructorSelector)
+        /// <seealso cref="Select{T}(Expression{Func{T}})" />
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for supproting LINQ query syntax.")]
+        public ConstructorInfo Select<T>(Expression<Func<object, T>> constructorSelector)
         {
             return Constructors.SelectImpl(constructorSelector);
         }
@@ -115,9 +115,9 @@ namespace Ploeh.Albedo
         /// </code>
         /// </example>
         /// <seealso cref="Constructors" />
-        /// <seealso cref="Select{T}(Expression{Func{T}})" />
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed for supproting LINQ query syntax.")]
-        public ConstructorInfo Select<T>(Expression<Func<object, T>> constructorSelector)
+        /// <seealso cref="Select{T}(Expression{Func{object,T}})" />
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed to keep consistency with the others.")]
+        public static ConstructorInfo StaticSelect<T>(Expression<Func<T>> constructorSelector)
         {
             return Constructors.SelectImpl(constructorSelector);
         }
