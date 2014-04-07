@@ -10,9 +10,7 @@ namespace Ploeh.Albedo.UnitTests
         public void SelectReturnsCorrectConstructor()
         {
             var expected = TypeWithCtors.Ctor;
-
             var actual = Constructors.Select(() => new TypeWithCtors());
-
             Assert.Equal(expected, actual);
         }
 
