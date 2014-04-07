@@ -56,6 +56,7 @@ namespace Ploeh.Albedo
         /// </code>
         /// </example>
         /// <seealso cref="Constructors" />
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "The expression is strongly typed in order to prevent the caller from passing any sort of expression. It doesn't fully capture everything the caller might throw at it, but it does constrain the caller as well as possible. This enables the developer to get a compile-time exception instead of a run-time exception in most cases where an invalid expression is being supplied.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "This non-static member is needed to keep consistency with the others.")]
         public static ConstructorInfo Select<T>(Expression<Func<T>> constructorSelector)
         {
