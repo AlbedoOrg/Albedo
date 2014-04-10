@@ -67,7 +67,7 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData("Major", "minor", false)]
         [InlineData("Minor", "major", false)]
         [InlineData("Minor", "minor", true)]
-        public void MatchContructorArgumentAgainstReadOnlyProperty(
+        public void MatchConstructorArgumentAgainstReadOnlyProperty(
             string propertyName, string parameterName, bool expected)
         {
             var prop = new PropertyInfoElement(

@@ -526,7 +526,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitNullLoalVariableInfoElementsThrows()
+        public void VisitNullLocalVariableInfoElementsThrows()
         {
             var sut = new ReflectionVisitor();
             var e = Assert.Throws<ArgumentNullException>(() => sut.Visit((LocalVariableInfoElement[])null));
