@@ -37,6 +37,16 @@ namespace Ploeh.Albedo.UnitTests
             }
         }
 
+        public static PropertyInfo PrivateProperty
+        {
+            get
+            {
+                return typeof(TypeWithProperties).GetProperty(
+                    "ThePrivateProperty",
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+            }
+        }
+        
         public int TheProperty { get; set; }
         public int TheOtherProperty { get; set; }
         public int TheReadOnlyProperty

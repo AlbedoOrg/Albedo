@@ -95,13 +95,13 @@ namespace Ploeh.Albedo
 
         internal MethodInfoElement GetGetMethodInfoElement()
         {
-            var methodInfo = this.PropertyInfo.GetGetMethod();
+            var methodInfo = this.PropertyInfo.GetGetMethod(true);
             return methodInfo == null ? null : methodInfo.ToElement();
         }
 
         internal MethodInfoElement GetSetMethodInfoElement()
         {
-            var methodInfo = this.PropertyInfo.GetSetMethod();
+            var methodInfo = this.PropertyInfo.GetSetMethod(true);
             return methodInfo == null ? null : methodInfo.ToElement();
         }
     }

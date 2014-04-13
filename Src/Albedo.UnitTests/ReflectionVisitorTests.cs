@@ -271,7 +271,7 @@ namespace Ploeh.Albedo.UnitTests
             var typeElement = typeof(TypeWithProperties).ToElement();
             var propertyInfoElements = typeElement.Type.GetProperties(GetDefaultBindingFlags())
                 .Select(pi => pi.ToElement()).ToArray();
-            Assert.Equal(9, propertyInfoElements.Length);
+            Assert.Equal(10, propertyInfoElements.Length);
 
             Mock.Get(sut).Setup(x => x.Visit(It.IsAny<FieldInfoElement[]>())).Returns(visitor1);
             Mock.Get(visitor1).Setup(x => x.Visit(It.IsAny<ConstructorInfoElement[]>())).Returns(visitor2);
@@ -769,6 +769,27 @@ namespace Ploeh.Albedo.UnitTests
 
             // Exercise system
             var actual = sut.Visit(new[] { assemblyElement1, assemblyElement2 });
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void VisitPropertyInfoElementRelaysNonPublicGetAndSetMethodInfoElement()
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var visitor = new Mock<ReflectionVisitor<T>>().Object;
+            var expected = new ReflectionVisitor();
+            var propertyInfoElement = TypeWithProperties.PrivateProperty.ToElement();
+            var getMethodInfoElement = propertyInfoElement.PropertyInfo.GetGetMethod(true).ToElement();
+            var setMethodInfoElement = propertyInfoElement.PropertyInfo.GetSetMethod(true).ToElement();
+
+            Mock.Get(sut).Setup(x => x.Visit(getMethodInfoElement)).Returns(visitor);
+            Mock.Get(visitor).Setup(x => x.Visit(setMethodInfoElement)).Returns(expected);
+
+            // Exercise system
+            var actual = sut.Visit(propertyInfoElement);
 
             // Verify outcome
             Assert.Equal(expected, actual);
