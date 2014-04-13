@@ -21,7 +21,7 @@ namespace Ploeh.Albedo.Refraction
     /// <see cref="System.Reflection.PropertyInfo" /> or
     /// <see cref="System.Reflection.ParameterInfo" />, into their respective
     /// <strong>IReflectionElement</strong> Adapters. However, because of the
-    /// existense of <see cref="NullReflectionElement" />, an optional strategy
+    /// existence of <see cref="NullReflectionElement" />, an optional strategy
     /// might be to return a <strong>NullReflectionElement</strong> instance
     /// for any source object that doesn't have an appropriate
     /// <strong>IReflectionElement</strong> Adapter.

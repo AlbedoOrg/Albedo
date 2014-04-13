@@ -31,7 +31,7 @@ namespace Ploeh.Albedo.Refraction
         /// <see cref="NullReflectionElement" /> is returned.
         /// </para>
         /// <para>
-        /// For a stricter converion, you can use
+        /// For a stricter conversion, you can use
         /// <see cref="ToReflectionElement{T}(T)" />.
         /// </para>
         /// </remarks>
@@ -82,7 +82,7 @@ namespace Ploeh.Albedo.Refraction
         /// an <see cref="ArgumentException" /> is thrown.
         /// </para>
         /// <para>
-        /// For a weaker, but more robust converion, you can use
+        /// For a weaker, but more robust conversion, you can use
         /// <see cref="AsReflectionElement{T}(T)" />.
         /// </para>
         /// </remarks>
