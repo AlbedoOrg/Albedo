@@ -30,7 +30,7 @@ namespace Ploeh.Albedo
         /// Accepts the <see cref="IReflectionVisitor{T}"/> visitor.
         /// </summary>
         /// <typeparam name="T">
-        /// The type of observation(s) of the vistor.
+        /// The type of observation(s) of the visitor.
         /// </typeparam>
         /// <param name="visitor">The visitor to accept.</param>
         /// <returns></returns>
