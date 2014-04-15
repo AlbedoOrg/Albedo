@@ -21,6 +21,15 @@ namespace Ploeh.Albedo.UnitTests
             }
         }
 
+        public static EventInfo PrivateEvent
+        {
+            get
+            {
+                return typeof(TypeWithEvents).GetEvent(
+                    "ThePrivateEvent", BindingFlags.Instance | BindingFlags.NonPublic);
+            }
+        }
+
         public event EventHandler TheEvent
         {
             add { throw new NotImplementedException(); }

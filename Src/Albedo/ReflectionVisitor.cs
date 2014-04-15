@@ -431,7 +431,13 @@ namespace Ploeh.Albedo
         public virtual IReflectionVisitor<T> Visit(
             EventInfoElement eventInfoElement)
         {
-            return this;
+            if (eventInfoElement == null)
+                throw new ArgumentNullException("eventInfoElement");
+
+            IReflectionVisitor<T> visitor = this;
+            visitor = visitor.Visit(eventInfoElement.GetAddMethodInfoElement());
+            visitor = visitor.Visit(eventInfoElement.GetRemoveMethodInfoElement());
+            return visitor;
         }
 
         /// <summary>

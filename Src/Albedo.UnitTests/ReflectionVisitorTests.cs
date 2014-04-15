@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Moq;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -795,6 +796,35 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Equal(expected, actual);
         }
 
+        [Theory]
+        [EventInfoData]
+        public void VisitEventInfoElementRelaysAddAndRemoveMethodInfoElements(EventInfo eventInfo)
+        {
+            // Fixture setup
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            var visitor = new Mock<ReflectionVisitor<T>>().Object;
+            var expected = new ReflectionVisitor();
+            var eventInfoElement = eventInfo.ToElement();
+            var addMethodInfoElement = eventInfoElement.EventInfo.GetAddMethod(true).ToElement();
+            var removeMethodInfoElement = eventInfoElement.EventInfo.GetRemoveMethod(true).ToElement();
+
+            Mock.Get(sut).Setup(x => x.Visit(addMethodInfoElement)).Returns(visitor);
+            Mock.Get(visitor).Setup(x => x.Visit(removeMethodInfoElement)).Returns(expected);
+
+            // Exercise system
+            var actual = sut.Visit(eventInfoElement);
+
+            // Verify outcome
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void VisitNullEventInfoElementThrows()
+        {
+            var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
+            Assert.Throws<ArgumentNullException>(() => sut.Visit((EventInfoElement)null));
+        }
+
         private static bool AreEquivalent<TItem>(
             ICollection<TItem> expected,
             ICollection<TItem> actual)
@@ -806,7 +836,7 @@ namespace Ploeh.Albedo.UnitTests
         {
             return BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
         }
-
+        
         private class ReflectionVisitor : ReflectionVisitor<T>
         {
             public override T Value
@@ -899,6 +929,15 @@ namespace Ploeh.Albedo.UnitTests
             private void AnonymousMethodWithParameter(object o)
             {
             }
+        }
+    }
+
+    internal class EventInfoDataAttribute : DataAttribute
+    {
+        public override IEnumerable<object[]> GetData(MethodInfo methodUnderTest, Type[] parameterTypes)
+        {
+            yield return new object[] { TypeWithEvents.LocalEvent };
+            yield return new object[] { TypeWithEvents.PrivateEvent };
         }
     }
 
