@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConstructorsTest.cs" />
+    <Compile Include="EventsTests.cs" />
     <Compile Include="TypeWithCtors.cs" />
     <Compile Include="TypeWithEvents.cs" />
     <Compile Include="TypeWithFields.cs" />
