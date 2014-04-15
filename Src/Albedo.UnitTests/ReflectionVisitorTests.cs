@@ -646,7 +646,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitPropertyInfoElementRelaysGetAndSetMethodInfoElement()
+        public void VisitPropertyInfoElementRelaysGetAndSetMethodInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
@@ -776,7 +776,7 @@ namespace Ploeh.Albedo.UnitTests
         }
 
         [Fact]
-        public void VisitPropertyInfoElementRelaysNonPublicGetAndSetMethodInfoElement()
+        public void VisitPropertyInfoElementRelaysNonPublicGetAndSetMethodInfoElements()
         {
             // Fixture setup
             var sut = new Mock<ReflectionVisitor<T>> { CallBase = true }.Object;
