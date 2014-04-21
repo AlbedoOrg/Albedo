@@ -101,7 +101,11 @@ namespace Ploeh.Albedo
 
         internal LocalVariableInfoElement[] GetLocalVariableInfoElements()
         {
-            return this.ConstructorInfo.GetMethodBody().LocalVariables.Select(l => l.ToElement()).ToArray();
+            var methodBody = this.ConstructorInfo.GetMethodBody();
+            if (methodBody == null)
+                return new LocalVariableInfoElement[0];
+
+            return methodBody.LocalVariables.Select(l => l.ToElement()).ToArray();
         }
     }
 }
