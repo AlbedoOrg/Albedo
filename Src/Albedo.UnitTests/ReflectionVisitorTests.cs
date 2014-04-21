@@ -825,6 +825,20 @@ namespace Ploeh.Albedo.UnitTests
             Assert.Throws<ArgumentNullException>(() => sut.Visit((EventInfoElement)null));
         }
 
+        [Fact]
+        public void VisitConstructorInfoElementIfLocalVariablesReturnsNullDoesNotThrows()
+        {
+            // Fixture setup
+            var sut = new ReflectionVisitor();
+
+            // The constructor of Action<T> represents NULL method-body.
+            var constructorInfoElement = typeof(Action<object>).GetConstructors().First().ToElement();
+
+            // Exercise system
+            // Verify outcome
+            Assert.DoesNotThrow(() => sut.Visit(constructorInfoElement));
+        }
+
         private static bool AreEquivalent<TItem>(
             ICollection<TItem> expected,
             ICollection<TItem> actual)
