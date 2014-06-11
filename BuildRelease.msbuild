@@ -76,7 +76,7 @@
              Value="$(SemanticVersion)" />
   </Target>
   <Target Name="NuGetPack" DependsOnTargets="NuGetPrepare">
-    <Exec Command="$(NuGetPath)\nuget.exe pack %(TempNuspecFiles.FullPath) -BasePath $(ReleaseFolder) -OutputDirectory $(NuGetOutputFolder)" />
+    <Exec Command="$(NuGetPath)\nuget.exe pack %(TempNuspecFiles.FullPath) -Symbols -BasePath $(ReleaseFolder) -OutputDirectory $(NuGetOutputFolder)" />
   </Target>
   <Target Name="CleanTemporaryNuGetSpecFiles" DependsOnTargets="NuGetPack">
     <Delete Files="@(TempNuspecFiles)" />

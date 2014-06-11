@@ -14,6 +14,8 @@
     </metadata>
     <files>
         <file src="Ploeh.Albedo.dll" target="lib\net35" />
+        <file src="Ploeh.Albedo.pdb" target="lib\net35" />
         <file src="Ploeh.Albedo.XML" target="lib\net35" />
+        <file src="..\Src\Albedo\**\*.cs" target="src" />
     </files>
 </package>
