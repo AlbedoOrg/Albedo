@@ -406,4 +406,4 @@ MethodInfo mi = from v in new Methods<Version>()
 Assert.Equal("ToString", mi.Name);
 ```
 
-In addition to strongly-typed queries over properties, Albedo also provides strongly-typed queries over fields and methods.
+In addition to strongly-typed queries over methods, Albedo also provides strongly-typed queries over fields and properties.
