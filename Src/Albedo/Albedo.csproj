@@ -29,7 +29,9 @@
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <ErrorReport>prompt</ErrorReport>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+
+    <!-- FxCop doesn't support .NET Standard 2.0, therefore it's disabled to not fail the build. -->
+    <RunCodeAnalysis Condition=" '$(TargetFramework)'!='netstandard2.0' ">true</RunCodeAnalysis>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
