@@ -106,3 +106,7 @@ UpgradeLog*.XML
 
 # Directory for automatically generated NuGet package files
 NuGetPackages
+
+# IDE temp files
+.vs/
+.idea/
