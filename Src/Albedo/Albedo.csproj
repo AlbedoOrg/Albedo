@@ -17,10 +17,6 @@
     <Title>Albedo</Title>
     <Product>Albedo</Product>
     <Copyright>Copyright © Mark Seemann 2014</Copyright>
-
-    <!-- Disable generation of all the AssemblyInfo attributes -->
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)'=='Verify' ">

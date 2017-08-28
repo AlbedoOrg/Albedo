@@ -7,10 +7,6 @@
 
     <Configurations>Debug;Release;Verify</Configurations>
 
-    <!-- Disable generation of all the AssemblyInfo attributes -->
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-
     <!--  Suppress warning about invalid dependency version in Castle.Core.
           That is Moq dependency and we cannot fix that somehow. -->
     <NoWarn>$(NoWarn);NU1603</NoWarn>
