@@ -110,3 +110,6 @@ NuGetPackages
 # IDE temp files
 .vs/
 .idea/
+
+# NuGet restore files
+**/packages/*
