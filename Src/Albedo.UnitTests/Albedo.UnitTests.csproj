@@ -10,6 +10,7 @@
     <!--  Suppress warning about invalid dependency version in Castle.Core.
           That is Moq dependency and we cannot fix that somehow. -->
     <NoWarn>$(NoWarn);NU1603</NoWarn>
+    <IsPackable>False</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

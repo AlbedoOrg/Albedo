@@ -14,9 +14,15 @@
     <Configurations>Debug;Release;Verify</Configurations>
 
     <!-- Assembly and package info -->
+    <PackageId>Albedo</PackageId>
     <Title>Albedo</Title>
+    <Description>A .NET library targeted at making Reflection programming more consistent, using a common set of abstractions and utilities.</Description>
     <Product>Albedo</Product>
+    <Authors>Mark Seemann, Jin-Wook Chung, Nikos Baxevanis, Adam Chester</Authors>
     <Copyright>Copyright © Mark Seemann 2014</Copyright>
+    <PackageProjectUrl>https://github.com/ploeh/Albedo</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/ploeh/Albedo/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://raw.github.com/ploeh/Albedo/master/Logo-3.png</PackageIconUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)'=='Verify' ">
