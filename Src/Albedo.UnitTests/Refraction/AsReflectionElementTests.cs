@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Text;
 using Moq;
 using Xunit;
-using Xunit.Extensions;
 
 namespace Ploeh.Albedo.Refraction.UnitTests
 {
