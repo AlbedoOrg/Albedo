@@ -7,10 +7,6 @@
 
     <Configurations>Debug;Release;Verify</Configurations>
 
-    <!--  Suppress warning about invalid dependency version in Castle.Core.
-          That is Moq dependency and we cannot fix that somehow. -->
-    <NoWarn>$(NoWarn);NU1603</NoWarn>
-
     <!-- Disable optimization as there are tests that rely on information about LocalVariables.  -->
     <Optimize>false</Optimize>
     <IsPackable>False</IsPackable>
@@ -22,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Moq" Version="4.7.0" />
+    <PackageReference Include="Moq" Version="4.7.99" />
     <PackageReference Include="xunit" Version="2.3.0-beta4-build3742" />
 
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
