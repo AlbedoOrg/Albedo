@@ -117,9 +117,10 @@ namespace Ploeh.Albedo.UnitTests
         [InlineData(typeof(Version))]
         [InlineData(typeof(TheoryAttribute))]
         [InlineData(typeof(MethodInfoElement))]
+        [InlineData(typeof(TypeWithMethods))]
         public void GetHashCodeReturnsCorrectResult(Type t)
         {
-            var mi = TypeWithMethods.Method;
+            var mi = t.GetMethod(nameof(GetHashCode));
             var sut = new MethodInfoElement(mi);
 
             var actual = sut.GetHashCode();

@@ -10,7 +10,15 @@
     <!--  Suppress warning about invalid dependency version in Castle.Core.
           That is Moq dependency and we cannot fix that somehow. -->
     <NoWarn>$(NoWarn);NU1603</NoWarn>
+
+    <!-- Disable optimization as there are tests that rely on information about LocalVariables.  -->
+    <Optimize>false</Optimize>
     <IsPackable>False</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)'=='Verify' ">
+    <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
