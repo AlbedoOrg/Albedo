@@ -1,128 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7C6D1525-DEA6-4B73-9E2B-CB34F08E7A31}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ploeh.Albedo.UnitTests</RootNamespace>
+    <TargetFrameworks>net452;netcoreapp2.0</TargetFrameworks>
+
     <AssemblyName>Ploeh.Albedo.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <RootNamespace>Ploeh.Albedo.UnitTests</RootNamespace>
+
+    <Configurations>Debug;Release;Verify</Configurations>
+
+    <!--  Suppress warning about invalid dependency version in Castle.Core.
+          That is Moq dependency and we cannot fix that somehow. -->
+    <NoWarn>$(NoWarn);NU1603</NoWarn>
+    <IsPackable>False</IsPackable>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Verify|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Verify\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.1.1309.1617\lib\net35\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="xunit">
-      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.extensions">
-      <HintPath>..\packages\xunit.extensions.1.9.2\lib\net20\xunit.extensions.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Moq" Version="4.7.0" />
+    <PackageReference Include="xunit" Version="2.3.0-beta4-build3742" />
+
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0-beta4-build3742" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.0-beta4-build3742" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="ConstructorsTest.cs" />
-    <Compile Include="TypeWithCtors.cs" />
-    <Compile Include="TypeWithEvents.cs" />
-    <Compile Include="TypeWithFields.cs" />
-    <Compile Include="TypeWithLocalVariables.cs" />
-    <Compile Include="TypeWithMethods.cs" />
-    <Compile Include="TypeWithParameters.cs" />
-    <Compile Include="TypeWithProperties.cs" />
-    <Compile Include="ValueCollectingVisitorTests.cs" />
-    <Compile Include="ConcreteElementConversionsTests.cs" />
-    <Compile Include="ReflectionElementEnvyTests.cs" />
-    <Compile Include="Refraction\AssemblyElementRefractionTests.cs" />
-    <Compile Include="AssemblyElementTests.cs" />
-    <Compile Include="CompositeReflectionElementTests.cs" />
-    <Compile Include="Refraction\CompositeReflectionElementRefractionTests.cs" />
-    <Compile Include="Refraction\ConstructorInfoElementRefractionTests.cs" />
-    <Compile Include="Refraction\AsReflectionElementTests.cs" />
-    <Compile Include="Refraction\ToReflectionElementTests.cs" />
-    <Compile Include="Refraction\EventInfoElementRefractionTests.cs" />
-    <Compile Include="EventInfoElementTests.cs" />
-    <Compile Include="Refraction\FieldInfoElementRefractionTests.cs" />
-    <Compile Include="Refraction\LocalVariableInfoElementRefractionTests.cs" />
-    <Compile Include="LocalVariableInfoElementTests.cs" />
-    <Compile Include="NullReflectionElementTests.cs" />
-    <Compile Include="Refraction\ParameterInfoElementRefractionTests.cs" />
-    <Compile Include="ParameterInfoElementTests.cs" />
-    <Compile Include="PropertyInfoElementTests.cs" />
-    <Compile Include="Refraction\ReflectionElementRefractionTests.cs" />
-    <Compile Include="Refraction\TypeElementRefractionTests.cs" />
-    <Compile Include="Samples\SemanticComparison\SemanticComparisonValue.cs" />
-    <Compile Include="Samples\SemanticComparison\SemanticElementComparer.cs" />
-    <Compile Include="Samples\SemanticComparison\SemanticReflectionVisitor.cs" />
-    <Compile Include="Samples\ValueWriting\ClassWithWritablePropertiesAndFields.cs" />
-    <Compile Include="Samples\ValueWriting\ValueWritingVisitor.cs" />
-    <Compile Include="TypeElementTests.cs" />
-    <Compile Include="FieldInfoElementTests.cs" />
-    <Compile Include="MethodInfoElementTests.cs" />
-    <Compile Include="ReflectionVisitorTests.cs" />
-    <Compile Include="Refraction\MethodInfoElementRefractionTests.cs" />
-    <Compile Include="Refraction\PropertyInfoElementRefractionTests.cs" />
-    <Compile Include="ConstructorInfoElementTests.cs" />
-    <Compile Include="DelegatingReflectionVisitor.cs" />
-    <Compile Include="FieldsTests.cs" />
-    <Compile Include="MethodsTests.cs" />
-    <Compile Include="PropertiesTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scenario.cs" />
+    <ProjectReference Include="..\Albedo\Albedo.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Albedo\Albedo.csproj">
-      <Project>{6244AFB8-0634-4E50-A25F-964A81E34410}</Project>
-      <Name>Albedo</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

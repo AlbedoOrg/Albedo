@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Moq;
 using Xunit;
-using Xunit.Extensions;
+using Xunit.Sdk;
 
 namespace Ploeh.Albedo.UnitTests
 {
@@ -711,7 +711,7 @@ namespace Ploeh.Albedo.UnitTests
 
             // Exercise system
             // Verify outcome
-            Assert.DoesNotThrow(() => sut.Visit(methodInfoElements));
+            Assert.Null(Record.Exception(() => sut.Visit(methodInfoElements)));
         }
 
         [Fact]
@@ -836,7 +836,7 @@ namespace Ploeh.Albedo.UnitTests
 
             // Exercise system
             // Verify outcome
-            Assert.DoesNotThrow(() => sut.Visit(constructorInfoElement));
+            Assert.Null(Record.Exception(() => sut.Visit(constructorInfoElement)));
         }
 
         private static bool AreEquivalent<TItem>(
@@ -945,10 +945,9 @@ namespace Ploeh.Albedo.UnitTests
             }
         }
     }
-
     internal class EventInfoDataAttribute : DataAttribute
     {
-        public override IEnumerable<object[]> GetData(MethodInfo methodUnderTest, Type[] parameterTypes)
+        public override IEnumerable<object[]> GetData(MethodInfo methodUnderTest)
         {
             yield return new object[] { TypeWithEvents.LocalEvent };
             yield return new object[] { TypeWithEvents.PrivateEvent };
