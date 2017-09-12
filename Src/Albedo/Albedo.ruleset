@@ -232,7 +232,7 @@
     <Rule Id="CA2240" Action="Error" />
     <Rule Id="CA2241" Action="Error" />
     <Rule Id="CA2242" Action="Error" />
-    <Rule Id="CA2243" Action="Error" />
+    <Rule Id="CA2243" Action="None" />
     <Rule Id="CA5122" Action="Error" />
   </Rules>
   <Rules AnalyzerId="Microsoft.Analyzers.NativeCodeAnalysis" RuleNamespace="Microsoft.Rules.Native">

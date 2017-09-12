@@ -9,6 +9,7 @@
     <CodeAnalysisRuleSet>Albedo.ruleset</CodeAnalysisRuleSet>
 
     <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\Albedo.snk</AssemblyOriginatorKeyFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
     <Configurations>Debug;Release;Verify</Configurations>
