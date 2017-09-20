@@ -1,0 +1,21 @@
+image: Visual Studio 2017
+
+environment:
+  NUGET_API_KEY:
+    secure: W941OI14bL4QfY/T4fQ1SGPg8tlk63nE8MwBiisTizp97vjBd+Fnt+jDKhJoJ/Ss
+
+pull_requests:
+  do_not_increment_build_number: true
+
+build_script:
+- ps: |
+    & .\build.cmd AppVeyor NuGetPublicKey="$($Env:NUGET_API_KEY)" BuildVersion=git BuildNumber=$($Env:APPVEYOR_BUILD_NUMBER)
+
+test: off
+
+artifacts:
+- path: build\NuGetPackages\*.nupkg
+  name: NuGet
+
+deploy: off
+
