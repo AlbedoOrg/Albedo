@@ -1,3 +1,6 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/v62om0j3hqiaoedx/branch/master?svg=true)](https://ci.appveyor.com/project/Albedo/albedo/branch/master) [![NuGet version](https://img.shields.io/nuget/v/Albedo.svg)](https://www.nuget.org/packages/Albedo)
+
+
 # Albedo
 
 A .NET library targeted at making Reflection programming more consistent, using a common set of abstractions and utilities.
