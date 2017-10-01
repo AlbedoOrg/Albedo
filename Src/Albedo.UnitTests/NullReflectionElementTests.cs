@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Xunit;
-using Ploeh.Albedo;
 using Moq;
-using Xunit.Extensions;
+using Xunit;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Albedo.UnitTests
 {
     public class NullReflectionElementTests
     {

@@ -1,12 +1,10 @@
-using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Moq;
 using Xunit;
-using Xunit.Extensions;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Albedo.UnitTests
 {
     public class CompositeReflectionElementTests
     {

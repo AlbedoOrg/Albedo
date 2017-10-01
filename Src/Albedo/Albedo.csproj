@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net35;netstandard2.0</TargetFrameworks>
-
-    <AssemblyName>Ploeh.Albedo</AssemblyName>
-    <RootNamespace>Ploeh.Albedo</RootNamespace>
+    <AssemblyName>Albedo</AssemblyName>
 
     <CodeAnalysisCulture>en-US</CodeAnalysisCulture>
     <CodeAnalysisRuleSet>Albedo.ruleset</CodeAnalysisRuleSet>
@@ -41,7 +39,4 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="CodeAnalysisDictionary.xml" />
-  </ItemGroup>
 </Project>

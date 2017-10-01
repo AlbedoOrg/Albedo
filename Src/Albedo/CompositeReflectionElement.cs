@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Ploeh.Albedo
+namespace Albedo
 {
     /// <summary>
     /// An implementation of a polymorphic <see cref="IReflectionElement"/> 

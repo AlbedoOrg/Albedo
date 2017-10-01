@@ -1,4 +1,4 @@
-﻿namespace Ploeh.Albedo
+﻿namespace Albedo
 {
     /// <summary>
     /// Represents a Visitor which can visit <see cref="IReflectionElement" />

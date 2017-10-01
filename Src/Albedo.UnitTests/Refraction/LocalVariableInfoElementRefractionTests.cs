@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Albedo.Refraction;
 using Xunit;
-using Xunit.Extensions;
 
-namespace Ploeh.Albedo.Refraction.UnitTests
+namespace Albedo.UnitTests.Refraction
 {
     public class LocalVariableInfoElementRefractionTests
     {

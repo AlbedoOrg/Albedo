@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Albedo.UnitTests
 {
     internal class DelegatingReflectionVisitor<T> : IReflectionVisitor<T>
     {

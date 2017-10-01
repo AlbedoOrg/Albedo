@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Ploeh.Albedo.UnitTests.Samples.SemanticComparison
+namespace Albedo.UnitTests.Samples.SemanticComparison
 {
     public class SemanticElementComparer : IEqualityComparer<IReflectionElement>
     {

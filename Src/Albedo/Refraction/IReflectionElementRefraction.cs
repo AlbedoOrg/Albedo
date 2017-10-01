@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Ploeh.Albedo.Refraction
+namespace Albedo.Refraction
 {
     /// <summary>
     /// Creates a sequence of <see cref="IReflectionElement" /> instances from

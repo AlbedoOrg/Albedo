@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Xunit;
 using System.Reflection;
+using Xunit;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Albedo.UnitTests
 {
     public abstract class MethodsTests<T>
     {

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace Ploeh.Albedo
+namespace Albedo
 {
     /// <summary>
     /// An <see cref="IReflectionElement"/> representing an <see cref="Assembly"/> which
@@ -29,7 +29,7 @@ namespace Ploeh.Albedo
 
         /// <summary>
         /// Accepts the provided <see cref="IReflectionVisitor{T}"/>, by calling the
-        /// appropriate strongly-typed <see cref="IReflectionVisitor{T}.Visit(Ploeh.Albedo.AssemblyElement)"/>
+        /// appropriate strongly-typed <see cref="IReflectionVisitor{T}.Visit(Albedo.AssemblyElement)"/>
         /// method on the visitor.
         /// </summary>
         /// <typeparam name="T">The type of observation or result which the

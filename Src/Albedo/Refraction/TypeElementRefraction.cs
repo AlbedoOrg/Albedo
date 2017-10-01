@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Ploeh.Albedo.Refraction
+namespace Albedo.Refraction
 {
     /// <summary>
     /// Creates <see cref="TypeElement" /> instances from a sequence of source

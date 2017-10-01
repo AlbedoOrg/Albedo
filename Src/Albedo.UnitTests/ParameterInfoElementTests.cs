@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 using Xunit;
-using Xunit.Extensions;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Albedo.UnitTests
 {
     public class ParameterInfoElementTests
     {

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Ploeh.Albedo
+namespace Albedo
 {
     /// <summary>
     /// Provides strongly-typed, refactoring-safe access to

@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using Moq;
 using Xunit;
-using Xunit.Extensions;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Albedo.UnitTests
 {
     public class ReflectionElementEnvyTests
     {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
-namespace Ploeh.Albedo.Refraction
+namespace Albedo.Refraction
 {
     /// <summary>
     /// Creates <see cref="EventInfoElement" /> instances from a sequence of

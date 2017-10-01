@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace Ploeh.Albedo
+namespace Albedo
 {
     /// <summary>
     /// An <see cref="IReflectionElement"/> representing a <see cref="MethodInfo"/> which
