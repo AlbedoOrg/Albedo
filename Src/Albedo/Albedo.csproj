@@ -19,9 +19,9 @@
     <Product>Albedo</Product>
     <Authors>Mark Seemann, Jin-Wook Chung, Nikos Baxevanis, Adam Chester, Alex Povar</Authors>
     <Copyright>Copyright © Mark Seemann 2014</Copyright>
-    <PackageProjectUrl>https://github.com/ploeh/Albedo</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/ploeh/Albedo/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageIconUrl>https://raw.github.com/ploeh/Albedo/master/Logo-3.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/AlbedoOrg/Albedo</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/AlbedoOrg/Albedo/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://github.com/AlbedoOrg/Albedo/raw/master/Logo-3.png</PackageIconUrl>
 
     <!-- A workaround for the issue .NET Core cannot build project if it contains .NET 3.5 target.
          See more detail here: https://github.com/Microsoft/msbuild/issues/1333 -->
