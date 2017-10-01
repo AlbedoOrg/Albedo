@@ -4,7 +4,7 @@ Albedo is currently being developed in C# on .NET 3.5 (in order to ensure as bro
 
 ## Dependencies
 
-All binaries (such as xUnit.net) are included as NuGet packages in the source control repository under the \Packages folder. All additional binaries not part of .NET 3.5 must also be added to the repository, so that it would be possible to pull down the repository and immediately be able to compile and run all tests.
+All the external dependencies are restored during the build and don't need to be committed to the repository. If you would like to work with project offline, ensure to trigger a build while you are still online so dependencies are cached. To trigger a build run the `build.cmd` file located in the root directory of the repo.
 
 ## Verification
 
