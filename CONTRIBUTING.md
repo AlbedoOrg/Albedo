@@ -1,6 +1,6 @@
 # How to contribute to Albedo
 
-Albedo is currently being developed in C# on .NET 3.5 (in order to ensure as broad reach as possible) using Visual Studio 2012 with xUnit.net as the unit testing framework. So far, all development has been done with TDD, so there's a high degree of code coverage, and it would be preferable to keep it that way.
+Albedo is currently being developed in C# on .NET 3.5 (in order to ensure as broad reach as possible) and .NET Standard 2.0 using Visual Studio 2017 with xUnit.net as the unit testing framework. So far, all development has been done with TDD, so there's a high degree of code coverage, and it would be preferable to keep it that way.
 
 ## Dependencies
 
