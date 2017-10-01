@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
 
-namespace Ploeh.Albedo
+namespace Albedo
 {
     /// <summary>
     /// Represents a Visitor which can visit <see cref="IReflectionElement" /> instances,

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Ploeh.Albedo
+namespace Albedo
 {
     /// <summary>
     /// Represents a Visitor base class which can visit

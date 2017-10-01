@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Reflection;
 
-namespace Ploeh.Albedo
+namespace Albedo
 {
     /// <summary>
     /// An <see cref="IReflectionElement"/> representing a <see cref="PropertyInfo"/> which

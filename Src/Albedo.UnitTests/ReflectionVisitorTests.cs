@@ -6,7 +6,7 @@ using Moq;
 using Xunit;
 using Xunit.Sdk;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Albedo.UnitTests
 {
     public abstract class ReflectionVisitorTests<T>
     {

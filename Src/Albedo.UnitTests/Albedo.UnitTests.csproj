@@ -1,9 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net452;netcoreapp2.0</TargetFrameworks>
-
-    <AssemblyName>Ploeh.Albedo.UnitTests</AssemblyName>
-    <RootNamespace>Ploeh.Albedo.UnitTests</RootNamespace>
+    <AssemblyName>Albedo.UnitTests</AssemblyName>
 
     <Configurations>Debug;Release;Verify</Configurations>
 

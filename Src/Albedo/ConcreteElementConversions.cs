@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
-namespace Ploeh.Albedo
+namespace Albedo
 {
     /// <summary>
     /// Provides extension methods which convert from System.Reflection instances to

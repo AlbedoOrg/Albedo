@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using Albedo.Refraction;
 using Moq;
 using Xunit;
-using Xunit.Extensions;
 
-namespace Ploeh.Albedo.Refraction.UnitTests
+namespace Albedo.UnitTests.Refraction
 {
     public class ToReflectionElementTests
     {

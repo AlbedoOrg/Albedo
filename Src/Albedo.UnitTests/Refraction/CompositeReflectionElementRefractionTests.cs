@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Xunit;
-using Ploeh.Albedo;
+using Albedo.Refraction;
 using Moq;
+using Xunit;
 
-namespace Ploeh.Albedo.Refraction.UnitTests
+namespace Albedo.UnitTests.Refraction
 {
     public class CompositeReflectionElementRefractionTests
     {

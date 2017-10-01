@@ -1,8 +1,8 @@
 ﻿using System;
-using Xunit;
 using System.Reflection;
+using Xunit;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Albedo.UnitTests
 {
     public class FieldsTests
     {

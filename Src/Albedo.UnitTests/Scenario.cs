@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using Albedo.UnitTests.Samples.SemanticComparison;
+using Albedo.UnitTests.Samples.ValueWriting;
 using Xunit;
-using Xunit.Extensions;
-using Ploeh.Albedo.UnitTests.Samples.SemanticComparison;
-using Ploeh.Albedo.UnitTests.Samples.ValueWriting;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Albedo.UnitTests
 {
     public class Scenario
     {

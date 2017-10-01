@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Xunit;
-using Ploeh.Albedo;
-using Xunit.Extensions;
 using System.Reflection;
+using Albedo.Refraction;
+using Xunit;
 
-namespace Ploeh.Albedo.Refraction.UnitTests
+namespace Albedo.UnitTests.Refraction
 {
     public class FieldInfoElementRefractionTests
     {

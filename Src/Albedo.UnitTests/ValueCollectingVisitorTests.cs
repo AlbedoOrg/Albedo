@@ -3,11 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Ploeh.Albedo.Refraction;
 using Xunit;
-using Xunit.Extensions;
 
-namespace Ploeh.Albedo.UnitTests
+namespace Albedo.UnitTests
 {
     public class ValueCollectingVisitorTests
     {

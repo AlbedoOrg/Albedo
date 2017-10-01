@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace Ploeh.Albedo.UnitTests.Samples.ValueWriting
+namespace Albedo.UnitTests.Samples.ValueWriting
 {
     public class ValueWritingVisitor : ReflectionVisitor<Action<object>>
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Ploeh.Albedo
+﻿namespace Albedo
 {
     /// <summary>
     /// Represents a polymorphic reflection element, which can be visited
