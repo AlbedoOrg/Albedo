@@ -1,5 +1,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/v62om0j3hqiaoedx/branch/master?svg=true)](https://ci.appveyor.com/project/Albedo/albedo/branch/master) [![NuGet version](https://img.shields.io/nuget/v/Albedo.svg)](https://www.nuget.org/packages/Albedo)
 
+# Announcement
+
+Recently the ownership of this project has been passed from Mark Seemann to maintainers of the AlbedoOrg organization. To reflect that change the default namespace prefix and assembly name were changed from `Phoeh.Albedo` to `Albedo`. Please use the text replace feature of your IDE to quickly fix all the namespace imports.
 
 # Albedo
 
